@@ -1,0 +1,48 @@
+{
+  "name": "freeslots",
+  "version": "1.0.0",
+  "description": "Simple starter package for Redux with React and Babel support",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/awasthishubh/freeslots-frontend.git"
+  },
+  "scripts": {
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "test:watch": "npm run test -- --watch"
+  },
+  "author": "Shubham Awasthi",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "babel-preset-stage-1": "^6.1.18",
+    "lodash": "^3.10.1",
+    "react": "16.3.2",
+    "react-dom": "16.3.2",
+    "react-redux": "5.0.7",
+    "redux": "4.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/awasthishubh/freeslots-frontend/issues"
+  },
+  "homepage": "https://github.com/awasthishubh/freeslots-frontend#readme",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "timetabel",
+    "slots",
+    "vit",
+    "manage",
+    "organisation",
+    "team"
+  ]
+}
