@@ -24,11 +24,14 @@
   },
   "dependencies": {
     "babel-preset-stage-1": "^6.1.18",
+    "jquery": "^3.3.1",
     "lodash": "^3.10.1",
+    "materialize-css": "^1.0.0-rc.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-redux": "5.0.7",
-    "redux": "4.0.0"
+    "redux": "4.0.0",
+    "request": "^2.87.0"
   },
   "bugs": {
     "url": "https://github.com/awasthishubh/freeslots-frontend/issues"
