@@ -1,6 +1,5 @@
 import React from 'react'
 import {Component} from 'react'
-import InputText from './inputText'
 import {connect} from 'react-redux'
 import { updateData, updateOrg } from '../actions/memDetails'
 import { bindActionCreators } from 'redux'
@@ -13,26 +12,18 @@ const IsAvailable= props =>{
     return ('No')
 }
 
-function renderOrg(data){
-    return data.map(function(d){
-        return (
-            <option key={d.usid} value="0">
-                {d.name}
-                <div className='defocused'>
-                    @{d.usid}
-                </div>
-            </option>
-        )
-    })
-}
-
 const Options=props=>{
-    console.log(props)
+    // console.log(props)
     if(props.list)
         return (
-            <select defaultValue="0" onChange={(e)=>console.log(e.target.value)} >
-                <option value="0" disabled >Choose an Organisatns</option>
-                {renderOrg(props.list)}
+            <select defaultValue="0" onChange={(e)=>props.update(e.target.value, 'UPDATE_ORG')} >
+                <option value="0" disabled >Choose an Organisa  tns</option>
+                {props.list.map(function(d){
+                    return (<option key={d.usid} value={d.usid}>
+                        {d.usid} ({d.name})
+                        </option>
+                    )
+                })}
             </select>
         )
     else 
@@ -43,35 +34,23 @@ const Options=props=>{
         )
 }
 
-// var updateOrgranisation=(e)=>{
-//     var form= new FormData
-//     for (var key in e.MemDetails) {
-//         form.append(key,e.MemDetails[key])
-//     }
-//     console.log(form)
-
-    // axios.post('http://localhost:5000/organisations', form)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-// }
-
 var updateOrgranisation=(e)=>{
     axios.get('http://localhost:5000/organisations')
       .then(function (response) {
         e.updateOrg(response.data);
-        console(response.data);
+        console.log(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response);
       });
 }
 
 class Submit_card extends Component {
-    
+    constructor(props){
+        super(props)
+        this.submit=this.submit.bind(this)
+    }
+
     componentDidMount() {
         $('select').formSelect();
         updateOrgranisation(this.props)
@@ -81,9 +60,24 @@ class Submit_card extends Component {
         $('select').formSelect();
     }
 
+    submit(){
+        var form= new FormData
+        for (var key in this.props.MemDetails) {
+            form.append(key,this.props.MemDetails[key])
+        }
+        console.log(form)
     
+        axios.post('http://localhost:5000/members', form)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(111, error.response);
+          });
+    }
+
     render(){
-        console.log(this.props.Organisations)
+        // console.log(this.props)
         return(
             <div className="card" id="">
                 <div className="card-content">
@@ -108,7 +102,7 @@ class Submit_card extends Component {
                                 <label htmlFor='mem_phno'>Phone Number</label>
                             </div>
                             <div className="input-field col s12">
-                                    <Options list={this.props.Organisations} />
+                                    <Options list={this.props.Organisations} update={this.props.updateData} />
                                 <label>Materialize Select</label>
                             </div>
 
@@ -122,7 +116,7 @@ class Submit_card extends Component {
                                 </div>
                             </div>
 
-                            
+                            <a className="waves-effect waves-light btn-large" onClick={this.submit}><i className="material-icons left">cloud</i>button</a>
                         <IsAvailable available={null}/>
                     </div>
                 </div>
