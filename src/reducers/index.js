@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
+import MemDetails from './memDetails_reducer'
+import Organisations from './organisations_reducer'
 
+// console.log(MemDetails)
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  MemDetails, Organisations
 });
 
 export default rootReducer;
