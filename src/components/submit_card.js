@@ -53,6 +53,7 @@ class Submit_card extends Component {
 
     componentDidMount() {
         $('select').formSelect();
+        $('.modal').modal();
         updateOrgranisation(this.props)
     }
 
@@ -73,7 +74,8 @@ class Submit_card extends Component {
           })
           .catch(function (error) {
             console.log(111, error.response);
-          });
+        M.Modal.getInstance(document.querySelectorAll('#memErr')[0]).open();;
+    });
     }
 
     render(){
@@ -118,6 +120,17 @@ class Submit_card extends Component {
 
                             <a className="waves-effect waves-light btn-large" onClick={this.submit}><i className="material-icons left">cloud</i>button</a>
                         <IsAvailable available={null}/>
+                        
+
+  <div id="memErr" className="modal">
+    <div className="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div className="modal-footer">
+      <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
                     </div>
                 </div>
             </div>
