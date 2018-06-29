@@ -51,10 +51,12 @@ export default function(state, action){
 
 export function usidIsAvailable(state, action){
     if(!state){
-        return undefined
+        return null
     }
     if(action.type=="UPDATE_ORG_USID"){
-        axios.get('')
+        axios.get('http://localhost:5000/organisations').then(function(data){
+            confirm.log(data.response)
+        })
     }
     return state
 }

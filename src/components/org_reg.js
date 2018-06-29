@@ -3,8 +3,20 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {updateData} from '../actions/index.js'
-
+import axios from 'axios'
 class Org_reg extends Component {
+    constructor(props){
+        super(props)
+        this.orgChange=this.orgChange.bind(this)
+    }
+    orgChange(e){
+        this.props.updateData(e.target.value, 'UPDATE_ORG_USID')
+        // this.props.isAvailableUpdate('loading')
+        axios.get('http://localhost:5000/organisations').then(function(data){
+            console.log(data)
+        })
+        
+    }
     render(){
         console.log(this.props)
         return(
@@ -16,7 +28,7 @@ class Org_reg extends Component {
                     </div>
 
                     <div className="input-field col s12">
-                        <input id='org_id' type="text" value={this.props.OrgReg.usid}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_USID')}} />
+                        <input id='org_id' type="text" value={this.props.OrgReg.usid}  onChange={this.orgChange} />
                         <label htmlFor='org_id'>Unique Id for Ogranisation</label>
                     </div>
 

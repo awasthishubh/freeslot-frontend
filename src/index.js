@@ -12,8 +12,8 @@ const App= () => {
     return(
         <div> Hi!
         <Provider store={store}>
-        {/* <Submit_card /> */}
-        <Org_reg />
+        <Submit_card />
+        {/* <Org_reg /> */}
         </Provider>
         </div>
     )
