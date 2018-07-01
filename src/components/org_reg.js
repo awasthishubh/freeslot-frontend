@@ -6,17 +6,16 @@ import {updateData, isAvailableUpdate} from '../actions/index.js'
 import axios from 'axios'
 
 function IsAvailable(props){
-    console.log(props)
-    if(props.available===true){
-        return <div>Yo</div>
-    }
-    if(props.available===false){
-        return <div>No</div>
-    }
-    if(props.available==='loading'){
-        return <div>...</div>
-    }
-    return <div></div>
+    // // if(props.available==='loading'){
+    // {   return (<div class="preloader-wrapper small active" style={{width: '15px', height: '15px'}} >
+    //     <div class="spinner-layer spinner-green-only">
+    //         <div class="circle-clipper right">
+    //         <div class="circle"></div>
+    //       </div>
+    //     </div>
+    //   </div>)
+    // }
+    // return <div></div>
 }
 
 var typingTimer
@@ -26,8 +25,11 @@ class Org_reg extends Component {
         super(props)
         this.orgChange=this.orgChange.bind(this)
         this.send=this.send.bind(this)
+        this.checkPass=this.checkPass.bind(this)
     }
     async orgChange(e){
+        document.querySelector("#org_id").classList.remove('valid')
+        document.querySelector("#org_id").classList.remove('invalid')
         var value=e.target.value.toLowerCase()
         var isAvailableUpdate=this.props.isAvailableUpdate
         this.props.updateData(value, 'UPDATE_ORG_USID')
@@ -44,8 +46,14 @@ class Org_reg extends Component {
                     isAvailable = false
                 }
             })
-            console.log(isAvailable)
             isAvailableUpdate(isAvailable)
+
+            if(isAvailable){
+                document.querySelector("#org_id").classList.add('valid')
+            } else{
+                document.querySelector("#org_id").classList.add('invalid')
+            }
+            console.log(isAvailable)
         }, 2000)
         
         
@@ -57,28 +65,37 @@ class Org_reg extends Component {
         open(url+params,null,'height=480,width=640')
         console.log(111, params)
     }
+    checkPass(e){
+        document.querySelector("#org_pass_c").classList.remove('invalid')
+        document.querySelector("#org_pass_c").classList.remove('valid')
+        if(e.target.value==this.props.OrgReg.passwd)
+        document.querySelector("#org_pass_c").classList.add('valid')
+        else
+        document.querySelector("#org_pass_c").classList.add('invalid')
+        
+    }
     render(){
         console.log(this.props)
         return(
             <div className="card" id="">
                 <div className="card-content row">    
+                <form>
                     <div className="input-field col s12">
                         <input id='org_name' type="text" value={this.props.OrgReg.name}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_NAME')}} />
-                        <label htmlFor='org_name'>Name Of Organisation</label>
+                        <label htmlFor='org_name' >Name Of Organisation</label>
                     </div>
 
                     <div>
-                        <div className="input-field col s10">
+                        <div className="input-field col s12">
                             <input className="validate" id='org_id' type="text" value={this.props.OrgReg.usid} onChange={this.orgChange} />
                             <label htmlFor='org_id'>Unique Id for Ogranisation</label>
-                        </div>
-                        <div className="col s2">
-                            <IsAvailable available={this.props.usidIsAvailable} />
+                            <span className="helper-text" data-error="That username is taken. Try another" data-success="Available">{function(e){if(e.props.usidIsAvailable=='loading') return 'Checking...'}(this)}
+                            </span>
                         </div>
                     </div>
 
                     <div className="input-field col s12">
-                        <input id='org_descr' type="text" value={this.props.OrgReg.descr}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_DESCR')}} />
+                        <input className="validate" required="" aria-required="true" id='org_descr' type="text" value={this.props.OrgReg.descr}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_DESCR')}} />
                         <label htmlFor='org_descr'>Tag line</label>
                     </div>
 
@@ -87,8 +104,9 @@ class Org_reg extends Component {
                         <label htmlFor='org_pass'>Password</label>
                     </div>
                     <div className="input-field col s12">
-                        <input id='org_pass_c' type="password" value={this.props.OrgReg.cpass}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_CPASSWD')}} />
+                        <input id='org_pass_c' type="password" value={this.props.OrgReg.cpass}  onChange={this.checkPass} />
                         <label htmlFor='org_pass_c'>Confirm Password</label>
+                        <span className="helper-text" data-error="Password do not match" data-success="Password matched"></span>
                     </div>
                     <fieldset>
                         <legend>Maintainer Details</legend>
@@ -97,17 +115,17 @@ class Org_reg extends Component {
                             <label htmlFor='org_main_name'>Name</label>
                         </div>
                         <div>
-                            <div className="input-field col s9">
+                            <div className="input-field col s7" style={{paddingRight:"0px"}}>
                                 <input id='org_main_email' type="text" value={this.props.OrgReg.mainEmail}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_MAIN-EMAIL')}} />
                                 <label htmlFor='org_main_email'>Email</label>
                             </div>
-                            <div className="col s3">
-                                @vitstudent.ac.in
+                            <div className="input-field col s5" style={{paddingLeft:"0px"}}>
+                                <input disabled value="@vitstudent.ac.in" type="text" />
                             </div>
                         </div>
                     </fieldset>
-                    <center><a className="waves-effect waves-light btn" onClick={this.send}>Verify and Register</a></center>
-                    
+                    <center><input type="submit" className="waves-effect waves-light btn" /></center>
+                    </form>
                 </div>
             </div>
         )
