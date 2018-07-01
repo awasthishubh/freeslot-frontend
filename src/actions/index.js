@@ -11,5 +11,11 @@ export function updateOrg(){
         type: 'UPDATE_NAME_ORG',
         data: response
     }
+}
 
+export function isAvailableUpdate(data){
+    return{
+        type: 'isAvailable',
+        data
+    }
 }

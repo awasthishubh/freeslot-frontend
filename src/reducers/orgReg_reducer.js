@@ -8,7 +8,8 @@ export default function(state, action){
             passwd: '',
             cPasswd: '',
             mainName: '',
-            mainEmail: ''
+            mainEmail: '',
+            descr: ''
         }
         return defaultState
     }
@@ -18,7 +19,8 @@ export default function(state, action){
         passwd: state.passwd,
         cPasswd: state.cPasswd,
         mainName: state.mainName,
-        mainEmail: state.mainEmail
+        mainEmail: state.mainEmail,
+        descr:state.descr
     }
     
     switch(action.type){
@@ -45,18 +47,21 @@ export default function(state, action){
         case 'UPDATE_ORG_MAIN-EMAIL':
             newState.mainEmail=action.data
             return newState
+        
+        case 'UPDATE_ORG_DESCR':
+            newState.descr=action.data
+            return newState
     }
     return newState
 }
 
 export function usidIsAvailable(state, action){
     if(!state){
-        return null
+        return 'null'
     }
-    if(action.type=="UPDATE_ORG_USID"){
-        axios.get('http://localhost:5000/organisations').then(function(data){
-            confirm.log(data.response)
-        })
+
+    if(action.type=="isAvailable"){
+        return action.data
     }
     return state
 }
