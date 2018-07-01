@@ -5,19 +5,6 @@ import { bindActionCreators } from 'redux'
 import {updateData, isAvailableUpdate} from '../actions/index.js'
 import axios from 'axios'
 
-function IsAvailable(props){
-    // // if(props.available==='loading'){
-    // {   return (<div class="preloader-wrapper small active" style={{width: '15px', height: '15px'}} >
-    //     <div class="spinner-layer spinner-green-only">
-    //         <div class="circle-clipper right">
-    //         <div class="circle"></div>
-    //       </div>
-    //     </div>
-    //   </div>)
-    // }
-    // return <div></div>
-}
-
 var typingTimer
 
 class Org_reg extends Component {
@@ -26,6 +13,8 @@ class Org_reg extends Component {
         this.orgChange=this.orgChange.bind(this)
         this.send=this.send.bind(this)
         this.checkPass=this.checkPass.bind(this)
+        this.passValidiate=this.passValidiate.bind(this)
+        this.isEmpty=this.isEmpty.bind(this)
     }
     async orgChange(e){
         document.querySelector("#org_id").classList.remove('valid')
@@ -65,15 +54,35 @@ class Org_reg extends Component {
         open(url+params,null,'height=480,width=640')
         console.log(111, params)
     }
+    passValidiate(e){
+        document.querySelector("#org_pass").classList.remove('invalid')
+        document.querySelector("#org_pass").classList.remove('valid')
+        this.props.updateData(e.target.value, 'UPDATE_ORG_PASSWD')
+        console.log(e.target.value.length)
+        if(e.target.value.length<4) 
+            document.querySelector("#org_pass").classList.add('invalid')
+        else
+            document.querySelector("#org_pass").classList.add('valid')
+        document.querySelector("#org_pass_c").classList.remove('invalid')
+        document.querySelector("#org_pass_c").classList.remove('valid')
+    }
     checkPass(e){
+        this.props.updateData(e.target.value, 'UPDATE_ORG_CPASSWD')
         document.querySelector("#org_pass_c").classList.remove('invalid')
         document.querySelector("#org_pass_c").classList.remove('valid')
         if(e.target.value==this.props.OrgReg.passwd)
         document.querySelector("#org_pass_c").classList.add('valid')
         else
         document.querySelector("#org_pass_c").classList.add('invalid')
-        
     }
+    isEmpty(e){
+        e.target.classList.remove('invalid')
+        e.target.classList.remove('valid')
+        if(e.target.value==''){
+            e.target.classList.add('invalid')
+        }
+    }
+
     render(){
         console.log(this.props)
         return(
@@ -81,10 +90,14 @@ class Org_reg extends Component {
                 <div className="card-content row">    
                 <form>
                     <div className="input-field col s12">
-                        <input id='org_name' type="text" value={this.props.OrgReg.name}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_NAME')}} />
+                        <input id='org_name' type="text" value={this.props.OrgReg.name}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_NAME'); this.isEmpty(e)}} />
                         <label htmlFor='org_name' >Name Of Organisation</label>
+                        <span className="helper-text" data-error="Name is required"></span>
                     </div>
-
+                    <div className="input-field col s12">
+                        <input className="validate" required="" aria-required="true" id='org_descr' type="text" value={this.props.OrgReg.descr}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_DESCR')}} />
+                        <label htmlFor='org_descr'>Tag line</label>
+                    </div>
                     <div>
                         <div className="input-field col s12">
                             <input className="validate" id='org_id' type="text" value={this.props.OrgReg.usid} onChange={this.orgChange} />
@@ -95,18 +108,14 @@ class Org_reg extends Component {
                     </div>
 
                     <div className="input-field col s12">
-                        <input className="validate" required="" aria-required="true" id='org_descr' type="text" value={this.props.OrgReg.descr}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_DESCR')}} />
-                        <label htmlFor='org_descr'>Tag line</label>
-                    </div>
-
-                    <div className="input-field col s12">
-                        <input id='org_pass' type="password" value={this.props.OrgReg.pass}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_PASSWD')}} />
+                        <input id='org_pass' type="password" value={this.props.OrgReg.passwd}  onChange={this.passValidiate} />
                         <label htmlFor='org_pass'>Password</label>
+                        <span className="helper-text" data-error="Password must have atleast 4 characters"></span>
                     </div>
                     <div className="input-field col s12">
-                        <input id='org_pass_c' type="password" value={this.props.OrgReg.cpass}  onChange={this.checkPass} />
+                        <input id='org_pass_c' type="password" value={this.props.OrgReg.cPasswd}  onChange={this.checkPass} />
                         <label htmlFor='org_pass_c'>Confirm Password</label>
-                        <span className="helper-text" data-error="Password do not match" data-success="Password matched"></span>
+                        <span className="helper-text" data-error="Passwords do not match" data-success="Password matched"></span>
                     </div>
                     <fieldset>
                         <legend>Maintainer Details</legend>
@@ -116,8 +125,9 @@ class Org_reg extends Component {
                         </div>
                         <div>
                             <div className="input-field col s7" style={{paddingRight:"0px"}}>
-                                <input id='org_main_email' type="text" value={this.props.OrgReg.mainEmail}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_MAIN-EMAIL')}} />
+                                <input id='org_main_email' type="text" value={this.props.OrgReg.mainEmail}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_MAIN-EMAIL'); this.isEmpty(e)}} />
                                 <label htmlFor='org_main_email'>Email</label>
+                                <span className="helper-text" data-error="Maintainer ID is required"></span>
                             </div>
                             <div className="input-field col s5" style={{paddingLeft:"0px"}}>
                                 <input disabled value="@vitstudent.ac.in" type="text" />
