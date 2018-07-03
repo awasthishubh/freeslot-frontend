@@ -14,7 +14,7 @@ class Org_reg extends Component {
         this.send=this.send.bind(this)
         this.checkPass=this.checkPass.bind(this)
         this.passValidiate=this.passValidiate.bind(this)
-        this.isEmpty=this.isEmpty.bind(this)
+        this.vailidate=this.vailidate.bind(this)
     }
     async orgChange(e){
         document.querySelector("#org_id").classList.remove('valid')
@@ -25,7 +25,9 @@ class Org_reg extends Component {
         if(value=='') return isAvailableUpdate(null)
         isAvailableUpdate('loading')
         clearTimeout(typingTimer);
+        var updateData=this.props.updateData
         typingTimer = setTimeout(async function(){
+        try{
             var data= await axios.get('http://localhost:5000/organisations')
             console.log(data)
             var isAvailable=true;
@@ -38,31 +40,48 @@ class Org_reg extends Component {
             isAvailableUpdate(isAvailable)
 
             if(isAvailable){
+                updateData(true, 'VALIDIATE_ORG_USID');
                 document.querySelector("#org_id").classList.add('valid')
             } else{
+                updateData(false, 'VALIDIATE_ORG_USID');
                 document.querySelector("#org_id").classList.add('invalid')
             }
             console.log(isAvailable)
-        }, 2000)
+        } catch(e){
+            console.log(e)
+            alert('Server Error')
+        }
+    }, 2000)
         
         
     }
-    send(){
+    send(e){
         // console.log(111, this.props.OrgReg)
-        var url= 'http://localhost:5000/oauth/'
-        var params=`?usid=${this.props.OrgReg.usid}&passwd=${this.props.OrgReg.passwd}&name=${this.props.OrgReg.name}&mail_id=${this.props.OrgReg.mainEmail}@vitstudent.ac.in&descr=${this.props.OrgReg.descr}`
-        open(url+params,null,'height=480,width=640')
-        console.log(111, params)
+        e.preventDefault()
+        var vailidation=this.props.validation
+        console.log(this.vailidation)
+        console.log(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.mainEmail && vailidation.cPasswd)
+        if(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.mainEmail && vailidation.cPasswd )
+        {
+            var url= 'http://localhost:5000/oauth/'
+            var params=`?usid=${this.props.OrgReg.usid}&passwd=${this.props.OrgReg.passwd}&name=${this.props.OrgReg.name}&mail_id=${this.props.OrgReg.mainEmail}@vitstudent.ac.in&descr=${this.props.OrgReg.descr}`
+            open(url+params,null,'height=480,width=640')
+            console.log(111, params)
+        }
     }
     passValidiate(e){
         document.querySelector("#org_pass").classList.remove('invalid')
         document.querySelector("#org_pass").classList.remove('valid')
         this.props.updateData(e.target.value, 'UPDATE_ORG_PASSWD')
         console.log(e.target.value.length)
-        if(e.target.value.length<4) 
+        if(e.target.value.length<4){
             document.querySelector("#org_pass").classList.add('invalid')
-        else
+            this.props.updateData(false, 'VALIDIATE_ORG_PASSWD');
+        }
+        else{
             document.querySelector("#org_pass").classList.add('valid')
+            this.props.updateData(true, 'VALIDIATE_ORG_PASSWD');
+        }
         document.querySelector("#org_pass_c").classList.remove('invalid')
         document.querySelector("#org_pass_c").classList.remove('valid')
     }
@@ -70,16 +89,28 @@ class Org_reg extends Component {
         this.props.updateData(e.target.value, 'UPDATE_ORG_CPASSWD')
         document.querySelector("#org_pass_c").classList.remove('invalid')
         document.querySelector("#org_pass_c").classList.remove('valid')
-        if(e.target.value==this.props.OrgReg.passwd)
-        document.querySelector("#org_pass_c").classList.add('valid')
-        else
-        document.querySelector("#org_pass_c").classList.add('invalid')
+        if(this.props.validation.passwd)
+        {    if(e.target.value==this.props.OrgReg.passwd){
+                document.querySelector("#org_pass_c").classList.add('valid')
+                this.props.updateData(true, 'VALIDIATE_ORG_CPASSWD');
+            }
+            else{
+                document.querySelector("#org_pass_c").classList.add('invalid')
+                this.props.updateData(false, 'VALIDIATE_ORG_CPASSWD');
+            }4
+        }
     }
-    isEmpty(e){
+    vailidate(e, id){
+        this.props.updateData(e.target.value, 'UPDATE_'+id);
         e.target.classList.remove('invalid')
         e.target.classList.remove('valid')
         if(e.target.value==''){
+            this.props.updateData(false, 'VALIDIATE_'+id);
             e.target.classList.add('invalid')
+        }
+        else{
+            e.target.classList.add('valid')
+            this.props.updateData(true, 'VALIDIATE_'+id);
         }
     }
 
@@ -90,7 +121,7 @@ class Org_reg extends Component {
                 <div className="card-content row">    
                 <form>
                     <div className="input-field col s12">
-                        <input id='org_name' type="text" value={this.props.OrgReg.name}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_NAME'); this.isEmpty(e)}} />
+                        <input id='org_name' type="text" value={this.props.OrgReg.name}  onChange={(e)=>{this.vailidate(e,'ORG_NAME')}} />
                         <label htmlFor='org_name' >Name Of Organisation</label>
                         <span className="helper-text" data-error="Name is required"></span>
                     </div>
@@ -100,7 +131,7 @@ class Org_reg extends Component {
                     </div>
                     <div>
                         <div className="input-field col s12">
-                            <input className="validate" id='org_id' type="text" value={this.props.OrgReg.usid} onChange={this.orgChange} />
+                            <input className="" id='org_id' type="text" value={this.props.OrgReg.usid} onChange={this.orgChange} />
                             <label htmlFor='org_id'>Unique Id for Ogranisation</label>
                             <span className="helper-text" data-error="That username is taken. Try another" data-success="Available">{function(e){if(e.props.usidIsAvailable=='loading') return 'Checking...'}(this)}
                             </span>
@@ -125,7 +156,7 @@ class Org_reg extends Component {
                         </div>
                         <div>
                             <div className="input-field col s7" style={{paddingRight:"0px"}}>
-                                <input id='org_main_email' type="text" value={this.props.OrgReg.mainEmail}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_MAIN-EMAIL'); this.isEmpty(e)}} />
+                                <input id='org_main_email' type="text" value={this.props.OrgReg.mainEmail}  onChange={(e)=>{this.vailidate(e,'ORG_MAIN-EMAIL')}} />
                                 <label htmlFor='org_main_email'>Email</label>
                                 <span className="helper-text" data-error="Maintainer ID is required"></span>
                             </div>
@@ -134,7 +165,7 @@ class Org_reg extends Component {
                             </div>
                         </div>
                     </fieldset>
-                    <center><input type="submit" className="waves-effect waves-light btn" /></center>
+                    <center><a className="waves-effect waves-light btn" onClick={this.send}>Verify and Register</a></center>
                     </form>
                 </div>
             </div>
