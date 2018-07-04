@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Submit_card from './components/submit_card.js';
+import App from './components/app.js';
 import rootReducer from './reducers/index.js'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -9,15 +9,15 @@ import M from 'materialize-css'
 // import { providers } from 'redux'
 // store = createStore(rootReducer{})
 const store = createStore(rootReducer, {})
-const App= () => {
+const Root= () => {
     return(
         <div> Hi!
         <Provider store={store}>
         {/* <Submit_card /> */}
-        <Org_reg />
+        <App />
         </Provider>
         </div>
     )
 }
 
-ReactDOM.render(<App />, document.querySelector('.container'))
+ReactDOM.render(<Root />, document.querySelector('.container'))
