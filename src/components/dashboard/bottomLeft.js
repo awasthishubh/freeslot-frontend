@@ -16,6 +16,22 @@ export default class extends Component{
     render(){
         return(
         <nav class="sideNav grey darken-4" style={navStyle}>
+        <div className="row" style={{padding:10}}>
+            <div class="img" >
+                <img class="circle col s12 responsive-img" style={{padding:25}} src="https://blog.codinghorror.com/content/images/2016/01/discourse-default-avatar-a.png" alt="" />
+            </div>
+            <div style={{fontSize:25, textAlign:'center', lineHeight:1.5, marginTop:20}}>
+                <b>Association Of Computer Machinery</b>
+            </div>
+            <div class="grey-text" style={{fontSize:20, textAlign:'center', lineHeight:1.5, marginTop:20}}>
+                acm
+            </div>
+            <div style={{fontSize:20, textAlign:'center', lineHeight:1.5, marginTop:20}}>
+                Technology Matters Matters Matters!
+            </div>
+            <div style={{fontSize:20, textAlign:'center', lineHeight:1.5, marginTop:20}}>
+            </div>
+        </div>
         </nav>
         )
     }
