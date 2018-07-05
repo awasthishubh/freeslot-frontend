@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Model from './model'
 import Submit from './submit_card'
 import Org_reg from './org_reg'
+import Org_login from './org_login'
 export default class App extends Component {
   render() {
     return (
       // <Model/>
-      <Submit />
+      // <Submit />
       // <Org_reg/>
+      <Org_login/>
     );
   }
 }
