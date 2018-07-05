@@ -86,6 +86,11 @@ class Submit_card extends Component {
                 <div><h4>You are already a part of selected organisation</h4>Contact your organisation's maintainer if you need to re-register</div>
                 )
         }
+        else if(this.state.subMiss){
+            return(
+                <div><h4>Incomplete form</h4>You missed <b>{this.state.subMiss}</b> fild</div>
+                )
+        }
         else return null
     }
     
@@ -162,10 +167,15 @@ class Submit_card extends Component {
         this.setState({'subErr':null})
         this.setState({'subMem':null})
         this.setState({'subMiss':null})
-        if(this.state.valReg) this.setState({'subMiss':'Registration'})
+        console.log(this.props.MemDetails.timeTable )
+        if(!this.props.MemDetails.name) this.setState({'subMiss':'Name'})
+        else if(!this.state.valReg) this.setState({'subMiss':'Registration Number'})
+        else if(!this.state.valEmail) this.setState({'subMiss':'Email'})
+        else if(!this.state.valPhno) this.setState({'subMiss':'Phno Number'})
+        else if(!this.props.MemDetails.org) this.setState({'subMiss':'Organisation'})
+        else if(!this.state.valImage) this.setState({'subMiss':'Image File'})
+        else
         {   
-            
-
             var form= new FormData
             for (var key in this.props.MemDetails) {
                 form.append(key,this.props.MemDetails[key])
@@ -193,6 +203,7 @@ class Submit_card extends Component {
                             <div className="input-field col s12">
                                 <input id='mem_name' type="text" value={this.props.MemDetails.name}  onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)} />
                                 <label htmlFor='mem_name'>Name</label>
+                                <span className="helper-text" data-error="Name is required"></span>
                             </div>
 
                             <div className="input-field col s12">
@@ -204,11 +215,13 @@ class Submit_card extends Component {
                             <div className="input-field col s12">
                                 <input id='mem_email' type="email" className="" value={this.props.MemDetails.email}  onChange={(e)=>this.onChange(e,'UPDATE_EMAIL')} onBlur={this.validateEmail} />
                                 <label htmlFor='mem_email'>Email</label>
+                                <span className="helper-text" data-error="Enter a valid email address"></span>
                             </div>
 
                             <div className="input-field col s12">
                                 <input id='mem_phno' type="number" value={this.props.MemDetails.phno}  onChange={(e)=>this.onChange(e,'UPDATE_PHNO')} onBlur={this.validatePhno}/>
                                 <label htmlFor='mem_phno'>Phone Number</label>
+                                <span className="helper-text" data-error="Enter a valid 10 digint Phone Number"></span>
                             </div>
                             <div className="input-field col s12">
                                     <Options list={this.props.Organisations} update={this.props.updateData} />
