@@ -3,29 +3,11 @@ import {Component} from 'react'
 import Chart from './chart'
 
 
-var data={
-    "_id": "5b3c9581a78cf81da8a216ac",
+var data= {
+    "_id": "5b3cb264a78cf82ccc4b9526",
     "email": "shubham0522@gmail.com",
     "freeSlots": [
         [
-            2,
-            3,
-            6,
-            7,
-            8,
-            9
-        ],
-        [
-            2,
-            3,
-            6,
-            7,
-            8,
-            9
-        ],
-        [
-            2,
-            3,
             6,
             7,
             8,
@@ -34,6 +16,7 @@ var data={
         [
             0,
             1,
+            2,
             3,
             6,
             7,
@@ -41,6 +24,28 @@ var data={
             9
         ],
         [
+            6,
+            7,
+            8,
+            9,
+            12
+        ],
+        [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ],
+        [
+            2,
+            3,
+            4,
+            5,
             6,
             7,
             8,
@@ -52,9 +57,9 @@ var data={
     "name": "Shubham",
     "org": "acm",
     "phno": "9415790443",
-    "reg": "13434DSDSD3S434",
+    "reg": "17BIT0310",
     "verified": false
-  }
+}
 
 export default class extends Component{
     componentDidMount(){
@@ -67,7 +72,7 @@ export default class extends Component{
 
   <a className="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
 
-  <div id="modal1" className="modal modal-fixed-footer">
+  <div id="modal1" className="modal modal-fixed-footer" style={{height: '90%'}} >
     <div className="modal-content">
       <Chart data={data} />
     </div>
