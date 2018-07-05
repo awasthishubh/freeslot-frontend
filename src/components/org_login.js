@@ -1,9 +1,11 @@
 import React from 'react'
 import {Component} from 'react'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import {updateData} from '../actions/index.js'
 import axios from 'axios'
 
-export default class extends Component{
+class orgLogin extends Component{
     constructor(props){
         super(props)
         this.isFilled=this.isFilled.bind(this)
@@ -30,10 +32,13 @@ export default class extends Component{
             form.append('usid','ieee')
             form.append('passwd','random')
             var request=await axios.post('http://localhost:5000/auth',form)
+            console.log(request.data)
+            this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
+            this.props.updateData(request.data.access_token,'UPDATE_ORG_TOKEN')
         }
     }
     render(){
-        console.log(this.state)
+        console.log(this.props)
         return(
             <div className="card" id="">
                 <div className="card-content row">    
@@ -56,3 +61,13 @@ export default class extends Component{
         )
     }
 }
+
+function mapStateToProps(state){
+    return state
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({updateData}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(orgLogin)

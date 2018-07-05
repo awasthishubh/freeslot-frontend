@@ -55,7 +55,7 @@ export default function(state, action){
 
 export function usidIsAvailable(state, action){
     if(!state){
-        return 'null'
+        return null
     }
 
     if(action.type=="isAvailable"){
