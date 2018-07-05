@@ -13,7 +13,25 @@ export default class extends Component{
         return(
         <div style={navStyle}>
         <nav className="white" style={{ color:'#424242'}}>
-            
+            <div class="nav-wrapper row">
+                <div className="col m4"><ul class="left">
+                    <li><a><i class="material-icons prefix" style={{fontSize:40, color:'#424242'}}>notifications_none</i></a></li>
+                </ul></div>
+                <div className="col m4">
+                    <form>
+                        <div class="input-field"style={{ margin: 0}}>
+                        <i style={{marginTop: '-6px'}} class="material-icons prefix">search</i>
+                        <input placeholder="Search for a member" id="first_name" type="text" class="validate"/>
+                        </div>
+                    </form>
+                </div>
+                <div className="col m4">
+                    <ul class="right" >
+                    <li><img className="circle responsive-img" src="https://www.macupdate.com/images/icons256/57631.png" style={{margin:10,height:44}}/></li>
+                        <li><a><i class="material-icons prefix" style={{fontSize:40, color:'#424242'}}>settings</i></a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
         </div>
 
