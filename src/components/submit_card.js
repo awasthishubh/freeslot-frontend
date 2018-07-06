@@ -1,7 +1,7 @@
 import React from 'react'
 import {Component} from 'react'
 import {connect} from 'react-redux'
-import { updateData, updateOrg } from '../actions/memDetails'
+import { updateData, updateOrg } from '../actions'
 import { bindActionCreators } from 'redux'
 import axios from 'axios'
 import Chart from './chart'
@@ -58,7 +58,8 @@ class Submit_card extends Component {
     componentDidMount() {
         $('select').formSelect();
         $('.modal').modal();
-        updateOrgranisation(this.props)
+        console.log(this.props.updateOrg)
+        this.props.updateOrg()
     }
 
     componentDidUpdate(){
@@ -195,7 +196,7 @@ class Submit_card extends Component {
     }
     
     render(){
-        console.log(this.state)
+        console.log(11212,this.props)
         return(
             <div className="card" id="frm">
                 <div className="card-content">
@@ -224,7 +225,7 @@ class Submit_card extends Component {
                                 <span className="helper-text" data-error="Enter a valid 10 digint Phone Number"></span>
                             </div>
                             <div className="input-field col s12">
-                                    <Options list={this.props.Organisations} update={this.props.updateData} />
+                                    <Options list={this.props.orgAll} update={this.props.updateData} />
                                 <label>Organisation</label>
                             </div>
 

@@ -5,12 +5,15 @@ export function updateData(data, type){
     }
 }
 
-export function updateOrg(){
-    var response= axios.get('http://localhost:5000/organisations')
-    return {
-        type: 'UPDATE_NAME_ORG',
-        data: response
+export  function updateOrg(){
+    return async function(dispatch){
+        var response= await axios.get('http://localhost:5000/organisations')
+        dispatch({
+            type: 'UPDATE_ORG_ALL',
+            data: response.data
+        })
     }
+    
 }
 
 export function isAvailableUpdate(data){
