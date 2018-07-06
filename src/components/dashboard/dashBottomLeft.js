@@ -15,6 +15,7 @@ export default class extends Component{
     }
     
     render(){
+        var mems
         return(
         <nav id="slide-out" id="bottomLeftDash" className="sidenav sideNav grey darken-4" style={navStyle}>
             
@@ -27,11 +28,12 @@ export default class extends Component{
             <a href="#!" className="nItem">
                 <i className="material-icons" style={{display: 'inline-block'}}>people</i>
                 <span className="sideName">Members</span>
+                <span className="badge">{(mems=this.props.mems)?mems.verified.length:0}</span>
             </a>
             <a href="#!" className="nItem">
                 <i className="material-icons" style={{display: 'inline-block'}}>person_add</i>
                 <span className="sideName">Member Requests</span>
-                <span className="new badge">4</span>
+                <span className="new badge">{(mems=this.props.mems)?mems.unverified.length:0}</span>
             </a>
             <a href="#!" className="nItem">
                 <i className="material-icons" style={{display: 'inline-block'}}>person_pin</i>
