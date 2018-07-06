@@ -16,8 +16,9 @@ export default class extends Component{
     
     render(){
         return(
-        <nav class="sideNav grey darken-4" style={navStyle}>
-        <div className="row" style={{height:'100%'}}>
+        <nav id="slide-out" id="bottomLeftDash" class="sidenav sideNav grey darken-4" style={navStyle}>
+            
+        <div className="row" >
             <div class="" style={{marginTop:40}}>
             <a href="#!" class="nItem active">
                 <i class="material-icons" style={{display: 'inline-block'}}>home</i>

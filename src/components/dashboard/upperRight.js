@@ -11,11 +11,11 @@ export default class extends Component{
     
     render(){
         return(
-        <div style={navStyle}>
+        <div id="upperRightDash" style={navStyle}>
         <nav className="white" style={{ color:'#424242'}}>
             <div class="nav-wrapper row">
-                <div className="col m4"><ul class="left">
-                    <li><a><i class="material-icons prefix" style={{fontSize:40, color:'#424242'}}>notifications_none</i></a></li>
+                <div className="col m4"><ul class="left hide">
+                    <li><a><span><i class="material-icons prefix" style={{display: 'inline-block',fontSize:40, color:'#424242'}}>notifications_none</i>sd</span></a></li>
                 </ul></div>
                 <div className="col m4">
                     <form>
@@ -26,7 +26,7 @@ export default class extends Component{
                     </form>
                 </div>
                 <div className="col m4">
-                    <ul class="right" >
+                    <ul class="right hide" >
                     <li><img className="circle responsive-img" src="https://www.macupdate.com/images/icons256/57631.png" style={{margin:10,height:44}}/></li>
                         <li><a><i class="material-icons prefix" style={{fontSize:40, color:'#424242'}}>settings</i></a></li>
                     </ul>

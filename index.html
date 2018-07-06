@@ -27,7 +27,7 @@
     .nItem {
       padding-left: 20px;
       display: block;
-      vertical-align: middle;
+      /* vertical-align: middle; */
       -webkit-transform: perspective(1px) translateZ(0);
       transform: perspective(1px) translateZ(0);
       box-shadow: 0 0 1px rgba(0, 0, 0, 0);
@@ -53,6 +53,50 @@
 .material-icons{
   vertical-align: sub
 }
+
+@media screen and (max-width:950px){
+  #bottomRightDash{
+    width: 700px!important
+  }
+}
+
+@media screen and (max-width:600px){
+  .card{
+    height: auto!important;
+  }
+  #bottomRightDash{
+    left:0px!important;
+    width: auto!important;
+    top:120px!important;
+    height: auto!important;
+    bottom: auto!important
+  }
+  #upperLeftDash{
+    right:0px!important;
+    width: auto!important
+  }
+  #upperRightDash{
+    right: 0px!important;
+    left: 0px!important;
+    width: auto;
+    top: 64px!important;
+    height: 70px!important;
+  }
+  .dashRow{
+    height: auto!important;
+  }
+  #bottomLeftDash{
+    top: 0px!important
+  }
+}
+
+@media screen and (min-width:600px){
+  #bottomLeftDash{
+    transform: translateX(0%)!important;
+  }
+}
+
+
     
     </style>
   </head>

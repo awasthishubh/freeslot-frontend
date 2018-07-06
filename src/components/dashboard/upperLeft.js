@@ -11,7 +11,15 @@ export default class extends Component{
     
     render(){
         return(
-        <nav className="teal " style={navStyle} ></nav>
+        <nav id="upperLeftDash" className="teal row" style={navStyle} >
+            <div className="col s1 hide-on-med-and-up">
+                <a style={{cursor:'pointer'}} onClick={()=>window.sideInstance.open()}><i style={{fontSize:30}} class="material-icons">menu</i></a>
+            </div>
+            <div className="col s11 m12" style={{fontSize:35, textAlign:'center'}}>
+            <i class="material-icons prefix" style={{fontSize:25, display:'inline-block', paddingRight:20}} >dashboard</i>
+                Freeslots
+            </div>
+        </nav>
         )
     }
 }
