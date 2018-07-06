@@ -10,7 +10,10 @@
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./build/index.bundle.js",
+    "compile": "NODE_ENV=production webpack --config ./webpack.config.js --progress"
   },
   "author": "Shubham Awasthi",
   "license": "ISC",
