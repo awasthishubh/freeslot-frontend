@@ -11,15 +11,17 @@ export default class extends Component{
     members(){
         var del=this.props.del
         var verify=this.props.verify
-        console.log(121212,this.props.members)
         if(this.props.members!==null){
-            if(this.props.members.verified){
-                return <Collapsi data={this.props.members.unverified} del={this.props.del} />
-            }
+            console.log(this.props.members)
+            if(this.props.members.unverified)
+            return(
+                <Collapsi data={this.props.members.unverified} verify={this.props.verify} del={this.props.del}/>
+            )
             else{
-                return <div style={{fontSize:20, padding: 20}}>No member found under your organisation</div>             
+                return <div style={{fontSize:20, padding: 20}}>No request found</div>             
             }
         }
+        
         else return(
             <div style={{fontSize:20, padding: 20}}>Loading...</div>
         )
@@ -37,7 +39,7 @@ export default class extends Component{
             <div className="row">
                 <div className="card s12">
                     <div className="card-content row">
-                        <span className="card-title">Registered Members</span>
+                        <span className="card-title">Members Requests</span>
                         <div className="container" style={{marginTop:40}}>
                             <ul className="collapsible popout" ref={this.collapsible}>
                                 {this.members()}
