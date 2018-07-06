@@ -8,6 +8,25 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover.css" />
     <style>
+      /* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
       span.helper-text{
         position: absolute!important;
         width: 100%!important;
@@ -53,6 +72,9 @@
 .material-icons{
   vertical-align: sub
 }
+.memCollapsi{
+    padding-bottom: 0px
+  }
 
 @media screen and (max-width:950px){
   #bottomRightDash{
@@ -69,7 +91,6 @@
     width: auto!important;
     top:120px!important;
     height: auto!important;
-    bottom: auto!important
   }
   #upperLeftDash{
     right:0px!important;
@@ -86,13 +107,22 @@
     height: auto!important;
   }
   #bottomLeftDash{
-    top: 0px!important
+    top: 0px!important;
   }
+  
 }
 
 @media screen and (min-width:600px){
   #bottomLeftDash{
     transform: translateX(0%)!important;
+  }
+}
+
+
+@media screen and (max-width:400px){
+  .memCollapsi{
+    padding: 5px;
+    padding-top: 20px;
   }
 }
 
