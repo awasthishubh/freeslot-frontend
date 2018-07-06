@@ -14,6 +14,7 @@ export default class extends Component{
         return(
         <div id="bottomRightDash" className="grey lighten-2" style={navStyle}>
             {/* <Home/> */}
+            <Members/>
 
         </div>
         )

@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import { relative, isAbsolute } from 'path';
-import UpperLeft from './dashboard/upperLeft'
-import UpperRight from './dashboard/upperRight'
-import BottomLeft from './dashboard/bottomLeft'
-import BottomRight from './dashboard/bottomRight'
+import UpperLeft from './dashboard/dashUpperLeft'
+import UpperRight from './dashboard/dashUpperRight'
+import BottomLeft from './dashboard/dashBottomLeft'
+import BottomRight from './dashboard/dashBottomRight'
 
 export default class extends Component{
     constructor(props){
