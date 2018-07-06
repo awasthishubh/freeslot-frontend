@@ -41,18 +41,23 @@ export default class extends Component{
     }
     
     render(){
+    console.log(this.props)
+        if(this.props.members)
         return(
             <div style={{height:'100%'}} >
             <div className="row dashRow" style={{height:'55%'}}>
-                <Details img="https://www.macupdate.com/images/icons256/57631.png" name="Association Of Computer Machinery" tag="Technology Maters!"/>
-                <Details title="Maintainer" img="https://www.macupdate.com/images/icons256/57631.png" name="Shubham Awasthi"/>
+                <Details img="https://www.macupdate.com/images/icons256/57631.png" name={this.props.details.name} tag={this.props.details.descr}/>
+                <Details title="Maintainer" img={this.props.details.maintainer_photo} name={this.props.details.maintainer_name}/>
             </div>
             <div className="row dashRow" style={{height:'35%'}}>
-                <ShowP head="Total Members" stat="10" size={50}/>
-                <ShowP head="Pending requests" stat="5" size={50}/>
+                <ShowP head="Total Members" stat={this.props.members?this.props.members.verified.length:null} size={50}/>
+                <ShowP head="Pending requests" stat={this.props.members?this.props.members.unverified.length:null} size={50}/>
                 <ShowP head="Last work alloted" stat="2 months ago" size={20}/>
             </div>
             </div>
+        )
+        return(
+            <div/>
         )
     }
 }
