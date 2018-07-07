@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+window.Cookies=Cookies
 var token=Cookies.get('token')
 var optionsOrg = {
     method: 'GET',
@@ -20,7 +21,8 @@ export function updateDashboardData(){
             var org=await axios(optionsOrg)
             var mem=await axios(optionsMem)
             dispatch({type:'UPDATE_ORG_DETAILS', data:org.data})
-            dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data})
+            dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data.verified})
+            dispatch({type:'UPDATE_ORG_REQUESTS', data:mem.data.data.unverified})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             alert()
@@ -40,7 +42,8 @@ export function del(reg){
             method: 'DELETE',
         })
         var mem=await axios(optionsMem)
-        dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data})
+        dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data.verified})
+        dispatch({type:'UPDATE_ORG_REQUESTS', data:mem.data.data.unverified})
         dispatch({type:'UPDATE_ORG_LOGGED', data:true})
 
 
@@ -56,9 +59,8 @@ export function verify(reg){
             method: 'PUT',
         })
         var mem=await axios(optionsMem)
-        dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data})
+        dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data.verified})
+        dispatch({type:'UPDATE_ORG_REQUESTS', data:mem.data.data.unverified})
         dispatch({type:'UPDATE_ORG_LOGGED', data:true})
-
-
     }
 }
