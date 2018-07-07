@@ -50,8 +50,8 @@ export default class extends Component{
                 <Details title="Maintainer" img={this.props.details.maintainer_photo} name={this.props.details.maintainer_name}/>
             </div>
             <div className="row dashRow" style={{height:'35%'}}>
-                <ShowP head="Total Members" stat={this.props.members?this.props.members.verified.length:null} size={50}/>
-                <ShowP head="Pending requests" stat={this.props.members?this.props.members.unverified.length:null} size={50}/>
+                <ShowP head="Total Members" stat={this.props.members?this.props.members.length:null} size={50}/>
+                <ShowP head="Pending requests" stat={this.props.members?this.props.requests.length:null} size={50}/>
                 <ShowP head="Last work alloted" stat="2 months ago" size={20}/>
             </div>
             </div>

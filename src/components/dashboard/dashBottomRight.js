@@ -16,16 +16,29 @@ var navStyle={
 export class dash extends Component{
     constructor(props){
         super(props)
+        this.showContent=this.showContent.bind(this)
+    }
+
+    showContent(){
+        if(this.props.dashSelected=='dashHome'){
+            return <Home members={this.props.dashMembers} requests={this.props.dashRequests} details={this.props.dashDetails}/>
+        }
+        if(this.props.dashSelected=='dashMems'){
+            return <Members members={this.props.dashMembers} del={this.props.del}/>
+        }
+        if(this.props.dashSelected=='dashReqs'){
+            return <MembersReq requests={this.props.dashRequests} del={this.props.del} verify={this.props.verify}/>
+        }
+        if(this.props.dashSelected=='dashGetMem'){
+            return <GetMem members={this.props.dashMembers} del={this.props.del} />
+        }
     }
     
     render(){
-        console.log('zxzxzxzx',this.props.dashMembers)
+        console.log('zxzxzxzx',this.props)
         return(
         <div id="bottomRightDash" className="grey lighten-2" style={navStyle}>
-            {/* <Home org members={this.props.dashMembers} details={this.props.dashDetails}/> */}
-            {/* <Members members={this.props.dashMembers} del={this.props.del}/> */}
-            {/* <MembersReq requests={this.props.dashRequests} del={this.props.del} verify={this.props.verify}/> */}
-            <GetMem members={this.props.dashMembers} del={this.props.del} />
+            {this.showContent()}
         </div>
         )
     }
