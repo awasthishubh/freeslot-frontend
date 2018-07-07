@@ -11,18 +11,12 @@ export default class extends Component{
     members(){
         var del=this.props.del
         var verify=this.props.verify
-        console.log(121212,this.props.members)
-        if(this.props.members!==null){
-            if(this.props.members.verified){
-                return <Collapsi data={this.props.members.unverified} del={this.props.del} />
-            }
-            else{
-                return <div style={{fontSize:20, padding: 20}}>No member found under your organisation</div>             
-            }
+        if(this.props.members){
+            return <Collapsi data={this.props.members} del={this.props.del} />
         }
-        else return(
-            <div style={{fontSize:20, padding: 20}}>Loading...</div>
-        )
+        else{
+            return <div style={{fontSize:20, padding: 20}}>No member found under your organisation</div>             
+        }
     }
 
     componentDidMount(){
@@ -39,9 +33,7 @@ export default class extends Component{
                     <div className="card-content row">
                         <span className="card-title">Registered Members</span>
                         <div className="container" style={{marginTop:40}}>
-                            <ul className="collapsible popout" ref={this.collapsible}>
                                 {this.members()}
-                            </ul>
                         </div>
                     </div>
                 </div>
