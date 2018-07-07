@@ -6,7 +6,8 @@ var navStyle={
     height: 'auto',
     bottom: 0,
     top:'64px',
-    left: '0px'
+    left: '0px',
+    zIndex: 10
 }
 
 export default class extends Component{
@@ -28,12 +29,12 @@ export default class extends Component{
             <a href="#!" className="nItem">
                 <i className="material-icons" style={{display: 'inline-block'}}>people</i>
                 <span className="sideName">Members</span>
-                <span className="badge">{(mems=this.props.mems)?mems.verified.length:0}</span>
+                <span className="badge">{(mems=this.props.members)?mems.length:0}</span>
             </a>
             <a href="#!" className="nItem">
                 <i className="material-icons" style={{display: 'inline-block'}}>person_add</i>
                 <span className="sideName">Member Requests</span>
-                <span className="new badge">{(mems=this.props.mems)?mems.unverified.length:0}</span>
+                <span className="new badge">{(mems=this.props.requests)?mems.length:0}</span>
             </a>
             <a href="#!" className="nItem">
                 <i className="material-icons" style={{display: 'inline-block'}}>person_pin</i>

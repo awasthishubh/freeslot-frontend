@@ -44,7 +44,7 @@ export class dashboard extends Component{
         return(
             <div>
            <UpperLeft/>
-           <BottomLeft mems={this.props.dashMembers}/>
+           <BottomLeft members={this.props.dashMembers} requests={this.props.dashRequests}/>
            <UpperRight/>
            <BottomRight/>
            <Loader loggedIn={this.props.isLoggedIn} del={this.props.del}/>

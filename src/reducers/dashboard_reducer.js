@@ -25,14 +25,15 @@ export function members(state=null, action){
     return state
 }
 
-export function token(state=null, action){
+export function requests(state=null, action){
     console.log(action)
     switch(action.type){
-        case 'UPDATE_ORG_TOKEN':
+        case 'UPDATE_ORG_REQUESTS':
             return action.data
     }
     return state
 }
+
 
 export function isLoggedIn(state=null, action){
     console.log(action)
