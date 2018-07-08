@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 
 function Details(props){
     return(
@@ -21,6 +22,7 @@ function Details(props){
 
 function ShowP(props){
     return(
+        
         <div className="col s12 m4" style={{height:'100%'}}>
             <div className="card hoverable darken-1" style={{height:'100%'}}>
                 <div className="card-content black-text" style={{height:'88%'}}>
@@ -39,6 +41,12 @@ export default class extends Component{
     constructor(props){
         super(props)
     }
+    componentDidMount(){
+        document.getElementById('dashHome').classList.add('active')
+    }
+    componentWillUnmount(){
+        document.getElementById('dashHome').classList.remove('active')
+    }
     
     render(){
     console.log(this.props)
@@ -51,7 +59,7 @@ export default class extends Component{
             </div>
             <div className="row dashRow" style={{height:'35%'}}>
                 <ShowP head="Total Members" stat={this.props.members?this.props.members.length:null} size={50}/>
-                <ShowP head="Pending requests" stat={this.props.members?this.props.requests.length:null} size={50}/>
+                <ShowP head="Pending requests" stat={this.props.requests?this.props.requests.length:null} size={50}/>
                 <ShowP head="Last work alloted" stat="2 months ago" size={20}/>
             </div>
             </div>

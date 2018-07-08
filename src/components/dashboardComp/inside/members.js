@@ -22,6 +22,10 @@ export default class extends Component{
     componentDidMount(){
         console.log(this.collapsible)
         M.Collapsible.init(this.collapsible.current);
+        document.getElementById('dashMems').classList.add('active')
+    }
+    componentWillUnmount(){
+        document.getElementById('dashMems').classList.remove('active')
     }
 
     

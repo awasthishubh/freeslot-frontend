@@ -30,7 +30,6 @@ export default class extends Component{
             document.getElementById(this.props.selected).classList.remove('active')
         }
         // e.preventDefault()
-        BrowserRouter.push('sdsd');
         console.log(e.target.parentNode)
         if(e.target.id) this.props.select(e.target.id)
         else this.props.select(e.target.parentNode.id)
@@ -44,40 +43,40 @@ export default class extends Component{
             
         <div className="row" >
             <div className="" style={{marginTop:40}}>
-            <a id="dashHome" href="#!" className="nItem" onClick={this.clicked}>
+            <Link id="dashHome" to="/dashboard/home" className="nItem" onClick={this.clicked}>
                 <i className="material-icons" style={{display: 'inline-block'}}>home</i>
                 <span className="sideName">Home</span>
-            </a>
-            <a href="#" to="/dashboard/members/">
+            </Link>
+            <Link to="/dashboard/members" id="dashMems" className="nItem" onClick={this.clicked}>
                 <i className="material-icons" style={{display: 'inline-block'}}>people</i>
                 <span className="sideName">Members</span>
                 <span className="badge">{(mems=this.props.members)?mems.length:0}</span>
-            </a>
-            <a href="#" to="/dashboard/requests/" id="dashReqs" className="nItem" onClick={this.clicked}>
+            </Link>
+            <Link to="/dashboard/requests" id="dashReqs" className="nItem" onClick={this.clicked}>
                 <i className="material-icons" style={{display: 'inline-block'}}>person_add</i>
                 <span className="sideName">Member Requests</span>
                 <span className="new badge">{(mems=this.props.requests)?mems.length:0}</span>
-            </a>
-            <a id="dashFindMem" href="#!" className="nItem" onClick={this.clicked}>
+            </Link>
+            {/* <Link to="/dashboard/find" href="#!" className="nItem" onClick={this.clicked}>
                 <i className="material-icons" style={{display: 'inline-block'}}>person_pin</i>
                 <span className="sideName">Find a member</span>
-            </a>
-            <a id="dashGetMem" href="#!" className="nItem" onClick={this.clicked}>
+            </Link> */}
+            <Link to="/dashboard/find" id="dashGetMem" href="#!" className="nItem" onClick={this.clicked}>
                 <i className="material-icons" style={{display: 'inline-block'}}>contact_phone</i>
                 <span className="sideName">Get a member</span>
-            </a>
+            </Link>
             
         </div>
 
         <div id="dashHome" style={{marginTop:40,position: 'absolute', bottom:0, width:'100%'}}>
-            <a href="#!" className="nItem" onClick={this.clicked}>
+            <Link to="/dashboard/find" href="#!" className="nItem" onClick={this.clicked}>
                 <i className="material-icons" style={{display: 'inline-block'}}>settings</i>
                 <span className="sideName">Settings</span>
-            </a>
-            <a id="dashHome" href="#!" className="nItem" onClick={this.clicked}>
+            </Link>
+            <Link to="/dashboard/find" id="dashHome" href="#!" className="nItem" onClick={this.clicked}>
                 <i className="material-icons" style={{display: 'inline-block'}}>all_out</i>
                 <span className="sideName">Logout</span>
-            </a>
+            </Link>
         </div>
         </div>
         </nav>

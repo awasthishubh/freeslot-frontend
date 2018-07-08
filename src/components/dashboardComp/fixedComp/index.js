@@ -8,25 +8,7 @@ import UpperRight from './dashUpperRight'
 import BottomLeft from './dashBottomLeft'
 import BottomRight from './dashBottomRight'
 
-function Loader(props){
-    if(!props.loggedIn)
-    return(
-        <div style={{position: 'fixed', top:0, bottom:0,left:0, right:0, zIndex:1000, background: 'rgba(0,0,0, 0.7)' }}>
-        <div class="preloader-wrapper big active" style={{height:200, width:200, position: 'absolute', top:'50%', left:'50%', margin: -100}}>
-            <div class="spinner-layer spinner-green-only">
-            <div class="circle-clipper  left">
-                <div class="circle"></div>
-            </div><div class="gap-patch">
-                <div class="circle"></div>
-            </div><div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-            </div>
-        </div>
-       </div>
-    )
-    return <div/>
-}
+
 export class dashboard extends Component{
     constructor(props){
         super(props)
@@ -35,7 +17,6 @@ export class dashboard extends Component{
     componentDidMount(){
         var elems = document.querySelectorAll('.sidenav');
         window.sideInstance = M.Sidenav.init(elems[0]);
-        this.props.updateDashboardData('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2lkIjoiYWNtIn0.QVu651zEd4hLJf6Bc6NHoVn7Y4Vrj3kNj5XGBJMY6Xo')
     }
     render(){
         console.log(this.props)
@@ -47,7 +28,6 @@ export class dashboard extends Component{
                     <BottomRight>
                             {this.props.children}
                     </BottomRight>
-                    <Loader loggedIn={this.props.isLoggedIn}/>
                     </div>
         )
     }

@@ -21,7 +21,10 @@ export default class extends Component{
     }
 
     componentDidMount(){
-
+        document.getElementById('dashReqs').classList.add('active')
+    }
+    componentWillUnmount(){
+        document.getElementById('dashReqs').classList.remove('active')
     }
     
     render(){

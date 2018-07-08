@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import Collapsi from './collapsi'
 
 function RenderCard(props){
-    console.log(12121212,props)
     if(props.members)
     return(
         <div className="card s12">
@@ -24,8 +23,12 @@ export default class extends Component{
         this.submit=this.submit.bind(this)
         this.state={available:null, availableMem:null}
     }
-
+    
+    componentWillUnmount(){
+        document.getElementById('dashGetMem').classList.remove('active')
+    }
     componentDidMount(){
+        document.getElementById('dashGetMem').classList.add('active')
         M.Timepicker.init(this.timePickerTill.current)
         M.Timepicker.init(this.timePickerFrom.current)
         $('select').formSelect();

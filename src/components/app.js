@@ -14,6 +14,8 @@ function Asd(props){
   )
 }
 export default class App extends Component {
+  componentDidMount(){
+  }
   render() {
     return (
       // <Model/>
