@@ -64,11 +64,3 @@ export function verify(reg){
         dispatch({type:'UPDATE_ORG_LOGGED', data:true})
     }
 }
-
-export function updateSelected(select){
-    return({
-        type:"UPDATE_SELECTED",
-        data:select
-    })
-
-}
