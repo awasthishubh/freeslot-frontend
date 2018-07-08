@@ -64,3 +64,13 @@ export function verify(reg){
         dispatch({type:'UPDATE_ORG_LOGGED', data:true})
     }
 }
+
+export function filter(X,data,action){
+    data.map(function(elem){
+        if(elem.reg.slice(0,2)!==X) elem.visible=false
+    })
+    console.log('filterFun', data)
+    return ({
+        type: 'UPDATE_ORG_MEMBERS', data
+    })
+}

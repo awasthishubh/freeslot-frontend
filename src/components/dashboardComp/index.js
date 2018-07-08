@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateDashboardData, updateSelected} from '../../actions/dashboard_action'
+import {updateDashboardData, updateSelected, del, verify,filter} from '../../actions/dashboard_action'
 import {BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './inside/home'
 import Members from './inside/members'
@@ -41,16 +41,17 @@ export class dashboard extends Component{
         window.sideInstance = M.Sidenav.init(elems[0]);
         this.props.updateDashboardData()
         console.log('home',Home)
+        window.filter=this.props.filter
+        window.members=this.props.members
     }
     render(){
         return(
         <div>
             <BrowserRouter>
             <Switch>
-                {/* <Route path='/dashboard/'>
-                <FixedComp>
-                </FixedComp>
-                </Route> */}
+                <Route exact path='/dashboard/'>
+                    <FixedComp/>
+                </Route>
 
                 <Route path='/dashboard/home'>
                 <FixedComp>
@@ -91,7 +92,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateDashboardData, updateSelected}, dispatch)
+    return bindActionCreators({updateDashboardData, updateSelected,del, verify,filter}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)
