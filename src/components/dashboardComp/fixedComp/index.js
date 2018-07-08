@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateDashboardData, updateSelected} from '../actions/dashboard_action'
-import {BrowserRouter } from 'react-router-dom'
+import {updateDashboardData, updateSelected} from '../../../actions/dashboard_action'
 
-import UpperLeft from './dashboard/dashUpperLeft'
-import UpperRight from './dashboard/dashUpperRight'
-import BottomLeft from './dashboard/dashBottomLeft'
-import BottomRight from './dashboard/dashBottomRight'
+import UpperLeft from './dashUpperLeft'
+import UpperRight from './dashUpperRight'
+import BottomLeft from './dashBottomLeft'
+import BottomRight from './dashBottomRight'
 
 function Loader(props){
     if(!props.loggedIn)
@@ -34,29 +33,22 @@ export class dashboard extends Component{
         this.sideNav=React.createRef();
     }
     componentDidMount(){
-        // M.Sidenav.init(this.sideNav.current)
         var elems = document.querySelectorAll('.sidenav');
         window.sideInstance = M.Sidenav.init(elems[0]);
         this.props.updateDashboardData('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2lkIjoiYWNtIn0.QVu651zEd4hLJf6Bc6NHoVn7Y4Vrj3kNj5XGBJMY6Xo')
-        // instances.open();
     }
     render(){
         console.log(this.props)
         return(
-            
-            <div>
-                <BrowserRouter>
                 <div>
                     <UpperLeft/>
                     <BottomLeft selected={this.props.dashSelected} select={this.props.updateSelected} members={this.props.dashMembers} requests={this.props.dashRequests}/>
                     <UpperRight/>
-                    <BottomRight/>
+                    <BottomRight>
+                            {this.props.children}
+                    </BottomRight>
                     <Loader loggedIn={this.props.isLoggedIn}/>
                     </div>
-                </BrowserRouter>
-           </div>
-
-
         )
     }
 }

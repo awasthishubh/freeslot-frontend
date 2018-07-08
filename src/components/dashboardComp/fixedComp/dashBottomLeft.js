@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 var navStyle={
     position: 'fixed',
@@ -27,7 +29,8 @@ export default class extends Component{
         if(document.getElementById(this.props.selected)){
             document.getElementById(this.props.selected).classList.remove('active')
         }
-        e.preventDefault()
+        // e.preventDefault()
+        BrowserRouter.push('sdsd');
         console.log(e.target.parentNode)
         if(e.target.id) this.props.select(e.target.id)
         else this.props.select(e.target.parentNode.id)
@@ -45,12 +48,12 @@ export default class extends Component{
                 <i className="material-icons" style={{display: 'inline-block'}}>home</i>
                 <span className="sideName">Home</span>
             </a>
-            <a id="dashMems" href="#!" className="nItem" onClick={this.clicked}>
+            <a href="#" to="/dashboard/members/">
                 <i className="material-icons" style={{display: 'inline-block'}}>people</i>
                 <span className="sideName">Members</span>
                 <span className="badge">{(mems=this.props.members)?mems.length:0}</span>
             </a>
-            <a id="dashReqs" href="#!" className="nItem" onClick={this.clicked}>
+            <a href="#" to="/dashboard/requests/" id="dashReqs" className="nItem" onClick={this.clicked}>
                 <i className="material-icons" style={{display: 'inline-block'}}>person_add</i>
                 <span className="sideName">Member Requests</span>
                 <span className="new badge">{(mems=this.props.requests)?mems.length:0}</span>
