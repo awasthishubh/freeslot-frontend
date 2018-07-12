@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 var navStyle={
-    height:'64px', position: 'fixed', top:'0px', left:'300px', right:'0px', zIndex:'-1'
+    height:64, position: 'fixed', top:0, left:300, right:0, zIndex:105
 }
 
 export default class extends Component{
@@ -19,10 +19,11 @@ export default class extends Component{
                 </ul></div>
                 <div className="col m4">
                     <form>
-                        <div className="input-field"style={{ margin: 0}}>
-                        <i style={{marginTop: '-6px'}} className="material-icons prefix">search</i>
-                        <input placeholder="Search for a member" id="first_name" type="text" className="validate"/>
-                        </div>
+                    <div class="input-field col s12">
+          <i class="material-icons prefix">textsms</i>
+          <input type="text" id="autocomplete-input" class="autocomplete"/>
+          <label for="autocomplete-input">Autocomplete</label>
+        </div>
                     </form>
                 </div>
                 <div className="col m4">

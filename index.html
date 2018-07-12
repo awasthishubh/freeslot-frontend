@@ -76,8 +76,12 @@
     padding-bottom: 0px
   }
 
+  .timepicker-modal{
+    top:140px!important
+  }
+
 @media screen and (max-width:950px){
-  #bottomRightDash{
+  .bottomRightDash{
     width: 700px!important
   }
 }
@@ -86,11 +90,12 @@
   .card{
     height: auto!important;
   }
-  #bottomRightDash{
+  .bottomRightDash{
     left:0px!important;
     width: auto!important;
     top:120px!important;
     height: auto!important;
+    /* z-index: 900!important; */
   }
   #upperLeftDash{
     right:0px!important;
@@ -108,6 +113,7 @@
   }
   #bottomLeftDash{
     top: 0px!important;
+    z-index: 1000!important;
   }
   
 }

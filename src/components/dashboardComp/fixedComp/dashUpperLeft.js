@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 var navStyle={
-    height:'64px', position: 'fixed', width: '300px', top:'0px', left:'0px'
+    height:64, position: 'fixed', width: 300, top:0, left:0, zIndex:900
 }
 
 export default class extends Component{

@@ -8,7 +8,7 @@ var navStyle={
     bottom: 0,
     top:'64px',
     left: '0px',
-    zIndex: 10
+    zIndex: 103
 }
 
 export default class extends Component{

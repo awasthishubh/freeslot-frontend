@@ -8,6 +8,9 @@ import UpperRight from './dashUpperRight'
 import BottomLeft from './dashBottomLeft'
 import BottomRight from './dashBottomRight'
 
+var style={
+    position: 'absolute',top:64,left:300,right:0, bottom:0,padding:20, overflowY:'scroll', zIndex:104
+}
 
 export class dashboard extends Component{
     constructor(props){
@@ -20,15 +23,18 @@ export class dashboard extends Component{
     }
     render(){
         console.log(this.props)
-        return(
+        return(<div>
                 <div>
                     <UpperLeft/>
                     <BottomLeft selected={this.props.dashSelected} select={this.props.updateSelected} members={this.props.dashMembers} requests={this.props.dashRequests}/>
                     <UpperRight/>
                     <BottomRight>
-                            {this.props.children}
+                            
                     </BottomRight>
                     </div>
+                    <div className="bottomRightDash" style={style}>{this.props.children}</div>
+                    </div>
+
         )
     }
 }
