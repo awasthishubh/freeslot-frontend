@@ -39,3 +39,19 @@ export function isLoggedIn(state=null, action){
     }
     return state
 }
+
+export function dashModal(state={selected:null, instance:null}, action){
+    var newState= {
+        selected:state.selected, 
+        instance:state.instance
+    }
+    switch(action.type){
+        case 'UPDATE_MODAL_INSTANCE':
+            newState.instance=action.data
+            return newState
+        case 'UPDATE_MODAL_SELECTED':
+            newState.selected=action.data
+            return newState
+    }
+    return state
+}

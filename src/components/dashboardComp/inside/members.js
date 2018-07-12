@@ -7,11 +7,15 @@ export default class extends Component{
         super(props)
         this.collapsible=React.createRef()
         this.members=this.members.bind(this)
+        this.viewMem=this.viewMem.bind(this)
     }
-
+    viewMem(reg){
+        this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
+        this.props.selected.instance.open()
+    }
     members(){
         if(this.props.members && this.props.members.length>0){
-            return <Collapsi data={this.props.members} del={this.props.del} />
+            return <Collapsi view={this.viewMem} data={this.props.members} del={this.props.del} />
         }
         else{
             return <div style={{fontSize:20, padding: 20}}>No member found under your organisation</div>             
@@ -19,8 +23,6 @@ export default class extends Component{
     }
 
     componentDidMount(){
-        console.log(this.collapsible)
-        M.Collapsible.init(this.collapsible.current);
         document.getElementById('dashMems').classList.add('active')
     }
     componentWillUnmount(){
@@ -29,7 +31,7 @@ export default class extends Component{
 
     
     render(){
-        console.log(22222,this.props)
+        console.log('Memver Comp',this.props)
         if(this.props.members!==null)
         return (
             <div className="row">

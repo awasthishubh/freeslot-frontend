@@ -8,8 +8,10 @@ function RenderCard(props){
         <div className="card s12">
             <div className="card-content row">
                 <span className="card-title" >Available Members</span>
-                <Sort_filter data={props.members} type="MEMBERS"/>
-                <Collapsi data={props.members}/>
+                <div className="container" style={{marginTop:40}}>
+                    <Sort_filter data={props.members} type="MEMBERS"/>
+                    <Collapsi data={props.members} view={props.view}/>
+                </div>
             </div>
         </div>
     )
@@ -24,6 +26,7 @@ export default class extends Component{
         this.dayPicker=React.createRef()
         this.submit=this.submit.bind(this)
         this.state={show:null}
+        this.viewMem=this.viewMem.bind(this)
     }
     
     componentWillUnmount(){
@@ -34,6 +37,10 @@ export default class extends Component{
         M.Timepicker.init(this.timePickerTill.current)
         M.Timepicker.init(this.timePickerFrom.current)
         $('select').formSelect();
+    }
+    viewMem(reg){
+        this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
+        this.props.selected.instance.open()
     }
     submit(){
         if(this.dayPicker.current.value!=="default" && this.timePickerFrom.current.value && this.timePickerTill.current.value){
@@ -111,7 +118,12 @@ export default class extends Component{
                     </div>
                 </div>
 
-                <RenderCard show={this.state.show} members={this.props.members} data={this.props.members}/>
+                <RenderCard 
+                    show={this.state.show} 
+                    members={this.props.members}
+                    data={this.props.members}
+                    view={this.viewMem}
+                />
             </div>
         )
     }

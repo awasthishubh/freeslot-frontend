@@ -7,15 +7,17 @@ export default class extends Component{
         super(props)
         this.collapsible=React.createRef()
         this.members=this.members.bind(this)
+        this.viewMem=this.viewMem.bind(this)
+    }
+    viewMem(reg){
+        this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
+        this.props.selected.instance.open()
     }
 
     members(){
-        var del=this.props.del
-        var verify=this.props.verify
         if(this.props.requests && this.props.requests.length>0){
-            console.log(this.props.requests,this.props.requests!==[])
             return(
-                <Collapsi data={this.props.requests} verify={this.props.verify} del={this.props.del}/>
+                <Collapsi view={this.viewMem} data={this.props.requests} verify={this.props.verify} del={this.props.del}/>
             )
         }
         else{
@@ -31,7 +33,7 @@ export default class extends Component{
     }
     
     render(){
-        console.log('requests Comp',this.props.requests)
+        console.log('requests Comp',this.props)
         if(this.props.requests!==null)
             return (
                 <div className="row">
