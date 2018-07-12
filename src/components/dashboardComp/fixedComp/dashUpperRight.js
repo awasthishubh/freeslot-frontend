@@ -7,9 +7,29 @@ var navStyle={
 export default class extends Component{
     constructor(props){
         super(props)
+        this.find=this.find.bind(this)
+    }
+    componentDidUpdate(){
+        if(this.props.data)
+        {    var data={}
+            this.props.data.map(function(mem){
+                data[mem.reg]=null
+            })
+            var elems = document.querySelectorAll('.autocomplete');
+            var instances = M.Autocomplete.init(elems, {data,
+                onAutocomplete: this.find
+            });
+        }
+    }
+
+    find(e){
+        console.log(e)
+        this.props.select(e,'UPDATE_MODAL_SELECTED')
+        console.log(this.props.selected.instance.open())
     }
     
     render(){
+        console.log('Search Bar', this.props)
         return(
         <div id="upperRightDash" style={navStyle}>
         <nav className="white" style={{ color:'#424242'}}>
@@ -18,12 +38,11 @@ export default class extends Component{
                     <li><a><span><i className="material-icons prefix" style={{display: 'inline-block',fontSize:40, color:'#424242'}}>notifications_none</i>sd</span></a></li>
                 </ul></div>
                 <div className="col m4">
-                    <form>
-                    <div class="input-field col s12">
-          <i class="material-icons prefix">textsms</i>
-          <input type="text" id="autocomplete-input" class="autocomplete"/>
-          <label for="autocomplete-input">Autocomplete</label>
-        </div>
+                    <form onSubmit={(e)=>{e.preventDefault();this.find(document.getElementById('autocomplete-input').value)}}>
+                        <div className="input-field" style={{ margin: 0}}>
+                        <i style={{marginTop: '-6px'}} className="material-icons prefix">search</i>
+                        <input type="text" id="autocomplete-input" autoComplete="off" class="autocomplete" placeholder="Search for a member"/>
+                        </div>
                     </form>
                 </div>
                 <div className="col m4">

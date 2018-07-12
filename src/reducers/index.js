@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import MemDetails from './memDetails_reducer'
-import {all, members, requests, details, token, isLoggedIn, selected} from './dashboard_reducer'
+import {dashModal,all, members, requests, details, token, isLoggedIn, selected} from './dashboard_reducer'
 import OrgReg from './orgReg_reducer'
 import {usidIsAvailable} from './orgReg_reducer'
 import {validation} from './orgReg_reducer'
@@ -12,7 +12,8 @@ const rootReducer = combineReducers({
   dashRequests: requests,
    orgToken:token, 
    isLoggedIn,
-   dashSelected:selected
+   dashSelected:selected,
+   dashModal
 });
 
 export default rootReducer;

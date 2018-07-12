@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {updateDashboardData, updateSelected} from '../../../actions/dashboard_action'
-
+import {updateData} from '../../../actions'
 import UpperLeft from './dashUpperLeft'
 import UpperRight from './dashUpperRight'
 import BottomLeft from './dashBottomLeft'
@@ -22,15 +22,13 @@ export class dashboard extends Component{
         window.sideInstance = M.Sidenav.init(elems[0]);
     }
     render(){
-        console.log(this.props)
+        console.log('dash indx',this.props)
         return(<div>
                 <div>
                     <UpperLeft/>
                     <BottomLeft selected={this.props.dashSelected} select={this.props.updateSelected} members={this.props.dashMembers} requests={this.props.dashRequests}/>
-                    <UpperRight/>
-                    <BottomRight>
-                            
-                    </BottomRight>
+                    <UpperRight data={this.props.dashMembers} selected={this.props.dashModal} select={this.props.updateData}/>
+                    <BottomRight/>
                     </div>
                     <div className="bottomRightDash" style={style}>{this.props.children}</div>
                     </div>
@@ -44,7 +42,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateDashboardData, updateSelected}, dispatch)
+    return bindActionCreators({updateDashboardData, updateSelected,updateData}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)

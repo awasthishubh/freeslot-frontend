@@ -45,7 +45,7 @@ export default class extends Component {
             </thead>
     
             <tbody>
-                <DayT slots={this.props.data.freeSlots}/>
+                <DayT slots={this.props.data.slots}/>
             </tbody>
           </table>
           </div>

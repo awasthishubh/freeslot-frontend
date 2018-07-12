@@ -7,8 +7,24 @@ import Home from './inside/home'
 import Members from './inside/members'
 import MembersReq from './inside/membersReq'
 import GetMem from './inside/getMem'
+import Chart from '../chart'
+import {updateData} from '../../actions'
 
 import FixedComp from './fixedComp'
+
+function Modal(props){
+    console.log('DashModal',props)
+    var data
+    if(props.data)
+    props.data.map(function(mem){
+        if(props.selected==mem.reg){
+            console.log(mem)
+            data= <Chart data={mem} />
+        }
+    })
+    if(data) return data
+    return <h5>Member Not Found</h5>
+}
 
 function Loader(props){
     if(!props.loggedIn)
@@ -34,6 +50,7 @@ export class dashboard extends Component{
     constructor(props){
         super(props)
         this.sideNav=React.createRef();
+        this.Modal=React.createRef();
     }
     componentDidMount(){
         console.log('Mounted Dashboard')
@@ -41,8 +58,11 @@ export class dashboard extends Component{
         window.sideInstance = M.Sidenav.init(elems[0]);
         this.props.updateDashboardData()
         console.log('home',Home)
-        window.filter=this.props.filter
-        window.members=this.props.members
+        // window.filter=this.props.filter
+        // window.members=this.props.members
+        var instance = M.Modal.init(this.Modal.current);
+        this.props.updateData(instance,'UPDATE_MODAL_INSTANCE')
+
     }
     render(){
         return(
@@ -61,24 +81,33 @@ export class dashboard extends Component{
 
                 <Route path='/dashboard/members'>
                 <FixedComp>
-                    <Members members={this.props.dashMembers} del={this.props.del}/>
+                    <Members selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del}/>
                 </FixedComp>
                 </Route>
 
                 <Route path='/dashboard/requests'>
                 <FixedComp>
-                    <MembersReq requests={this.props.dashRequests} del={this.props.del} verify={this.props.verify}/>
+                    <MembersReq selected={this.props.dashModal} updateData={this.props.updateData} requests={this.props.dashRequests} del={this.props.del} verify={this.props.verify}/>
                 </FixedComp>
                 </Route>
 
                 <Route path='/dashboard/find'>
                 <FixedComp>
-                    <GetMem members={this.props.dashMembers} del={this.props.del} />
+                    <GetMem  selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del} />
                 </FixedComp>
                 </Route>
             </Switch>
             </BrowserRouter>
             <Loader loggedIn={this.props.isLoggedIn}/>
+
+              <div id="dashModalMem" ref={this.Modal} className="modal modal-fixed-footer">
+                    <div className="modal-content">
+                        <Modal data={this.props.dashRequests?[...this.props.dashRequests, ...this.props.dashMembers] : null} selected={this.props.dashModal.selected}/>
+                    </div>
+                    <div className="modal-footer" ref={this.modalFooter}>
+                    <a href="#!" className="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>
+                    </div>
+                </div>
 
 </div>
 
@@ -92,7 +121,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateDashboardData, updateSelected,del, verify,filter}, dispatch)
+    return bindActionCreators({updateData,updateDashboardData, updateSelected,del, verify,filter,updateData}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)
