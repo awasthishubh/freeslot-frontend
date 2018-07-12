@@ -11,9 +11,11 @@ export default class extends Component{
     }
 
     render(){
-        console.log(this.props)
         var props=this.props
+        console.log('collapsi',this.props)
+        var okay=false
         var mems= this.props.data.map(function(mem){
+            if(mem.visible && (okay=true))
             return(
                 <li key={mem.reg}>
                     <div className="collapsible-header left-align">
@@ -52,12 +54,13 @@ export default class extends Component{
                 </li>
             )
         })
-
+        if(okay)
         return(
             <ul className="collapsible popout" ref={this.collapsible}>
                 {mems}
                 </ul>
         )
+        else return <div style={{textAlign: 'center', fontSize: 20, paddingBottom: 30}}>No Member found</div>
     }
 }
 // export default function(props){
