@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Collapsi from './collapsi'
+import Sort_filter from './filter-sort'
 
 export default class extends Component{
     constructor(props){
@@ -9,9 +10,7 @@ export default class extends Component{
     }
 
     members(){
-        var del=this.props.del
-        var verify=this.props.verify
-        if(this.props.members){
+        if(this.props.members && this.props.members.length>0){
             return <Collapsi data={this.props.members} del={this.props.del} />
         }
         else{
@@ -31,17 +30,20 @@ export default class extends Component{
     
     render(){
         console.log(22222,this.props)
+        if(this.props.members!==null)
         return (
             <div className="row">
                 <div className="card s12">
                     <div className="card-content row">
                         <span className="card-title">Registered Members</span>
                         <div className="container" style={{marginTop:40}}>
-                                {this.members()}
+                            <Sort_filter data={this.props.members} type="MEMBERS"/>
+                            {this.members()}
                         </div>
                     </div>
                 </div>
             </div>
         )
+        else return <div/>
     }
 }

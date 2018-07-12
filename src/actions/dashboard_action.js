@@ -65,12 +65,8 @@ export function verify(reg){
     }
 }
 
-export function filter(X,data,action){
-    data.map(function(elem){
-        if(elem.reg.slice(0,2)!==X) elem.visible=false
-    })
-    console.log('filterFun', data)
+export function modifyData(X,data,action){
     return ({
-        type: 'UPDATE_ORG_MEMBERS', data
+        type: 'UPDATE_ORG_'+action, data
     })
 }

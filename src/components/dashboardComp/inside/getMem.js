@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
 import Collapsi from './collapsi'
+import Sort_filter from './filter-sort'
 
 function RenderCard(props){
-    if(props.members)
+    if(props.show)
     return(
         <div className="card s12">
             <div className="card-content row">
                 <span className="card-title" >Available Members</span>
+                <Sort_filter data={props.members} type="MEMBERS"/>
                 <Collapsi data={props.members}/>
             </div>
         </div>
@@ -21,7 +23,7 @@ export default class extends Component{
         this.timePickerTill=React.createRef()
         this.dayPicker=React.createRef()
         this.submit=this.submit.bind(this)
-        this.state={available:null, availableMem:null}
+        this.state={show:null}
     }
     
     componentWillUnmount(){
@@ -32,9 +34,8 @@ export default class extends Component{
         M.Timepicker.init(this.timePickerTill.current)
         M.Timepicker.init(this.timePickerFrom.current)
         $('select').formSelect();
-
     }
-    async submit(){
+    submit(){
         if(this.dayPicker.current.value!=="default" && this.timePickerFrom.current.value && this.timePickerTill.current.value){
             var start=parseInt(this.timePickerFrom.current.value.slice(0,2))
             var end=parseInt(this.timePickerTill.current.value.slice(0,2))
@@ -45,22 +46,25 @@ export default class extends Component{
 
             end-=8
             start-=8
-            if(start>end) alert('choose')
+            if(start>end) return alert('choose')
             console.log(start, end, point)
 
-            var availableMem=[]
             this.props.members.map(function(mem){
                 var okay=true
                 console.log(mem.slots[point])
                 for(var i=start; i<=end; i++){
-                    if(mem.slots[point].indexOf(i)>-1)
-                    {    okay=false
-                        break}
+                    if(mem.slots[point].indexOf(i)>-1){
+                        okay=false
+                        break
+                    }
                 }
-                if(okay) availableMem.push(mem)
+                if(!okay)
+                 mem.visible=null
+                else mem.visible=true
+
             })
-            this.setState({availableMem})
-            console.log(availableMem)
+            this.forceUpdate()
+            this.setState({show:true})
             
         }
         else{
@@ -107,7 +111,7 @@ export default class extends Component{
                     </div>
                 </div>
 
-                <RenderCard members={this.state.availableMem}/>
+                <RenderCard show={this.state.show} members={this.props.members} data={this.props.members}/>
             </div>
         )
     }
