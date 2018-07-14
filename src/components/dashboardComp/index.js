@@ -9,6 +9,7 @@ import MembersReq from './inside/membersReq'
 import GetMem from './inside/getMem'
 import Chart from '../chart'
 import {updateData} from '../../actions'
+import Settings from './inside/settings'
 
 import FixedComp from './fixedComp'
 
@@ -94,6 +95,12 @@ export class dashboard extends Component{
                 <Route path='/dashboard/find'>
                 <FixedComp>
                     <GetMem  selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del} />
+                </FixedComp>
+                </Route>
+
+                <Route path='/dashboard/settings'>
+                <FixedComp>
+                    <Settings  selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del} />
                 </FixedComp>
                 </Route>
             </Switch>

@@ -11,7 +11,7 @@
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
-    "build": "npm run clean && npm run compile",
+    "build": "cd node_modules/react-script && node lib/react-script.js build",
     "clean": "rm -rf ./build/index.bundle.js",
     "compile": "NODE_ENV=production webpack --config ./webpack.config.js --progress"
   },
@@ -41,6 +41,7 @@
     "react-dom": "16.3.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "react-script": "^2.0.5",
     "redux": "4.0.0",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
