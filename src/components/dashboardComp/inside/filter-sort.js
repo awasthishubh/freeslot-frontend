@@ -3,6 +3,7 @@ import {Component} from 'react'
 import { bindActionCreators } from 'redux'
 import {connect} from  'react-redux'
 import {modifyData} from '../../../actions/dashboard_action'
+import M from 'materialize-css'
 
 
 function sortOrder(prop) {  

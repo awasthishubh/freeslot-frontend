@@ -65,7 +65,7 @@ class Org_reg extends Component {
         {
             var url= 'http://localhost:5000/oauth/'
             var params=`?usid=${this.props.OrgReg.usid}&passwd=${this.props.OrgReg.passwd}&name=${this.props.OrgReg.name}&mail_id=${this.props.OrgReg.mainEmail}@vitstudent.ac.in&descr=${this.props.OrgReg.descr}`
-            open(url+params,null,'height=480,width=640')
+            window.open(url+params,null,'height=480,width=640')
             console.log(111, params)
         }
     }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateDashboardData, updateSelected, del, verify,filter} from '../../actions/dashboard_action'
+import {updateDashboardData, del, verify} from '../../actions/dashboard_action'
 import {BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './inside/home'
 import Members from './inside/members'
@@ -9,7 +9,7 @@ import MembersReq from './inside/membersReq'
 import GetMem from './inside/getMem'
 import Chart from '../chart'
 import {updateData} from '../../actions'
-import Settings from './inside/settings'
+import M from 'materialize-css'
 
 import FixedComp from './fixedComp'
 
@@ -97,12 +97,6 @@ export class dashboard extends Component{
                     <GetMem  selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del} />
                 </FixedComp>
                 </Route>
-
-                <Route path='/dashboard/settings'>
-                <FixedComp>
-                    <Settings  selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del} />
-                </FixedComp>
-                </Route>
             </Switch>
             </BrowserRouter>
             <Loader loggedIn={this.props.isLoggedIn}/>
@@ -128,7 +122,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateData,updateDashboardData, updateSelected,del, verify,filter,updateData}, dispatch)
+    return bindActionCreators({updateData,updateDashboardData,del, verify,updateData}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)

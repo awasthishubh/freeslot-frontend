@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import M from 'materialize-css'
 
 export default class extends Component{
     constructor(props){
@@ -46,7 +47,7 @@ export default class extends Component{
     
                         {(()=>{
                             if(props.del)
-                            return <a href="#" onClick={()=>{if(confirm('Are you sure?')) props.del(mem.reg)}}>Remove</a>
+                            return <a href="#" onClick={()=>{if((alert('Are you sure?'))) props.del(mem.reg)}}>Remove</a>
                         })() }
                         
                     </div>
