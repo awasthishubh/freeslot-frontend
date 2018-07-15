@@ -2,15 +2,16 @@ import React from 'react'
 import {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateData} from '../actions/index.js'
+import {updateData} from '../../actions/index.js'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 class orgLogin extends Component{
     constructor(props){
         super(props)
         this.isFilled=this.isFilled.bind(this)
         this.send=this.send.bind(this)
-        this.state={login_usid:false, login_pass:false}
+        this.state={login_usid:false, login_pass:false, err: null}
 
     }
     isFilled(e){
@@ -28,20 +29,27 @@ class orgLogin extends Component{
     async send(){
 
         if(this.state.login_usid && this.state.login_pass){
+            console.log(this.state.login_usid , this.state.login_usid)
             var form = new FormData();
-            form.append('usid','ieee')
-            form.append('passwd','random')
-            var request=await axios.post('http://localhost:5000/auth',form)
-            console.log(request.data)
-            this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
-            this.props.updateData(request.data.access_token,'UPDATE_ORG_TOKEN')
-        }
+            form.append('usid',this.state.login_usid)
+            form.append('passwd',this.state.login_pass)
+            try{
+                var request=await axios.post('http://localhost:5000/auth',form)
+                console.log('login',request.data.info)
+                this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
+                this.setState({'err':null})
+                Cookies.set('token', request.data.access_token, { expires: 7 });
+                window.location = "/dashboard";
+            } catch(e){
+                this.setState({'err':'Invalid id/password'})
+            }
+        } else this.setState({'err':'Enter id and password'})
     }
     render(){
         console.log(this.props)
         return(
-            <div className="card" id="">
-                <div className="card-content row">    
+                <div className="row"> 
+                <div className="col s12"><h5><center>Enter your login credentials</center></h5></div>   
                 <form>
                         <div className="input-field col s12">
                             <input id='login_usid' className="" onChange={this.isFilled} type="text" />
@@ -53,11 +61,14 @@ class orgLogin extends Component{
                             <label htmlFor='login_pass' >Password</label>
                             <span className="helper-text" data-error="Password in required"></span>
                         </div>
+                    <div className="red-text">{this.state.err}</div>
                     <center><a className="waves-effect waves-light btn" onClick={this.send}>Login</a></center>
 
                     </form>
+                    <div className="col s12" style={{marginTop:40,textAlign:'right', color:'grey'}}>
+                        <a href="#" onClick={(e)=>this.props.change(true)}>Register your Organisation?</a>
+                    </div>
                 </div>
-              </div>
         )
     }
 }
