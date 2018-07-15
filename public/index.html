@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="/style/materialize.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover.css" />
   <script  src="https://shivanksahai.github.io/ACM_Reach_Out_To_Us-Frontend-/resources/js/materialize.min.js"></script>
 
@@ -44,7 +44,7 @@
         position: relative!important;
       }
       body {
-      font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
     .nItem {
       padding-left: 20px;
@@ -79,17 +79,35 @@
     padding-bottom: 0px
   }
 
-  .timepicker-modal{
-    top:140px!important
-  }
+.timepicker-modal{
+  top:140px!important
+}
+ul.home > .active{
+  background-color: white!important;
+}
+
+.homeBack{
+  background: url('https://acmvit.in/img/background.png')
+}
+.homebtn, .homebtn:hover{
+  color: white;
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 5px
+}
 
 @media screen and (max-width:950px){
-  .bottomRightDash{
+  .innerDash{
     width: 700px!important
   }
 }
 
+
+
 @media screen and (max-width:600px){
+  nav{
+    line-height: 64px!important;
+  }
   .card{
     height: auto!important;
   }
@@ -132,6 +150,20 @@
   .memCollapsi{
     padding: 5px;
     padding-top: 20px;
+  }
+}
+
+ul.dropdown-content{
+  max-height: 40vh!important;
+}
+@media screen and (max-width: 500px){
+/*HOME*/
+  .startC{
+    padding: 3vw!important;
+    font-size: 4.1vw!important;
+  }
+  .despHome{
+    font-size:5vw!important
   }
 }
 

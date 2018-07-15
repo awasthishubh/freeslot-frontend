@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Collapsi from './collapsi'
 import Sort_filter from './filter-sort'
 import M from 'materialize-css'
+import $ from 'jquery'
 
 function RenderCard(props){
     if(props.show)
@@ -37,7 +38,8 @@ export default class extends Component{
         document.getElementById('dashGetMem').classList.add('active')
         M.Timepicker.init(this.timePickerTill.current)
         M.Timepicker.init(this.timePickerFrom.current)
-        // $('select').formSelect();
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
     }
     viewMem(reg){
         this.props.updateData(reg,'UPDATE_MODAL_SELECTED')

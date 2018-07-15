@@ -15,26 +15,22 @@
   "author": "Shubham Awasthi",
   "license": "ISC",
   "dependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4",
     "axios": "^0.18.0",
     "chart.js": "^2.7.2",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
-    "materialize-css": "^1.0.0-rc.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
     "redux": "4.0.0",
     "redux-thunk": "^2.3.0",
     "request": "^2.87.0"
   },
   "bugs": {
     "url": "https://github.com/awasthishubh/freeslots-frontend/issues"
-  },
-  "homepage": "https://github.com/awasthishubh/freeslots-frontend#readme",
-  "directories": {
-    "test": "test"
   },
   "keywords": [
     "timetabel",

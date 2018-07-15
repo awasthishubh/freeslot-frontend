@@ -1,10 +1,12 @@
 import React from 'react'
 import {Component} from 'react'
 import {connect} from 'react-redux'
-import { updateData, updateOrg } from '../actions'
+import { updateData, updateOrg } from '../../actions'
 import { bindActionCreators } from 'redux'
 import axios from 'axios'
-import Chart from './chart'
+import Chart from '../chart'
+import $ from 'jquery'
+import M from 'materialize-css'
 
 const Options=props=>{
     console.log(props)
@@ -51,19 +53,26 @@ class Submit_card extends Component {
         this.validateEmail=this.validateEmail.bind(this)
         this.validatePhno=this.validatePhno.bind(this)
         this.onChange=this.onChange.bind(this)
+        this.close=this.close.bind(this)
         this.modalDom = React.createRef();
         this.modalFooter = React.createRef();
     }validateEmail
 
     componentDidMount() {
-        $('select').formSelect();
-        $('.modal').modal();
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+        
+        // $('.modal').modal();
         console.log(this.props.updateOrg)
         this.props.updateOrg()
     }
 
     componentDidUpdate(){
-        $('select').formSelect();
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    }
+    componentWillUnmount(){
+        
     }
     mem(){
         if(this.modalDom.current)
@@ -89,7 +98,7 @@ class Submit_card extends Component {
         }
         else if(this.state.subMiss){
             return(
-                <div><h4>Incomplete form</h4>You missed <b>{this.state.subMiss}</b> fild</div>
+                <div><h4>Incomplete form</h4>You missed <b>{this.state.subMiss}</b> field</div>
                 )
         }
         else return null
@@ -186,6 +195,13 @@ class Submit_card extends Component {
                 var response=await axios.post('http://localhost:5000/members', form)
                 console.log(response.data.status);
                 this.setState({'subMem':response.data})
+                this.props.updateData('', 'UPDATE_NAME')
+                this.props.updateData('', 'UPDATE_REG')
+                this.props.updateData('', 'UPDATE_EMAIL')
+                this.props.updateData('', 'UPDATE_PHNO')
+                this.props.updateData('', 'UPDATE_TT')
+                this.props.updateData('', 'UPDATE_ORG')
+                return
             } 
             catch(error){
                 this.setState({'subErr':error.response})
@@ -194,68 +210,97 @@ class Submit_card extends Component {
         }
         M.Modal.getInstance(this.modalDom.current).open();
     }
+    close(){
+        M.Modal.getInstance(this.modalDom.current).close()
+    }
     
     render(){
         console.log(11212,this.props)
+       
+        if(!this.state.subMem)
         return(
-            <div className="card" id="frm">
-                <div className="card-content">
-                    <div className="row">
-                            <div className="input-field col s12">
-                                <input id='mem_name' type="text" value={this.props.MemDetails.name}  onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)} />
-                                <label htmlFor='mem_name'>Name</label>
-                                <span className="helper-text" data-error="Name is required"></span>
-                            </div>
+            <div id="memReg" class="modal" style={{top:'5%!important', maxHeight:'85%'}}>
+                <div class="modal-content">
+                <h4>Enter Your Details</h4>
+                    <div className="card-content">
+                        <div className="row">
+                            <form id="regfrm">
+                                <div className="input-field col m6 s12">
+                                    <input id='mem_name' type="text" value={this.props.MemDetails.name}  onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)} />
+                                    <label htmlFor='mem_name'>Name</label>
+                                    <span className="helper-text" data-error="Name is required"></span>
+                                </div>
+                                <div className="input-field col m6 s12">
+                                        <Options list={this.props.orgAll} update={this.props.updateData} />
+                                    <label>Organisation</label>
+                                </div>
 
-                            <div className="input-field col s12">
-                                <input className="" id='mem_reg' type="text" value={this.props.MemDetails.reg}  onChange={(e)=>{e.target.value=e.target.value.toUpperCase();this.onChange(e,'UPDATE_REG')}} onBlur={this.validateReg} />
-                                <label htmlFor='mem_reg'>Registration Number</label>
-                                <span className="helper-text" data-error="Enter a valid registration number"></span>
-                            </div>
+                                <div className="input-field col m6 s12">
+                                    <input className="" id='mem_reg' type="text" value={this.props.MemDetails.reg}  onChange={(e)=>{e.target.value=e.target.value.toUpperCase();this.onChange(e,'UPDATE_REG')}} onBlur={this.validateReg} />
+                                    <label htmlFor='mem_reg'>Registration Number</label>
+                                    <span className="helper-text" data-error="Enter a valid registration number"></span>
+                                </div>
+                                
+                                <div className="input-field col m6 s12">
+                                    <input id='mem_email' type="email" className="" value={this.props.MemDetails.email}  onChange={(e)=>this.onChange(e,'UPDATE_EMAIL')} onBlur={this.validateEmail} />
+                                    <label htmlFor='mem_email'>Email</label>
+                                    <span className="helper-text" data-error="Enter a valid email address"></span>
+                                </div>
+
+                                <div className="input-field col m6 s12">
+                                    <input id='mem_phno' type="number" value={this.props.MemDetails.phno}  onChange={(e)=>this.onChange(e,'UPDATE_PHNO')} onBlur={this.validatePhno}/>
+                                    <label htmlFor='mem_phno'>Phone Number</label>
+                                    <span className="helper-text" data-error="Enter a valid 10 digint Phone Number"></span>
+                                </div>
+                                
+
+                                <div className="file-field input-field col m6 s12">
+                                    <div className="btn">
+                                        <span>TimeTable</span>
+                                        <input id="fle" type="file" onChange={this.validateFile} />
+                                    </div>
+                                    <div className="file-path-wrapper">
+                                        <input className="file-path" type="text" />
+                                    <span className="helper-text" data-error="Select a PNG file only"></span>
+                                    </div>
+                                </div>
+
+                                <div className="col s12" style={{textAlign:'center', marginTop:7}}>
+                                    <a className="waves-effect waves-light btn" onClick={this.submit}><i className="material-icons left">cloud</i>button</a>
+                                </div>
+                            </form>
                             
-                            <div className="input-field col s12">
-                                <input id='mem_email' type="email" className="" value={this.props.MemDetails.email}  onChange={(e)=>this.onChange(e,'UPDATE_EMAIL')} onBlur={this.validateEmail} />
-                                <label htmlFor='mem_email'>Email</label>
-                                <span className="helper-text" data-error="Enter a valid email address"></span>
-                            </div>
 
-                            <div className="input-field col s12">
-                                <input id='mem_phno' type="number" value={this.props.MemDetails.phno}  onChange={(e)=>this.onChange(e,'UPDATE_PHNO')} onBlur={this.validatePhno}/>
-                                <label htmlFor='mem_phno'>Phone Number</label>
-                                <span className="helper-text" data-error="Enter a valid 10 digint Phone Number"></span>
-                            </div>
-                            <div className="input-field col s12">
-                                    <Options list={this.props.orgAll} update={this.props.updateData} />
-                                <label>Organisation</label>
-                            </div>
-
-                            <div className="file-field input-field col s12">
-                                <div className="btn">
-                                    <span>File</span>
-                                    <input id="fle" type="file" onChange={this.validateFile} />
-                                </div>
-                                <div className="file-path-wrapper">
-                                    <input className="file-path" type="text" />
-                                <span className="helper-text" data-error="Select a PNG file only"></span>
-                                </div>
-                            </div>
-
-                            <a className="waves-effect waves-light btn-large" onClick={this.submit}><i className="material-icons left">cloud</i>button</a>
-                        
-
-  <div ref={this.modalDom} className="modal">
-    <div className="modal-content">
-    
-      {this.mem()}
+    <div ref={this.modalDom} className="modal">
+        <div className="modal-content">
+        
+        {this.mem()}
+        </div>
+        <div className="modal-footer" ref={this.modalFooter}>
+        <a href="#!" onClick={this.close} className="waves-effect waves-green btn-flat"><b>Close</b></a>
+        </div>
     </div>
-    <div className="modal-footer" ref={this.modalFooter}>
-      <a href="#!" className="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>
-    </div>
-  </div>
+                        </div>
                     </div>
-                </div>
+                    </div>
+
+                    
             </div>
         )
+        else{
+            return (
+                <div id="memReg" class="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
+                    <div class="modal-content">
+                        <h6>Registered Successfully!</h6><hr/>
+                        <Chart data={this.state.subMem.data} />
+                    </div>
+                    <div class="modal-footer">
+                        <a onClick={()=>this.setState({'subMem':null})} href="#!" class="waves-effect waves-green btn-flat">Submit Another</a>
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                    </div>
+                </div>
+            )
+        }
         
     }
 }

@@ -47,7 +47,7 @@ export default class extends Component{
     
                         {(()=>{
                             if(props.del)
-                            return <a href="#" onClick={()=>{if((alert('Are you sure?'))) props.del(mem.reg)}}>Remove</a>
+                            return <a href="#" onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg)}}>Remove</a>
                         })() }
                         
                     </div>
