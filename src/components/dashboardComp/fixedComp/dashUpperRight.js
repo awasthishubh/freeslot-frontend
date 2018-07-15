@@ -35,21 +35,17 @@ export default class extends Component{
         <div id="upperRightDash" style={navStyle}>
         <nav className="white" style={{ color:'#424242'}}>
             <div className="nav-wrapper row">
-                <div className="col m4"><ul className="left hide">
-                    <li><a><span><i className="material-icons prefix" style={{display: 'inline-block',fontSize:40, color:'#424242'}}>notifications_none</i>sd</span></a></li>
-                </ul></div>
-                <div className="col m4">
+                <div className="col m6 offset-m3 s9">
                     <form onSubmit={(e)=>{e.preventDefault();this.find(document.getElementById('autocomplete-input').value)}}>
                         <div className="input-field" style={{ margin: 0}}>
                         <i style={{marginTop: '-6px'}} className="material-icons prefix">search</i>
-                        <input type="text" id="autocomplete-input" autoComplete="off" class="autocomplete" placeholder="Search for a member"/>
+                        <input type="text" id="autocomplete-input" autoComplete="off" class="autocomplete" placeholder="Search by registration number"/>
                         </div>
                     </form>
                 </div>
-                <div className="col m4">
-                    <ul className="right hide" >
-                    <li><img className="circle responsive-img" src="https://www.macupdate.com/images/icons256/57631.png" style={{margin:10,height:44}}/></li>
-                        <li><a><i className="material-icons prefix" style={{fontSize:40, color:'#424242'}}>settings</i></a></li>
+                <div className="col s3">
+                    <ul className="right" >
+                        <li><a onClick={this.props.update}><i className="material-icons prefix" style={{fontSize:40, color:'#424242'}}>refresh</i></a></li>
                     </ul>
                 </div>
             </div>
