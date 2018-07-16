@@ -1,0 +1,12 @@
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script>
+    if(window.location.hash){
+        var tk=window.location.hash.slice(1).split('=')
+        if(tk.length===2){
+            Cookies.set(tk[0], tk[1], { expires: 7 });
+            opener.postMessage(tk[1],"*");
+        }
+    }
+    window.close()
+
+</script>

@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {updateData} from '../../actions/index.js'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import serverBaseURL from '../../serverBaseURL';
 
 class orgLogin extends Component{
     constructor(props){
@@ -34,12 +35,13 @@ class orgLogin extends Component{
             form.append('usid',this.state.login_usid)
             form.append('passwd',this.state.login_pass)
             try{
-                var request=await axios.post('http://localhost:5000/auth',form)
+                var request=await axios.post(serverBaseURL+'/auth',form)
                 console.log('login',request.data.info)
                 this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
                 this.setState({'err':null})
                 Cookies.set('token', request.data.access_token, { expires: 7 });
-                window.location = "/dashboard";
+                window.location.href = "#/dashboard";
+                window.location.reload();
             } catch(e){
                 this.setState({'err':'Invalid id/password'})
             }

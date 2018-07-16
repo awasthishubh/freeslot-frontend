@@ -1,17 +1,18 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import serverBaseURL from '../serverBaseURL.js';
 window.Cookies=Cookies
 var token=Cookies.get('token')
 var optionsOrg = {
     method: 'GET',
     headers: { 'Authorization': 'Bearer '+token},
-    url: 'http://localhost:5000/auth/org'
+    url: serverBaseURL+'/auth/org'
 };
 
 var optionsMem = {
     method: 'GET',
     headers: { 'Authorization': 'Bearer '+token},
-    url: 'http://localhost:5000/auth/members'
+    url: serverBaseURL+'/auth/members'
 };
 
 export function updateDashboardData(){
@@ -25,7 +26,6 @@ export function updateDashboardData(){
             dispatch({type:'UPDATE_ORG_REQUESTS', data:mem.data.data.unverified})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
-            alert()
             console.log(e)
             dispatch({type:'UPDATE_ORG_LOGGED', data:false})
         }
@@ -37,7 +37,7 @@ export function del(reg){
     return async function(dispatch){
         dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         await axios({
-            url:`http://localhost:5000/auth/members?reg=${reg}`,
+            url:`${serverBaseURL}/auth/members?reg=${reg}`,
             headers: { 'Authorization': 'Bearer '+token},
             method: 'DELETE',
         })
@@ -54,7 +54,7 @@ export function verify(reg){
     return async function(dispatch){
         dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         await axios({
-            url:`http://localhost:5000/auth/members?reg=${reg}`,
+            url:`${serverBaseURL}/auth/members?reg=${reg}`,
             headers: { 'Authorization': 'Bearer '+token},
             method: 'PUT',
         })

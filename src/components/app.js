@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 // import Org_login from './org_login'
 import Dashboard from './dashboardComp'
 import Home from './home'
-import {BrowserRouter, Route, Switch } from 'react-router-dom'
+import {HashRouter, Route, Switch } from 'react-router-dom'
 
 
 export default class App extends Component {
@@ -14,16 +14,17 @@ export default class App extends Component {
   render() {
     return(
       <div>
-        <BrowserRouter>
+        <HashRouter>
         <Switch>
-            <Route path='/dashboard/'>
+            <Route path='/dashboard'>
               <Dashboard/>
             </Route>
             <Route path='/'>
               <Home/>
             </Route>
+            
         </Switch>
-        </BrowserRouter>
+        </HashRouter>
       </div>
       )
   }

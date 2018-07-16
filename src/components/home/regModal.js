@@ -7,6 +7,8 @@ import axios from 'axios'
 import Chart from '../chart'
 import $ from 'jquery'
 import M from 'materialize-css'
+import serverBaseURL from '../../serverBaseURL';
+
 
 const Options=props=>{
     console.log(props)
@@ -192,7 +194,7 @@ class Submit_card extends Component {
             }
             console.log(form)
             try{     
-                var response=await axios.post('http://localhost:5000/members', form)
+                var response=await axios.post(serverBaseURL+'/members', form)
                 console.log(response.data.status);
                 this.setState({'subMem':response.data})
                 this.props.updateData('', 'UPDATE_NAME')

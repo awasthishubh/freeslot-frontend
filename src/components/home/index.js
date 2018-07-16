@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import M from 'materialize-css'
 import RegModal from './regModal'
+import OrgModal from './orgModal'
 var backStyle={
     position: 'absolute',
     top: 0,
@@ -30,9 +31,10 @@ export default class extends Component{
                 <a href="#memReg" class="hvr-grow hoverable modal-trigger homebtn col offset-l3 offset-s1 offset-m2 m3 l2 s4 waves-effect waves-light btn-large">
                     <i class="hide-on-small-only material-icons left">person</i>Member
                 </a>
-                <a class="hvr-grow hoverable modal-trigger homebtn col  offset-l2  offset-s1  offset-m2 m3 l2 s5 waves-effect waves-light btn-large"><i class="hide-on-small-only material-icons right">people</i>Organisation</a>
+                <a  href="#orgReg" class="hvr-grow hoverable modal-trigger homebtn col  offset-l2  offset-s1  offset-m2 m3 l2 s5 waves-effect waves-light btn-large"><i class="hide-on-small-only material-icons right">people</i>Organisation</a>
             </div>
             <RegModal/>
+            <OrgModal/>
                 
             </div>
         )

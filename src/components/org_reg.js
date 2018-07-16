@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {updateData, isAvailableUpdate} from '../actions/index.js'
 import axios from 'axios'
+import serverBaseURL from '../serverBaseURL';
 
 var typingTimer
 
@@ -28,7 +29,7 @@ class Org_reg extends Component {
         var updateData=this.props.updateData
         typingTimer = setTimeout(async function(){
         try{
-            var data= await axios.get('http://localhost:5000/organisations')
+            var data= await axios.get(serverBaseURL+'/organisations')
             console.log(data)
             var isAvailable=true;
             data.data.map(function(data){
@@ -63,7 +64,7 @@ class Org_reg extends Component {
         console.log(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.mainEmail && vailidation.cPasswd)
         if(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.mainEmail && vailidation.cPasswd )
         {
-            var url= 'http://localhost:5000/oauth/'
+            var url= serverBaseURL+'/oauth/'
             var params=`?usid=${this.props.OrgReg.usid}&passwd=${this.props.OrgReg.passwd}&name=${this.props.OrgReg.name}&mail_id=${this.props.OrgReg.mainEmail}@vitstudent.ac.in&descr=${this.props.OrgReg.descr}`
             window.open(url+params,null,'height=480,width=640')
             console.log(111, params)

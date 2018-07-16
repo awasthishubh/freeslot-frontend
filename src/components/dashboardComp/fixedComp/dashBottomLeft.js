@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-
+import Cookies from 'js-cookie'
 var navStyle={
     position: 'fixed',
     width: '300px',
@@ -14,6 +14,10 @@ var navStyle={
 export default class extends Component{
     constructor(props){
         super(props)
+    }
+    logout(){
+        Cookies.set('token',null)
+        window.location.href='/'
     }
      
     render(){
@@ -54,10 +58,10 @@ export default class extends Component{
                 <i className="material-icons" style={{display: 'inline-block'}}>settings</i>
                 <span className="sideName">Settings</span>
             </Link>
-            <Link to="/dashboard/find" id="dashHome" href="#!" className="nItem" >
+            <a href="#" id="dashHome" className="nItem" onClick={this.logout} >
                 <i className="material-icons" style={{display: 'inline-block'}}>all_out</i>
                 <span className="sideName">Logout</span>
-            </Link>
+            </a>
         </div>
         </div>
         </nav>

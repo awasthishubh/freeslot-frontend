@@ -7,7 +7,8 @@ export default function(state, action){
             cPasswd: '',
             mainName: '',
             mainEmail: '',
-            descr: ''
+            descr: '',
+            dp: ''
         }
         return defaultState
     }
@@ -18,7 +19,8 @@ export default function(state, action){
         cPasswd: state.cPasswd,
         mainName: state.mainName,
         mainEmail: state.mainEmail,
-        descr:state.descr
+        descr:state.descr,
+        dp:state.dp
     }
     
     switch(action.type){
@@ -49,6 +51,9 @@ export default function(state, action){
         case 'UPDATE_ORG_DESCR':
             newState.descr=action.data
             return newState
+        case 'UPDATE_ORG_DP':
+            newState.dp=action.data
+            return newState
     }
     return newState
 }
@@ -57,8 +62,9 @@ export function usidIsAvailable(state, action){
     if(!state){
         return null
     }
-
-    if(action.type=="isAvailable"){
+    console.log('orgRed,isav', action)
+    if(action.type==="isAvailable"){
+        alert('zx')
         return action.data
     }
     return state

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {updateDashboardData, del, verify} from '../../actions/dashboard_action'
-import {BrowserRouter, Route, Switch } from 'react-router-dom'
+import {HashRouter, Route, Switch } from 'react-router-dom'
 import Home from './inside/home'
 import Members from './inside/members'
 import MembersReq from './inside/membersReq'
@@ -11,6 +11,7 @@ import Chart from '../chart'
 import {updateData} from '../../actions'
 import Settings from './inside/settings'
 import M from 'materialize-css'
+import Cookies from 'js-cookie'
 
 import FixedComp from './fixedComp'
 
@@ -54,6 +55,12 @@ export class dashboard extends Component{
         this.sideNav=React.createRef();
         this.Modal=React.createRef();
     }
+    componentDidUpdate(){
+        if(this.props.isLoggedIn==false){
+            // Cookies.set()
+            window.location.href='/'
+        }
+    }
     componentDidMount(){
         console.log('Mounted Dashboard')
         var elems = document.querySelectorAll('.sidenav');
@@ -69,10 +76,12 @@ export class dashboard extends Component{
     render(){
         return(
         <div>
-            <BrowserRouter>
+            <HashRouter>
             <Switch>
                 <Route exact path='/dashboard/'>
-                    <FixedComp/>
+                    <FixedComp>
+                    <Home members={this.props.dashMembers} requests={this.props.dashRequests} details={this.props.dashDetails}/>
+                    </FixedComp>
                 </Route>
 
                 <Route path='/dashboard/home'>
@@ -105,7 +114,7 @@ export class dashboard extends Component{
                 </FixedComp>
                 </Route>
             </Switch>
-            </BrowserRouter>
+            </HashRouter>
             <Loader loggedIn={this.props.isLoggedIn}/>
 
               <div id="dashModalMem" ref={this.Modal} className="modal modal-fixed-footer">
