@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import Collapsi from './collapsi'
-import Sort_filter from './filter-sort'
+import SortFilter from './filter-sort'
 import M from 'materialize-css'
-import $ from 'jquery'
 
 function RenderCard(props){
     if(props.show)
@@ -11,7 +10,7 @@ function RenderCard(props){
             <div className="card-content row">
                 <span className="card-title" >Available Members</span>
                 <div className="container" style={{marginTop:40}}>
-                    <Sort_filter data={props.members} type="MEMBERS"/>
+                    <SortFilter data={props.members} type="MEMBERS"/>
                     <Collapsi data={props.members} view={props.view}/>
                 </div>
             </div>
@@ -47,12 +46,12 @@ export default class extends Component{
     }
     submit(){
         if(this.dayPicker.current.value!=="default" && this.timePickerFrom.current.value && this.timePickerTill.current.value){
-            var start=parseInt(this.timePickerFrom.current.value.slice(0,2))
-            var end=parseInt(this.timePickerTill.current.value.slice(0,2))
-            var point=parseInt(this.dayPicker.current.value)
-            if(this.timePickerTill.current.value.slice(-2)=="PM") end+=12
-            if(this.timePickerFrom.current.value.slice(-2)=="PM") start+=12
-            if(this.timePickerTill.current.value.slice(-5,-3)=="00") end-=1
+            var start=parseInt(this.timePickerFrom.current.value.slice(0,2),10)
+            var end=parseInt(this.timePickerTill.current.value.slice(0,2),10)
+            var point=parseInt(this.dayPicker.current.value,10) 
+            if(this.timePickerTill.current.value.slice(-2)==="PM") end+=12
+            if(this.timePickerFrom.current.value.slice(-2)==="PM") start+=12
+            if(this.timePickerTill.current.value.slice(-5,-3)==="00") end-=1
 
             end-=8
             start-=8
@@ -71,6 +70,7 @@ export default class extends Component{
                 if(!okay)
                  mem.visible=null
                 else mem.visible=true
+                return mem
 
             })
             this.forceUpdate()

@@ -15,9 +15,10 @@ export default class extends Component{
         {    var data={}
             this.props.data.map(function(mem){
                 data[mem.reg]=null
+                return mem
             })
             var elems = document.querySelectorAll('.autocomplete');
-            var instances = M.Autocomplete.init(elems, {data,
+            M.Autocomplete.init(elems, {data,
                 onAutocomplete: this.find
             });
         }

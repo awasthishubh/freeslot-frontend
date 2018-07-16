@@ -31,6 +31,7 @@ class filterSort extends Component{
             this.props.data.map(function(elem){
                 if(elem.visible!==null)
                 elem.visible=true
+                return null
             })
             this.props.data.sort(sortOrder('name'))  
             this.props.modifyData(null, this.props.data, this.props.type)
@@ -46,13 +47,12 @@ class filterSort extends Component{
         var data=this.props.data
         if(data){    
             data.map(function(elem){
-                console.log('Filter props',elem.reg.slice(0,2))
-                console.log('Filter props',X)
                 if(elem.visible!==null)
                 {    
-                    if(!X || elem.reg.slice(0,2)==X) elem.visible=true
+                    if(!X || elem.reg.slice(0,2)===X) elem.visible=true
                     else elem.visible=false
                 }
+                return null
             })
             this.props.modifyData(X, data, this.props.type)
         }

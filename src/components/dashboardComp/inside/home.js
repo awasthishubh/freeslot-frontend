@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 
 function Details(props){
     return(
@@ -9,7 +8,7 @@ function Details(props){
                     <span className="card-title">{props.title}</span>
                     <div  className="valign-wrapper" style={{ height: '100%'}} >
                         <div style={{fontSize:20, textAlign:'center',width:'100%'}}>
-                        <img className="circle responsive-img" src={props.img} style={{height:'20vh'}}/>
+                        <img alt="Logo" className="responsive-img" src={props.img} style={{height:'20vh'}}/>
                             <h5>{props.name}</h5>
                             <p>{props.tag}</p>
                         </div>
@@ -38,9 +37,6 @@ function ShowP(props){
 
 
 export default class extends Component{
-    constructor(props){
-        super(props)
-    }
     componentDidMount(){
         document.getElementById('dashHome').classList.add('active')
     }
@@ -54,7 +50,7 @@ export default class extends Component{
         return(
             <div style={{height:'100%'}} >
             <div className="row dashRow" style={{height:'55%'}}>
-                <Details img="https://www.macupdate.com/images/icons256/57631.png" name={this.props.details.name} tag={this.props.details.descr}/>
+                <Details img={this.props.details.dp} name={this.props.details.name} tag={this.props.details.descr}/>
                 <Details title="Maintainer" img={this.props.details.maintainer_photo} name={this.props.details.maintainer_name}/>
             </div>
             <div className="row dashRow" style={{height:'35%'}}>

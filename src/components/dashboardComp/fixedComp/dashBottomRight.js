@@ -5,10 +5,6 @@ var navStyle={
 }
 
 export default class dash extends Component{
-    constructor(props){
-        super(props)
-    }
-
     render(){
         console.log('zxzxzxzx',this.props)
         return(

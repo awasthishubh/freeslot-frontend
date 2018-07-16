@@ -42,6 +42,7 @@ export default function(state=defaultState, action){
         case 'UPDATE_TT':
             newState.timeTable=action.data
             return newState
+        default:
+            return newState
     }
-    return newState
 }

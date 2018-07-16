@@ -43,6 +43,10 @@ class orgLogin extends Component{
                 window.location.href = "#/dashboard";
                 window.location.reload();
             } catch(e){
+                console.log(e.response  )
+                if(e.response)
+                this.setState({'err':'Invalid id/password'})
+                else 
                 this.setState({'err':'Invalid id/password'})
             }
         } else this.setState({'err':'Enter id and password'})
@@ -59,7 +63,7 @@ class orgLogin extends Component{
                             <span className="helper-text" data-error="Organisation id is required"></span>
                         </div>
                         <div className="input-field col s12">
-                            <input id='login_pass' type="text" onChange={this.isFilled}  />
+                            <input id='login_pass' type="password" onChange={this.isFilled}  />
                             <label htmlFor='login_pass' >Password</label>
                             <span className="helper-text" data-error="Password in required"></span>
                         </div>
@@ -68,7 +72,7 @@ class orgLogin extends Component{
 
                     </form>
                     <div className="col s12" style={{marginTop:40,textAlign:'right', color:'grey'}}>
-                        <a href="#" onClick={(e)=>this.props.change(true)}>Register your Organisation?</a>
+                        <a style={{cursor:'pointer'}} onClick={(e)=>this.props.change(true)}>Register your Organisation?</a>
                     </div>
                 </div>
         )

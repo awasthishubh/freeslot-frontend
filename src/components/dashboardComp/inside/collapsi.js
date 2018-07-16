@@ -10,6 +10,10 @@ export default class extends Component{
         console.log(this.collapsible)
         M.Collapsible.init(this.collapsible.current);
     }
+    componentDidUpdate(){
+        console.log(this.collapsible)
+        M.Collapsible.init(this.collapsible.current);
+    }
 
     render(){
         var props=this.props
@@ -37,23 +41,24 @@ export default class extends Component{
                     <div class="card-action">
                     {(()=>{
                             if(props.view)
-                                return <a href="#" onClick={()=>props.view(mem.reg)}>View more</a>
+                                return <a style={{cursor:'pointer'}} onClick={()=>props.view(mem.reg)}>View more</a>
                         })()}
 
                         {(()=>{
                             if(props.verify)
-                                return <a href="#" onClick={()=>props.verify(mem.reg)}>Accept</a>
+                                return <a style={{cursor:'pointer'}} onClick={()=>props.verify(mem.reg)}>Accept</a>
                         })()}
     
                         {(()=>{
                             if(props.del)
-                            return <a href="#" onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg)}}>Remove</a>
+                            return <a style={{cursor:'pointer'}} onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg)}}>Remove</a>
                         })() }
                         
                     </div>
                     </div>
                 </li>
             )
+            else return null
         })
         if(okay)
         return(

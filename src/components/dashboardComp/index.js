@@ -11,7 +11,6 @@ import Chart from '../chart'
 import {updateData} from '../../actions'
 import Settings from './inside/settings'
 import M from 'materialize-css'
-import Cookies from 'js-cookie'
 
 import FixedComp from './fixedComp'
 
@@ -20,10 +19,11 @@ function Modal(props){
     var data
     if(props.data)
     props.data.map(function(mem){
-        if(props.selected==mem.reg){
+        if(props.selected===mem.reg){
             console.log(mem)
             data= <Chart data={mem} />
         }
+        return null
     })
     if(data) return data
     return <h5>Member Not Found</h5>
@@ -56,7 +56,7 @@ export class dashboard extends Component{
         this.Modal=React.createRef();
     }
     componentDidUpdate(){
-        if(this.props.isLoggedIn==false){
+        if(this.props.isLoggedIn===false){
             // Cookies.set()
             window.location.href='/'
         }
@@ -138,7 +138,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateData,updateDashboardData, del, verify,updateData}, dispatch)
+    return bindActionCreators({updateData,updateDashboardData, del, verify}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)

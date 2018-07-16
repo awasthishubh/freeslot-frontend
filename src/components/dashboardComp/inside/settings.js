@@ -25,7 +25,7 @@ export default class extends Component{
                                 <input disabled type="text" value="Hi" style={{color:'#37474f'}} onBlur={this.deFocus}/>
                             </div>
                             <div className="col s1" style={{padding:0}}>
-                            <a href="#" onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></a>
+                            <a style={{cursor:'pointer'}} onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></a>
                             </div>
                         </div>
                     </div>

@@ -54,8 +54,9 @@ export default function(state, action){
         case 'UPDATE_ORG_DP':
             newState.dp=action.data
             return newState
+        default:
+            return newState
     }
-    return newState
 }
 
 export function usidIsAvailable(state, action){
@@ -122,6 +123,7 @@ export function validation(state, action){
         case 'VALIDIATE_ORG_DESCR':
             newState.descr=action.data
             return newState
+        default:
+            return newState
     }
-    return newState
 }

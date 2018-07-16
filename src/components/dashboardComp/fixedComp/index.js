@@ -7,7 +7,6 @@ import UpperLeft from './dashUpperLeft'
 import UpperRight from './dashUpperRight'
 import BottomLeft from './dashBottomLeft'
 import BottomRight from './dashBottomRight'
-import M from 'materialize-css'
 
 // var style={
 //     position: 'fixed',top:64,left:300,right:0, bottom:0,padding:20, overflowY:'scroll',overflowX:'scroll', zIndex:104
@@ -16,14 +15,7 @@ var style={
     position: 'absolute',top:64,left:300,right:0, bottom:0,padding:20, overflowY:'scroll', zIndex:104
 }
 export class dashboard extends Component{
-    constructor(props){
-        super(props)
-        this.sideNav=React.createRef();
-    }
-    componentDidMount(){
-        var elems = document.querySelectorAll('.sidenav');
-        window.sideInstance = M.Sidenav.init(elems[0]);
-    }
+    
     render(){
         console.log('dash indx',this.props)
         return(<div>

@@ -5,7 +5,6 @@ import { updateData, updateOrg } from '../../actions'
 import { bindActionCreators } from 'redux'
 import axios from 'axios'
 import Chart from '../chart'
-import $ from 'jquery'
 import M from 'materialize-css'
 import serverBaseURL from '../../serverBaseURL';
 
@@ -32,17 +31,6 @@ const Options=props=>{
         )
 }
 
-var updateOrgranisation=(e)=>{
-    axios.get('http://localhost:5000/organisations')
-      .then(function (response) {
-        e.updateOrg(response.data);
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error.response);
-      });
-}
-
 class Submit_card extends Component {
     constructor(props){
         super(props)
@@ -58,7 +46,7 @@ class Submit_card extends Component {
         this.close=this.close.bind(this)
         this.modalDom = React.createRef();
         this.modalFooter = React.createRef();
-    }validateEmail
+    }
 
     componentDidMount() {
         var elems = document.querySelectorAll('select');
@@ -89,11 +77,11 @@ class Submit_card extends Component {
         )
         }
         else if(this.state.subErr){
-            if(this.state.subErr.status==400)
+            if(this.state.subErr.status===400)
                 return(
                 <div><h4>Image file not recognised</h4>Try reuploading your timetable after cropping out the required area</div>
                 )
-            if(this.state.subErr.status==409)
+            if(this.state.subErr.status===409)
                 return(
                 <div><h4>You are already a part of selected organisation</h4>Contact your organisation's maintainer if you need to re-register</div>
                 )
@@ -137,7 +125,7 @@ class Submit_card extends Component {
         e.target.classList.remove('invalid')
         e.target.classList.remove('valid')
         if(!e.target.value) return  
-        var reg=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        var reg=/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
         if(reg.test(e.target.value)){
             e.target.classList.add('valid')
             this.setState({valEmail:true})    
@@ -188,7 +176,7 @@ class Submit_card extends Component {
         else if(!this.state.valImage) this.setState({'subMiss':'Image File'})
         else
         {   
-            var form= new FormData
+            var form= new FormData()
             for (var key in this.props.MemDetails) {
                 form.append(key,this.props.MemDetails[key])
             }

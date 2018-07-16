@@ -22,7 +22,7 @@ export default class extends Component {
         var colors=['#00e676','#ff1744']
         var data=[], colrs=[], labels=[]
         var start=0, end=12
-        if(this.props.afternoon){start=12, end=24}
+        if(this.props.afternoon){start=12; end=24}
         for(var i=start; i<end; i++){
             data.push(1)
             var k=i+1
@@ -41,7 +41,7 @@ export default class extends Component {
         
         
         var ctx = this.chartDom.current.getContext('2d');
-        var myChart = new Chart(ctx, {
+        new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: labels,
@@ -67,7 +67,7 @@ export default class extends Component {
         var colors=['#00e676','#ff1744']
         var data=[], colrs=[], labels=[]
         var start=0, end=12
-        if(this.props.afternoon){start=12, end=24}
+        if(this.props.afternoon){start=12; end=24}
         for(var i=start; i<end; i++){
             data.push(1)
             var k=i+1
@@ -86,7 +86,7 @@ export default class extends Component {
         
         
         var ctx = this.chartDom.current.getContext('2d');
-        var myChart = new Chart(ctx, {
+        new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: labels,

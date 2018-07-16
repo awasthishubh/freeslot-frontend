@@ -33,7 +33,7 @@ class Org_reg extends Component {
         document.querySelector("#org_id").classList.remove('invalid')
         var value=e.target.value.toLowerCase()
         this.props.updateData(value, 'UPDATE_ORG_USID')
-        if(value=='') return this.props.updateData(null, 'VALIDIATE_ORG_USID');
+        if(value==='') return this.props.updateData(null, 'VALIDIATE_ORG_USID');
         this.props.updateData("loading", 'VALIDIATE_ORG_USID');
         clearTimeout(typingTimer);
         var updateData=this.props.updateData
@@ -47,6 +47,7 @@ class Org_reg extends Component {
                     console.log(data.usid)
                     isAvailable = false
                 }
+                return data
             })
 
             if(isAvailable){
@@ -103,21 +104,21 @@ class Org_reg extends Component {
         document.querySelector("#org_pass_c").classList.remove('invalid')
         document.querySelector("#org_pass_c").classList.remove('valid')
         if(this.props.validation.passwd)
-        {    if(e.target.value==this.props.OrgReg.passwd){
+        {    if(e.target.value===this.props.OrgReg.passwd){
                 document.querySelector("#org_pass_c").classList.add('valid')
                 this.props.updateData(true, 'VALIDIATE_ORG_CPASSWD');
             }
             else{
                 document.querySelector("#org_pass_c").classList.add('invalid')
                 this.props.updateData(false, 'VALIDIATE_ORG_CPASSWD');
-            }4
+            }
         }
     }
     vailidate(e, id){
         this.props.updateData(e.target.value, 'UPDATE_'+id);
         e.target.classList.remove('invalid')
         e.target.classList.remove('valid')
-        if(e.target.value==''){
+        if(e.target.value){
             this.props.updateData(false, 'VALIDIATE_'+id);
             e.target.classList.add('invalid')
         }
@@ -193,7 +194,7 @@ class Org_reg extends Component {
                     <center><a className="waves-effect waves-light btn" onClick={this.send}>Verify and Register</a></center>
                     </form>
                     <div className="col s12" style={{marginTop:10,textAlign:'right', color:'grey'}}>
-                        <a href="#" onClick={(e)=>this.props.change(false)}>Already registered?</a>
+                        <a style={{cursor:'pointer'}} onClick={(e)=>this.props.change(false)}>Already registered?</a>
                     </div>
                 </div>
         )

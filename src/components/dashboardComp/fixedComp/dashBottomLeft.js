@@ -12,9 +12,6 @@ var navStyle={
 }
 
 export default class extends Component{
-    constructor(props){
-        super(props)
-    }
     logout(){
         Cookies.set('token',null)
         window.location.href='/'
@@ -24,7 +21,7 @@ export default class extends Component{
         console.log('bottomLeft',this.props)
         var mems
         return(
-        <nav id="slide-out" id="bottomLeftDash" className="sidenav sideNav grey darken-4" style={navStyle}>
+        <nav id="bottomLeftDash" className="sideNav grey darken-4" style={navStyle}>
             
         <div className="row" >
             <div className="" style={{marginTop:40}}>
@@ -42,11 +39,7 @@ export default class extends Component{
                 <span className="sideName">Member Requests</span>
                 <span className="new badge">{(mems=this.props.requests)?mems.length:0}</span>
             </Link>
-            {/* <Link to="/dashboard/find" href="#!" className="nItem" >
-                <i className="material-icons" style={{display: 'inline-block'}}>person_pin</i>
-                <span className="sideName">Find a member</span>
-            </Link> */}
-            <Link to="/dashboard/find" id="dashGetMem" href="#!" className="nItem" >
+            <Link to="/dashboard/find" id="dashGetMem" className="nItem" >
                 <i className="material-icons" style={{display: 'inline-block'}}>contact_phone</i>
                 <span className="sideName">Get a member</span>
             </Link>
@@ -54,11 +47,11 @@ export default class extends Component{
         </div>
 
         <div id="dashHome" style={{marginTop:40,position: 'absolute', bottom:0, width:'100%'}}>
-            <Link to="/dashboard/find" href="#!" className="nItem" >
+            <Link to="/dashboard/find" className="nItem" >
                 <i className="material-icons" style={{display: 'inline-block'}}>settings</i>
                 <span className="sideName">Settings</span>
             </Link>
-            <a href="#" id="dashHome" className="nItem" onClick={this.logout} >
+            <a style={{cursor:'pointer'}} id="dashHome" className="nItem" onClick={this.logout} >
                 <i className="material-icons" style={{display: 'inline-block'}}>all_out</i>
                 <span className="sideName">Logout</span>
             </a>

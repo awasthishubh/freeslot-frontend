@@ -3,32 +3,36 @@ export function all(state=null, action){
     switch(action.type){
         case 'UPDATE_ORG_ALL':
             return action.data
+        default:
+            return state
     }
-    return state
 }
 
 export function details(state=null, action){
     switch(action.type){
         case 'UPDATE_ORG_DETAILS':
             return action.data
+        default:
+            return state
     }
-    return state
 }
 
 export function members(state=null, action){
     switch(action.type){
         case 'UPDATE_ORG_MEMBERS':
             return action.data
+        default:
+            return state
     }
-    return state
 }
 
 export function requests(state=null, action){
     switch(action.type){
         case 'UPDATE_ORG_REQUESTS':
             return action.data
+        default:
+            return state
     }
-    return state
 }
 
 
@@ -36,8 +40,9 @@ export function isLoggedIn(state=null, action){
     switch(action.type){
         case 'UPDATE_ORG_LOGGED':
             return action.data
+        default:
+            return state
     }
-    return state
 }
 
 export function dashModal(state={selected:null, instance:null}, action){
@@ -52,6 +57,7 @@ export function dashModal(state={selected:null, instance:null}, action){
         case 'UPDATE_MODAL_SELECTED':
             newState.selected=action.data
             return newState
+        default:
+            return state
     }
-    return state
 }

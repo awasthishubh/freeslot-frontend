@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Collapsi from './collapsi'
-import Sort_filter from './filter-sort'
+import SortFilter from './filter-sort'
 
 export default class extends Component{
     constructor(props){
@@ -39,7 +39,7 @@ export default class extends Component{
                     <div className="card-content row">
                         <span className="card-title">Registered Members</span>
                         <div className="container" style={{marginTop:40}}>
-                            <Sort_filter data={this.props.members} type="MEMBERS"/>
+                            <SortFilter data={this.props.members} type="MEMBERS"/>
                             {this.members()}
                         </div>
                     </div>
