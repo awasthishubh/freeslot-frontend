@@ -14,7 +14,8 @@ var navStyle={
 export default class extends Component{
     logout(){
         Cookies.set('token',null)
-        window.location.href='/'
+        window.location.hash=""
+        window.location.reload()
     }
      
     render(){
@@ -47,10 +48,10 @@ export default class extends Component{
         </div>
 
         <div id="dashHome" style={{marginTop:40,position: 'absolute', bottom:0, width:'100%'}}>
-            <Link to="/dashboard/find" className="nItem" >
+            {/* <Link to="/dashboard/find" className="nItem" >
                 <i className="material-icons" style={{display: 'inline-block'}}>settings</i>
                 <span className="sideName">Settings</span>
-            </Link>
+            </Link> */}
             <a style={{cursor:'pointer'}} id="dashHome" className="nItem" onClick={this.logout} >
                 <i className="material-icons" style={{display: 'inline-block'}}>all_out</i>
                 <span className="sideName">Logout</span>
