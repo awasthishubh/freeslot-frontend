@@ -18,6 +18,7 @@ class orgLogin extends Component{
     isFilled(e){
         e.target.classList.remove('valid')
         e.target.classList.remove('invalid')
+        if(e.target.id==='login_usid') e.target.value=e.target.value.toLowerCase()
         var state=[]
         state[e.target.id]=e.target.value
         this.setState(state)
@@ -30,6 +31,7 @@ class orgLogin extends Component{
     async send(e){
         e.preventDefault()
         if(this.state.login_usid && this.state.login_pass){
+            this.setState({'err':null})
             // // console.log(this.state.login_usid , this.state.login_usid)
             var form = new FormData();
             form.append('usid',this.state.login_usid)
