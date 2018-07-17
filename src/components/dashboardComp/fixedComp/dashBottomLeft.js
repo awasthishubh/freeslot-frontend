@@ -18,7 +18,7 @@ export default class extends Component{
     }
      
     render(){
-        console.log('bottomLeft',this.props)
+        // // console.log('bottomLeft',this.props)
         var mems
         return(
         <nav id="bottomLeftDash" className="sideNav grey darken-4" style={navStyle}>

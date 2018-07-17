@@ -1,5 +1,5 @@
 export function all(state=null, action){
-    console.log(action)
+    // console.log(action)
     switch(action.type){
         case 'UPDATE_ORG_ALL':
             return action.data

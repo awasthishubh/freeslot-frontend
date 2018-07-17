@@ -16,7 +16,7 @@ export default class extends Component {
         else return "Morning"
     }
     componentDidUpdate(){
-        console.log(this.chartDom.current.getContext('2d'))
+        // console.log(this.chartDom.current.getContext('2d'))
         var slots=this.props.slots
         
         var colors=['#00e676','#ff1744']
@@ -37,7 +37,7 @@ export default class extends Component {
             }
         }
         
-        console.log(data, colrs)
+        // console.log(data, colrs)
         
         
         var ctx = this.chartDom.current.getContext('2d');
@@ -61,7 +61,7 @@ export default class extends Component {
     }
 
     componentDidMount(){
-        console.log(this.chartDom.current.getContext('2d'))
+        // console.log(this.chartDom.current.getContext('2d'))
         var slots=this.props.slots
         
         var colors=['#00e676','#ff1744']
@@ -82,7 +82,7 @@ export default class extends Component {
             }
         }
         
-        console.log(data, colrs)
+        // console.log(data, colrs)
         
         
         var ctx = this.chartDom.current.getContext('2d');

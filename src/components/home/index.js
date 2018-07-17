@@ -12,7 +12,8 @@ var backStyle={
 }
 export default class extends Component{
     componentDidMount(){
-        console.log(document.getElementsByClassName('tabs'))
+        // console.log(document.getElementsByClassName('tabs'))
+        document.title = "FreeSlots | Home"
         M.Tabs.init(document.getElementsByClassName('tabs'))
         M.Modal.init(document.querySelectorAll('.modal'))
     }
@@ -28,11 +29,11 @@ export default class extends Component{
             <div className="row" style={{fontSize:20, position: 'absolute',top: '60%', width: '100%', textAlign:'center'}}>
                 <div style={{fontSize:20, color:'white'}}>Continue as</div>
 
-                <a href="#memReg" class="hvr-grow hoverable modal-trigger homebtn col offset-l3 offset-s1 offset-m2 m3 l2 s4 btn-large">
-                    <i class="hide-on-small-only material-icons left">person</i>Member
+                <a href="#memReg" className="hvr-grow waves-effect waves-ligh hoverable modal-trigger homebtn col offset-l3 offset-s1 offset-m2 m3 l2 s4 btn-large">
+                    <i className="hide-on-small-only material-icons left">person</i>Member
                 </a>
-                <a  href="#orgReg" class="hvr-grow hoverable modal-trigger homebtn col  offset-l2  offset-s1  offset-m2 m3 l2 s5 btn-large" style={{overflow:'hidden'}} >
-                    <i class="hide-on-small-only material-icons right">people</i>Organisation
+                <a  href="#orgReg" className="hvr-grow waves-effect waves-ligh hoverable modal-trigger homebtn col  offset-l2  offset-s1  offset-m2 m3 l2 s5 btn-large" style={{overflow:'hidden'}} >
+                    <i className="hide-on-small-only material-icons right">people</i>Organisation
                 </a>
             </div>
             <RegModal/>

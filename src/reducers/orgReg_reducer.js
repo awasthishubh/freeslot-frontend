@@ -63,7 +63,7 @@ export function usidIsAvailable(state, action){
     if(!state){
         return null
     }
-    console.log('orgRed,isav', action)
+    // // console.log('orgRed,isav', action)
     if(action.type==="isAvailable"){
         alert('zx')
         return action.data

@@ -33,7 +33,7 @@ export default class extends Component{
     }
     
     render(){
-        console.log('requests Comp',this.props)
+        // console.log('requests Comp',this.props)
         if(this.props.requests!==null)
             return (
                 <div className="row">

@@ -6,7 +6,7 @@ var navStyle={
 
 export default class dash extends Component{
     render(){
-        console.log('zxzxzxzx',this.props)
+        // console.log('zxzxzxzx',this.props)
         return(
             <div id="bottomRightDash" className="bottomRightDash grey lighten-2" style={navStyle}>
                 {this.props.children}

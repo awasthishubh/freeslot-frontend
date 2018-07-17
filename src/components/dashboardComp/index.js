@@ -15,12 +15,12 @@ import M from 'materialize-css'
 import FixedComp from './fixedComp'
 
 function Modal(props){
-    console.log('DashModal',props)
+    // console.log('DashModal',props)
     var data
     if(props.data)
     props.data.map(function(mem){
         if(props.selected===mem.reg){
-            console.log(mem)
+            // console.log(mem)
             data= <Chart data={mem} />
         }
         return null
@@ -33,14 +33,14 @@ function Loader(props){
     if(!props.loggedIn)
     return(
         <div style={{position: 'fixed', top:0, bottom:0,left:0, right:0, zIndex:2000, background: 'rgba(0,0,0, 0.7)' }}>
-        <div class="preloader-wrapper big active" style={{height:200, width:200, position: 'absolute', top:'50%', left:'50%', margin: -100}}>
-            <div class="spinner-layer spinner-green-only">
-            <div class="circle-clipper  left">
-                <div class="circle"></div>
-            </div><div class="gap-patch">
-                <div class="circle"></div>
-            </div><div class="circle-clipper right">
-                <div class="circle"></div>
+        <div className="preloader-wrapper big active" style={{height:200, width:200, position: 'absolute', top:'50%', left:'50%', margin: -100}}>
+            <div className="spinner-layer spinner-green-only">
+            <div className="circle-clipper  left">
+                <div className="circle"></div>
+            </div><div className="gap-patch">
+                <div className="circle"></div>
+            </div><div className="circle-clipper right">
+                <div className="circle"></div>
             </div>
             </div>
         </div>
@@ -62,11 +62,12 @@ export class dashboard extends Component{
         }
     }
     componentDidMount(){
-        console.log('Mounted Dashboard')
+        document.title = "FreeSlots | Dashboard"
+        // console.log('Mounted Dashboard')
         var elems = document.querySelectorAll('.sidenav');
         window.sideInstance = M.Sidenav.init(elems[0]);
         this.props.updateDashboardData()
-        console.log('home',Home)
+        // console.log('home',Home)
         // window.filter=this.props.filter
         // window.members=this.props.members
         var instance = M.Modal.init(this.Modal.current);

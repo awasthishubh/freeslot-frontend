@@ -27,11 +27,11 @@ export default class extends Component{
     find(e){
         console.log(e)
         this.props.select(e,'UPDATE_MODAL_SELECTED')
-        console.log(this.props.selected.instance.open())
+        // // console.log(this.props.selected.instance.open())
     }
     
     render(){
-        console.log('Search Bar', this.props)
+        // console.log('Search Bar', this.props)
         return(
         <div id="upperRightDash" style={navStyle}>
         <nav className="white" style={{ color:'#424242'}}>
@@ -40,7 +40,7 @@ export default class extends Component{
                     <form onSubmit={(e)=>{e.preventDefault();this.find(document.getElementById('autocomplete-input').value)}}>
                         <div className="input-field" style={{ margin: 0}}>
                         <i style={{marginTop: '-6px'}} className="material-icons prefix">search</i>
-                        <input type="text" id="autocomplete-input" autoComplete="off" class="autocomplete" placeholder="Search by registration number"/>
+                        <input type="text" id="autocomplete-input" autoComplete="off" className="autocomplete" placeholder="Search by registration number"/>
                         </div>
                     </form>
                 </div>

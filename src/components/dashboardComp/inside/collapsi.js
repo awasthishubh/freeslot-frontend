@@ -7,17 +7,17 @@ export default class extends Component{
         this.collapsible=React.createRef()
     }
     componentDidMount(){
-        console.log(this.collapsible)
+        // console.log(this.collapsible)
         M.Collapsible.init(this.collapsible.current);
     }
     componentDidUpdate(){
-        console.log(this.collapsible)
+        // console.log(this.collapsible)
         M.Collapsible.init(this.collapsible.current);
     }
 
     render(){
         var props=this.props
-        console.log('collapsi',this.props)
+        // console.log('collapsi',this.props)
         var okay=false
         var mems= this.props.data.map(function(mem){
             if(mem.visible && (okay=true))
@@ -38,7 +38,7 @@ export default class extends Component{
                         </ul>
                         
                     </span>
-                    <div class="card-action">
+                    <div className="card-action">
                     {(()=>{
                             if(props.view)
                                 return <a style={{cursor:'pointer'}} onClick={()=>props.view(mem.reg)}>View more</a>

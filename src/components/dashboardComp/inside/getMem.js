@@ -107,11 +107,11 @@ export default class extends Component{
 
                         <div style={{fontSize:17, margin:'120px 30px 10px 10px'}}>Choose a Time</div>
                         <div className="input-field col s6">
-                            <input type="text" class="timepicker" ref={this.timePickerFrom} />
+                            <input type="text" className="timepicker" ref={this.timePickerFrom} />
                             <label htmlFor='mem_reg'>From</label>
                         </div>
                         <div className="input-field col s6">
-                            <input ref={this.timePickerTill} type="text" class="timepicker"/>
+                            <input ref={this.timePickerTill} type="text" className="timepicker"/>
                             <label htmlFor='mem_reg'>Till</label>
                         </div>
                         <div>

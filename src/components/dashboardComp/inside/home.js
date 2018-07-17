@@ -45,7 +45,7 @@ export default class extends Component{
     }
     
     render(){
-    console.log(this.props)
+    // console.log(this.props)
         if(this.props.members)
         return(
             <div style={{height:'100%'}} >

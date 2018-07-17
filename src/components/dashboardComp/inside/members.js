@@ -31,7 +31,7 @@ export default class extends Component{
 
     
     render(){
-        console.log('Memver Comp',this.props)
+        // console.log('Memver Comp',this.props)
         if(this.props.members!==null)
         return (
             <div className="row">

@@ -69,7 +69,7 @@ class filterSort extends Component{
     render(){
         return(
             <div className="row">
-                <div class="input-field col s12 m6">
+                <div className="input-field col s12 m6">
                     <select defaultValue="name" onChange={this.sort} ref={this.sortRef}>
                         <option value="name">Name</option>
                         <option value="reg">Registration number</option>
@@ -78,7 +78,7 @@ class filterSort extends Component{
                     <label>Sort</label>
                 </div>
 
-                <div class="input-field col s12 m6">
+                <div className="input-field col s12 m6">
                     <select defaultValue="" onChange={this.filter} ref={this.filterRef}>
                         <option value="">None</option>
                         <option value="18">1st Year</option>
@@ -95,15 +95,15 @@ class filterSort extends Component{
             //         <span className="card-title">Sort</span>
             //         <div className="row">
             //             <label className="col s12 l4">
-            //                 <input ref={this.nameSort} class="with-gap" name="sort" type="radio" onChange={()=>this.sort('name')}/>
+            //                 <input ref={this.nameSort} className="with-gap" name="sort" type="radio" onChange={()=>this.sort('name')}/>
             //                 <span>Name</span>
             //             </label>
             //             <label className="col s12 l4">
-            //                 <input class="with-gap" name="sort" type="radio"  onChange={()=>this.sort('reg')}/>
+            //                 <input className="with-gap" name="sort" type="radio"  onChange={()=>this.sort('reg')}/>
             //                 <span>Reg No</span>
             //             </label>
             //             <label className="col s12 l4">
-            //                 <input class="with-gap" name="sort" type="radio"  />
+            //                 <input className="with-gap" name="sort" type="radio"  />
             //                 <span>Last Work Alloted</span>
             //             </label>
             //         </div>
@@ -112,23 +112,23 @@ class filterSort extends Component{
             //         <span className="card-title">Filter</span>
             //         <div className="row">
             //             <label className="col s12 l2 offset-l1" >
-            //                 <input ref={this.noFilter} class="with-gap" name="filter" type="radio" onChange={()=>this.filter()}  />
+            //                 <input ref={this.noFilter} className="with-gap" name="filter" type="radio" onChange={()=>this.filter()}  />
             //                 <span>None</span>
             //             </label>
             //             <label className="col s12 l2">
-            //                 <input class="with-gap" name="filter" type="radio" onChange={()=>this.filter('18')} />
+            //                 <input className="with-gap" name="filter" type="radio" onChange={()=>this.filter('18')} />
             //                 <span>1st Year</span>
             //             </label>
             //             <label className="col s12 l2">
-            //                 <input class="with-gap" name="filter" type="radio" onChange={()=>this.filter('17')}  />
+            //                 <input className="with-gap" name="filter" type="radio" onChange={()=>this.filter('17')}  />
             //                 <span>2nd Year</span>
             //             </label>
             //             <label className="col s12 l2">
-            //                 <input class="with-gap" name="filter" type="radio" onChange={()=>this.filter('16')}  />
+            //                 <input className="with-gap" name="filter" type="radio" onChange={()=>this.filter('16')}  />
             //                 <span>3rd Year</span>
             //             </label>
             //             <label className="col s12 l2">
-            //                 <input class="with-gap" name="filter" type="radio" onChange={()=>this.filter('15')}  />
+            //                 <input className="with-gap" name="filter" type="radio" onChange={()=>this.filter('15')}  />
             //                 <span>4th Year</span>
             //             </label>
                         

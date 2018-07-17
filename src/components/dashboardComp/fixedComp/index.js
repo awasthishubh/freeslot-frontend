@@ -17,7 +17,7 @@ var style={
 export class dashboard extends Component{
     
     render(){
-        console.log('dash indx',this.props)
+        // console.log('dash indx',this.props)
         return(<div>
                 <div>
                     <UpperLeft/>
