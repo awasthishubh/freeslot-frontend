@@ -25,7 +25,6 @@ export default class extends Component{
             {this.modal()}
             </div>
         </div>
-            
         )
         
     }

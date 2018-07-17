@@ -57,7 +57,7 @@ class Org_reg extends Component {
                 document.querySelector("#org_id").classList.add('invalid')
             }
         } catch(e){
-            // console.log(e)
+            console.log(e)
         }
     }, 2000)
         

@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 const store = createStore(rootReducer, applyMiddleware(thunk))
 const Root= () => {
     return(
-        <div> Hi!
+        <div>
         <Provider store={store}>
             <App />
         </Provider>

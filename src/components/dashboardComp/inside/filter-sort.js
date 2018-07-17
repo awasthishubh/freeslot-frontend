@@ -73,7 +73,7 @@ class filterSort extends Component{
                     <select defaultValue="name" onChange={this.sort} ref={this.sortRef}>
                         <option value="name">Name</option>
                         <option value="reg">Registration number</option>
-                        <option value="2">Last work alloted</option>
+                        {/* <option value="2">Last work alloted</option> */}
                     </select>
                     <label>Sort</label>
                 </div>
