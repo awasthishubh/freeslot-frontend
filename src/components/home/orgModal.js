@@ -20,8 +20,8 @@ export default class extends Component{
     }
     render(){
         return(
-        <div id="orgReg" class="modal" style={{top:'5%!important', maxHeight:'85%'}}>
-            <div class="modal-content">
+        <div id="orgReg" className="modal" style={{top:'5%!important', maxHeight:'85%'}}>
+            <div className="modal-content">
             {this.modal()}
             </div>
         </div>

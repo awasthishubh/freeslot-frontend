@@ -19,7 +19,6 @@ class Org_reg extends Component {
     }
     componentDidMount(){
         function receiveMessage(event){
-            console.log(event)
             if(event.data.token){
                 Cookies.set('token', event.data.token, { expires: 7 });
                 window.location.href = "#/dashboard";
@@ -40,11 +39,11 @@ class Org_reg extends Component {
         typingTimer = setTimeout(async function(){
         try{
             var data= await axios.get(serverBaseURL+'/organisations')
-            console.log(data)
+            // // console.log(data)
             var isAvailable=true;
             data.data.map(function(data){
                 if(data.usid===value){
-                    console.log(data.usid)
+                    // // console.log(data.usid)
                     isAvailable = false
                 }
                 return data
@@ -57,37 +56,30 @@ class Org_reg extends Component {
                 updateData(false, 'VALIDIATE_ORG_USID');
                 document.querySelector("#org_id").classList.add('invalid')
             }
-            console.log(isAvailable)
         } catch(e){
-            console.log(e)
-            alert('Server Error')
+            // console.log(e)
         }
     }, 2000)
         
         
     }
     send(e){
-        // console.log(111, this.props.OrgReg)
         e.preventDefault()
         var vailidation=this.props.validation
-        console.log(this.vailidation)
-        console.log(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.mainEmail && vailidation.cPasswd)
         if(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.mainEmail && vailidation.cPasswd && vailidation.usid!=="loading")
         {
             var dp=this.props.OrgReg.dp
-            console.log(dp)
             if(!dp) dp='https://www.hackworks.com/img/account/default-team-avatar.png'
             var url= serverBaseURL+'/oauth/'
             var params=`?usid=${this.props.OrgReg.usid}&passwd=${this.props.OrgReg.passwd}&name=${this.props.OrgReg.name}&mail_id=${this.props.OrgReg.mainEmail}@vitstudent.ac.in&descr=${this.props.OrgReg.descr}&dp=${dp}&redirect=${window.location.protocol+'//'+window.location.host+'/close.htm'}`
             window.open(url+params,null,'height=480,width=640')
-            console.log(111, params)
+            // console.log(111, params)
         }
     }
     passValidiate(e){
         document.querySelector("#org_pass").classList.remove('invalid')
         document.querySelector("#org_pass").classList.remove('valid')
         this.props.updateData(e.target.value, 'UPDATE_ORG_PASSWD')
-        console.log(e.target.value.length)
         if(e.target.value.length<4){
             document.querySelector("#org_pass").classList.add('invalid')
             this.props.updateData(false, 'VALIDIATE_ORG_PASSWD');
@@ -118,7 +110,7 @@ class Org_reg extends Component {
         this.props.updateData(e.target.value, 'UPDATE_'+id);
         e.target.classList.remove('invalid')
         e.target.classList.remove('valid')
-        if(e.target.value){
+        if(!e.target.value){
             this.props.updateData(false, 'VALIDIATE_'+id);
             e.target.classList.add('invalid')
         }
@@ -129,11 +121,10 @@ class Org_reg extends Component {
     }
 
     render(){
-        console.log(this.props)
         return(
             <div className="row">   
                 <h5><center>Enter Details Of Ogranisation</center></h5> 
-                <form>
+                <form onSubmit={this.send}>
                     <div className="col m6 s12">
                         <div className="input-field col s12">
                             <input id='org_name' type="text" value={this.props.OrgReg.name}  onChange={(e)=>{this.vailidate(e,'ORG_NAME')}} />
@@ -191,7 +182,7 @@ class Org_reg extends Component {
                             </div>
                         </fieldset>
                         </div>
-                    <center><a className="waves-effect waves-light btn" onClick={this.send}>Verify and Register</a></center>
+                    <center><input type='submit' value="Verify and Register" className="waves-effect waves-light btn"/></center>
                     </form>
                     <div className="col s12" style={{marginTop:10,textAlign:'right', color:'grey'}}>
                         <a style={{cursor:'pointer'}} onClick={(e)=>this.props.change(false)}>Already registered?</a>

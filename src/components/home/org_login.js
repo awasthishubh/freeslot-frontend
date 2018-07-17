@@ -27,16 +27,15 @@ class orgLogin extends Component{
             e.target.classList.add('invalid')
         }
     }
-    async send(){
-
+    async send(e){
+        e.preventDefault()
         if(this.state.login_usid && this.state.login_pass){
-            console.log(this.state.login_usid , this.state.login_usid)
+            // // console.log(this.state.login_usid , this.state.login_usid)
             var form = new FormData();
             form.append('usid',this.state.login_usid)
             form.append('passwd',this.state.login_pass)
             try{
                 var request=await axios.post(serverBaseURL+'/auth',form)
-                console.log('login',request.data.info)
                 this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
                 this.setState({'err':null})
                 Cookies.set('token', request.data.access_token, { expires: 7 });
@@ -52,11 +51,11 @@ class orgLogin extends Component{
         } else this.setState({'err':'Enter id and password'})
     }
     render(){
-        console.log(this.props)
+        // console.log(this.props)
         return(
                 <div className="row"> 
                 <div className="col s12"><h5><center>Enter your login credentials</center></h5></div>   
-                <form>
+                <form onSubmit={this.send}>
                         <div className="input-field col s12">
                             <input id='login_usid' className="" onChange={this.isFilled} type="text" />
                             <label htmlFor='login_usid' >Organisation ID</label>
@@ -68,7 +67,7 @@ class orgLogin extends Component{
                             <span className="helper-text" data-error="Password in required"></span>
                         </div>
                     <div className="red-text">{this.state.err}</div>
-                    <center><a className="waves-effect waves-light btn" onClick={this.send}>Login</a></center>
+                    <center><input type="submit" className="white-text waves-effect waves-light btn" value="Login"/></center>
 
                     </form>
                     <div className="col s12" style={{marginTop:40,textAlign:'right', color:'grey'}}>

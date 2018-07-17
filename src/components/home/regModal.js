@@ -10,7 +10,7 @@ import serverBaseURL from '../../serverBaseURL';
 
 
 const Options=props=>{
-    console.log(props)
+    // console.log(props)
     if(props.list)
         return (
             <select defaultValue="0" onChange={(e)=>props.update(e.target.value, 'UPDATE_ORG')} >
@@ -25,7 +25,7 @@ const Options=props=>{
         )
     else 
         return(
-            <select defaultValue="0" onChange={(e)=>console.log(e.target.value)} >
+            <select defaultValue="0">
                 <option value="0" disabled >Loading</option>
             </select>
         )
@@ -53,7 +53,7 @@ class Submit_card extends Component {
         M.FormSelect.init(elems);
         
         // $('.modal').modal();
-        console.log(this.props.updateOrg)
+        // console.log(this.props.updateOrg)
         this.props.updateOrg()
     }
 
@@ -69,7 +69,7 @@ class Submit_card extends Component {
             this.modalDom.current.classList.remove('modal-fixed-footer')
         if(this.state.subMem){
             this.modalDom.current.classList.add('modal-fixed-footer')
-        console.log(this.state.subMem.data)
+        // console.log(this.state.subMem.data)
         return (<div>
             <h5>Registered Successfully!</h5><hr/>
             <Chart data={this.state.subMem.data} />
@@ -132,7 +132,7 @@ class Submit_card extends Component {
         }
         else{
             e.target.classList.add('invalid')
-            console.log(e.target.classList)
+            // console.log(e.target.classList)
             this.setState({valEmail:false})    
         }
     }
@@ -163,11 +163,12 @@ class Submit_card extends Component {
         }
     }
 
-    async submit(){
+    async submit(e){
+        e.preventDefault()
         this.setState({'subErr':null})
         this.setState({'subMem':null})
         this.setState({'subMiss':null})
-        console.log(this.props.MemDetails.timeTable )
+        // console.log(this.props.MemDetails.timeTable )
         if(!this.props.MemDetails.name) this.setState({'subMiss':'Name'})
         else if(!this.state.valReg) this.setState({'subMiss':'Registration Number'})
         else if(!this.state.valEmail) this.setState({'subMiss':'Email'})
@@ -180,10 +181,10 @@ class Submit_card extends Component {
             for (var key in this.props.MemDetails) {
                 form.append(key,this.props.MemDetails[key])
             }
-            console.log(form)
+            // console.log(form)
             try{     
                 var response=await axios.post(serverBaseURL+'/members', form)
-                console.log(response.data.status);
+                // console.log(response.data.status);
                 this.setState({'subMem':response.data})
                 this.props.updateData('', 'UPDATE_NAME')
                 this.props.updateData('', 'UPDATE_REG')
@@ -195,7 +196,7 @@ class Submit_card extends Component {
             } 
             catch(error){
                 this.setState({'subErr':error.response})
-                // console.log(error.response.status);
+                // // console.log(error.response.status);
             }
         }
         M.Modal.getInstance(this.modalDom.current).open();
@@ -205,16 +206,16 @@ class Submit_card extends Component {
     }
     
     render(){
-        console.log(11212,this.props)
+        // console.log(11212,this.props)
        
         if(!this.state.subMem)
         return(
-            <div id="memReg" class="modal" style={{top:'5%!important', maxHeight:'85%'}}>
-                <div class="modal-content">
+            <div id="memReg" className="modal" style={{top:'5%!important', maxHeight:'85%'}}>
+                <div className="modal-content">
                 <h4>Enter Your Details</h4>
                     <div className="card-content">
                         <div className="row">
-                            <form id="regfrm">
+                            <form id="regfrm"  onSubmit={this.submit}>
                                 <div className="input-field col m6 s12">
                                     <input id='mem_name' type="text" value={this.props.MemDetails.name}  onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)} />
                                     <label htmlFor='mem_name'>Name</label>
@@ -256,7 +257,9 @@ class Submit_card extends Component {
                                 </div>
 
                                 <div className="col s12" style={{textAlign:'center', marginTop:7}}>
-                                    <a className="waves-effect waves-light btn" onClick={this.submit}><i className="material-icons left">cloud</i>button</a>
+                                    <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                                        <i className="material-icons right">send</i>
+                                    </button>
                                 </div>
                             </form>
                             
@@ -279,14 +282,14 @@ class Submit_card extends Component {
         )
         else{
             return (
-                <div id="memReg" class="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
-                    <div class="modal-content">
+                <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
+                    <div className="modal-content">
                         <h6>Registered Successfully!</h6><hr/>
                         <Chart data={this.state.subMem.data} />
                     </div>
-                    <div class="modal-footer">
-                        <a onClick={()=>this.setState({'subMem':null})} href="#!" class="waves-effect waves-green btn-flat">Submit Another</a>
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                    <div className="modal-footer">
+                        <a onClick={()=>this.setState({'subMem':null})} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
+                        <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
                     </div>
                 </div>
             )
