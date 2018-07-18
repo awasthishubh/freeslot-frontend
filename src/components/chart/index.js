@@ -3,7 +3,7 @@ import React from 'react'
 import {Component} from 'react'
 
 function DayT(props){
-    var day=['Monday', 'Tuesday', 'Wednessday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    var day=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return(
     props.slots.map(function(slot){
         return(

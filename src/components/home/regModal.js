@@ -17,7 +17,7 @@ const Options=props=>{
                 <option value="0" disabled >Choose an Organisation</option>
                 {props.list.map(function(d){
                     return (<option key={d.usid} value={d.usid}>
-                        {d.usid} ({d.name})
+                        {d.name} ({d.usid})
                         </option>
                     )
                 })}

@@ -1,5 +1,5 @@
 {
-  "name": "freeslots-frontend",
+  "name": "freeslot-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/awasthishubh/freeslots-frontend.git"
+    "url": "git+ssh://git@github.com/awasthishubh/freeslot-frontend.git"
   },
   "author": "Shubham Awasthi",
   "license": "ISC",
@@ -33,15 +33,7 @@
     "request": "^2.87.0"
   },
   "bugs": {
-    "url": "https://github.com/awasthishubh/freeslots-frontend/issues"
+    "url": "https://github.com/awasthishubh/freeslot-frontend/issues"
   },
-  "homepage": "https://awasthishubh.github.io/freeslots-frontend/build",
-  "keywords": [
-    "timetabel",
-    "slots",
-    "vit",
-    "manage",
-    "organisation",
-    "team"
-  ]
+  "homepage": "http://freeslot.acmvit.in/"
 }
