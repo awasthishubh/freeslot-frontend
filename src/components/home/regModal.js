@@ -34,8 +34,7 @@ const Options=props=>{
 class Submit_card extends Component {
     constructor(props){
         super(props)
-        this.state={valName:false,valReg:false,valEmail:false,valPhno:false,valOrg:false,valImage:false
-        }
+        this.state={valName:false,valReg:false,valEmail:false,valPhno:false,valOrg:false,valImage:false, err:null}
         this.submit=this.submit.bind(this)
         this.mem=this.mem.bind(this)
         this.validateReg=this.validateReg.bind(this)
@@ -164,6 +163,7 @@ class Submit_card extends Component {
     }
 
     async submit(e){
+        this.setState({err:'sending...'})
         e.preventDefault()
         this.setState({'subErr':null})
         this.setState({'subMem':null})
@@ -181,7 +181,7 @@ class Submit_card extends Component {
             var form= new FormData()
             for (var key in this.props.MemDetails) {
                 form.append(key,this.props.MemDetails[key])
-                console.log(key,this.props.MemDetails[key])
+                // console.log(key,this.props.MemDetails[key])
             }
             console.log(form)
             try{     
@@ -194,6 +194,7 @@ class Submit_card extends Component {
                 this.props.updateData('', 'UPDATE_PHNO')
                 this.props.updateData('', 'UPDATE_TT')
                 this.props.updateData('', 'UPDATE_ORG')
+                this.setState({err:null})
                 return
             } 
             catch(error){
@@ -202,6 +203,7 @@ class Submit_card extends Component {
             }
         }
         M.Modal.getInstance(this.modalDom.current).open();
+        this.setState({err:null})
     }
     close(){
         M.Modal.getInstance(this.modalDom.current).close()
@@ -270,6 +272,7 @@ class Submit_card extends Component {
                                     </button>
                                 </div>
                             </form>
+                            <div className="prog">{this.state.err}</div>
                             
 
     <div ref={this.modalDom} className="modal">

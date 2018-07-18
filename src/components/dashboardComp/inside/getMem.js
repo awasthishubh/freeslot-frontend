@@ -28,6 +28,7 @@ export default class extends Component{
         this.submit=this.submit.bind(this)
         this.state={show:null}
         this.viewMem=this.viewMem.bind(this)
+        this.state={err:null}
     }
     
     componentWillUnmount(){
@@ -45,22 +46,26 @@ export default class extends Component{
         this.props.selected.instance.open()
     }
     submit(){
+        this.setState({err:null})
         if(this.dayPicker.current.value!=="default" && this.timePickerFrom.current.value && this.timePickerTill.current.value){
             var start=parseInt(this.timePickerFrom.current.value.slice(0,2),10)
             var end=parseInt(this.timePickerTill.current.value.slice(0,2),10)
             var point=parseInt(this.dayPicker.current.value,10) 
+            if(this.timePickerTill.current.value.slice(0,2)==="12") end=0
+            if(this.timePickerFrom.current.value.slice(0,2)==="12") start=0
             if(this.timePickerTill.current.value.slice(-2)==="PM") end+=12
             if(this.timePickerFrom.current.value.slice(-2)==="PM") start+=12
+            if(this.timePickerTill.current.value.slice(-5,-3)==="00") end-=1
             if(this.timePickerTill.current.value.slice(-5,-3)==="00") end-=1
 
             end-=8
             start-=8
-            if(start>end) return alert('choose')
-            console.log(start, end, point)
+            if(start>end) return this.setState({err:'Select a proper time interval'})
+            // console.log(start, end, point)
 
             this.props.members.map(function(mem){
                 var okay=true
-                console.log(mem.slots[point])
+                // console.log(mem.slots[point])
                 for(var i=start; i<=end; i++){
                     if(mem.slots[point].indexOf(i)>-1){
                         okay=false
@@ -78,7 +83,7 @@ export default class extends Component{
             
         }
         else{
-            alert("Select Day/Time")
+            this.setState({err:'Select Day/Time'})
         }
     }
 
@@ -117,6 +122,7 @@ export default class extends Component{
                         <div>
                         <center><a style={{marginTop:30}} className="waves-effect waves-light btn" onClick={this.submit}><i className="material-icons left">send</i>Submit</a></center>
                         </div>
+                        <div className="err red-text">{this.state.err}</div>
 
                     </div>
                 </div>
