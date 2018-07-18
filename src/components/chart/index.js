@@ -28,7 +28,7 @@ export default class extends Component {
                 <div style={{fontSize:'15px'}}>{this.props.data.phno}</div>
             </div>
             <div style={{textAlign: 'center', marginBottom: '30px'}}>
-                <div style={{fontSize:'20px'}} >Free Timmings</div>
+                <div style={{fontSize:'20px'}} >Free Timming Clock</div>
                 <div style={{height:'15px', width: '30px', backgroundColor: '#00e676', display:'inline-block'}} ></div>
                 <div style={{display:'inline-block', margin:'0px 40px 0px 10px'}} >Free</div>
                 <div style={{height:'15px', width: '30px', backgroundColor: '#ff1744', display:'inline-block'}} ></div>

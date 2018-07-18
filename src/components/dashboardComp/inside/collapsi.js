@@ -33,8 +33,11 @@ export default class extends Component{
                             <li className="col s7 m6"><b>Reg No: </b>{mem.reg}</li>
                         </ul>
                         <ul className="row">
-                            <li className="col s5 m6"><b>Email: </b>{mem.email}</li>
+                            <li className="col s5 m6"><b>Rm No: </b>{mem.rmno}</li>
                             <li className="col s7 m6"><b>Phno: </b>{mem.phno}</li>
+                        </ul>
+                        <ul className="row">
+                            <li className="col s12"><b>Email: </b>{mem.email}</li>
                         </ul>
                         
                     </span>

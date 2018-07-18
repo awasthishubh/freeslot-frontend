@@ -4,6 +4,7 @@ var defaultState= {
     email: '',
     org: '',
     phno: '',
+    rmno:'',
     timeTable: {}
 }
 
@@ -15,6 +16,7 @@ export default function(state=defaultState, action){
         email: state.email,
         org: state.org,
         phno: state.phno,
+        rmno: state.rmno,
         timeTable: state.timeTable
     }
     
@@ -42,6 +44,11 @@ export default function(state=defaultState, action){
         case 'UPDATE_TT':
             newState.timeTable=action.data
             return newState
+
+        case 'UPDATE_RMNO':
+            newState.rmno=action.data
+            return newState
+
         default:
             return newState
     }

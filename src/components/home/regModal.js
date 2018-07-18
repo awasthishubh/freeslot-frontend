@@ -174,14 +174,16 @@ class Submit_card extends Component {
         else if(!this.state.valEmail) this.setState({'subMiss':'Email'})
         else if(!this.state.valPhno) this.setState({'subMiss':'Phno Number'})
         else if(!this.props.MemDetails.org) this.setState({'subMiss':'Organisation'})
+        else if(!this.props.MemDetails.rmno) this.setState({'subMiss':'Room Number'})
         else if(!this.state.valImage) this.setState({'subMiss':'Image File'})
         else
         {   
             var form= new FormData()
             for (var key in this.props.MemDetails) {
                 form.append(key,this.props.MemDetails[key])
+                console.log(key,this.props.MemDetails[key])
             }
-            // console.log(form)
+            console.log(form)
             try{     
                 var response=await axios.post(serverBaseURL+'/members', form)
                 // console.log(response.data.status);
@@ -243,9 +245,15 @@ class Submit_card extends Component {
                                     <label htmlFor='mem_phno'>Phone Number</label>
                                     <span className="helper-text" data-error="Enter a valid 10 digint Phone Number"></span>
                                 </div>
+
+                                <div className="input-field col m6 s12">
+                                    <input id='mem_rmno' type="text" value={this.props.MemDetails.rmno}  onChange={(e)=>this.onChange(e,'UPDATE_RMNO',1)}/>
+                                    <label htmlFor='mem_rmno'>Block-RoomNumber</label>
+                                    <span className="helper-text" data-error="Enter a valid 10 digint Phone Number"></span>
+                                </div>
                                 
 
-                                <div className="file-field input-field col m6 s12">
+                                <div className="file-field input-field col s12">
                                     <div className="btn">
                                         <span>TimeTable</span>
                                         <input id="fle" type="file" onChange={this.validateFile} />
