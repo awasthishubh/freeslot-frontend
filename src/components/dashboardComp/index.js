@@ -14,19 +14,23 @@ import M from 'materialize-css'
 
 import FixedComp from './fixedComp'
 
-function Modal(props){
-    // console.log('DashModal',props)
-    var data
-    if(props.data)
-    props.data.map(function(mem){
-        if(props.selected===mem.reg){
-            // console.log(mem)
-            data= <Chart data={mem} />
+class Modal extends Component{
+    render(){
+        var data
+        if(this.props.data){
+            var selected=this.props.selected
+            this.props.data.map(function(mem){
+                if(selected===mem.reg){
+                    data= <Chart data={mem} />
+                    return null
+                }
+                return null
+            })
         }
-        return null
-    })
-    if(data) return data
-    return <h5>Member Not Found</h5>
+        if(data) return data
+        return <h5>Member Not Found</h5>
+    }
+    
 }
 
 function Loader(props){
@@ -123,7 +127,7 @@ export class dashboard extends Component{
                         <Modal data={this.props.dashRequests?[...this.props.dashRequests, ...this.props.dashMembers] : null} selected={this.props.dashModal.selected}/>
                     </div>
                     <div className="modal-footer" ref={this.modalFooter}>
-                    <a href="#!" className="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>
+                    <a style={{cursor:'pointer'}} className="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>
                     </div>
                 </div>
 

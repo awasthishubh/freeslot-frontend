@@ -16,6 +16,7 @@ class Org_reg extends Component {
         this.checkPass=this.checkPass.bind(this)
         this.passValidiate=this.passValidiate.bind(this)
         this.vailidate=this.vailidate.bind(this)
+        this.state={stat:null}
     }
     componentDidMount(){
         function receiveMessage(event){
@@ -66,13 +67,15 @@ class Org_reg extends Component {
     send(e){
         e.preventDefault()
         var vailidation=this.props.validation
-        if(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.mainEmail && vailidation.cPasswd && vailidation.usid!=="loading")
+        if(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.cPasswd && vailidation.usid!=="loading")
         {
+            this.setState({stat:'Sending...'})
             var dp=this.props.OrgReg.dp
             if(!dp) dp='https://www.hackworks.com/img/account/default-team-avatar.png'
             var url= serverBaseURL+'/oauth/'
             var params=`?usid=${this.props.OrgReg.usid}&passwd=${this.props.OrgReg.passwd}&name=${this.props.OrgReg.name}&mail_id=${this.props.OrgReg.mainEmail}@vitstudent.ac.in&descr=${this.props.OrgReg.descr}&dp=${dp}&redirect=${window.location.protocol+'//'+window.location.host+'/close.htm'}`
             window.open(url+params,null,'height=480,width=640')
+            // this.setState({stat:null})
             // console.log(111, params)
         }
     }
@@ -125,16 +128,15 @@ class Org_reg extends Component {
             <div className="row">   
                 <h5><center>Enter Details Of Ogranisation</center></h5> 
                 <form onSubmit={this.send}>
-                    <div className="col m6 s12">
-                        <div className="input-field col s12">
+                        <div className="input-field col s12 m6">
                             <input id='org_name' type="text" value={this.props.OrgReg.name}  onChange={(e)=>{this.vailidate(e,'ORG_NAME')}} />
                             <label htmlFor='org_name' >Name Of Organisation</label>
                             <span className="helper-text" data-error="Name is required"></span>
                         </div>
                         
                         <div>
-                            <div className="input-field col s12">
-                                <input className="" id='org_id' type="text" value={this.props.OrgReg.usid} onChange={this.orgChange} />
+                            <div className="input-field col s12 m6">
+                                <input  autoComplete="off" className="" id='org_id' type="text" value={this.props.OrgReg.usid} onChange={this.orgChange} />
                                 <label htmlFor='org_id'>Unique Id for Ogranisation</label>
                                 <span className="helper-text" data-error="That username is taken. Try another" data-success="Available">{function(e){if(e.props.validation.usid==="loading") return 'Checking...'}(this)}
                                 </span>
@@ -142,29 +144,27 @@ class Org_reg extends Component {
                         </div>
                         <fieldset>
                             <legend>Optional Details</legend>
-                            <div className="input-field col s12">
+                            <div className="input-field col s12 m6">
                                 <input className="validate" required="" aria-required="true" id='org_dp' type="text" value={this.props.OrgReg.dp}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_DP')}} />
                                 <label htmlFor='org_dp'>Logo URL</label>
                             </div>
-                            <div className="input-field col s12">
+                            <div className="input-field col s12 m6">
                                 <input className="validate" required="" aria-required="true" id='org_descr' type="text" value={this.props.OrgReg.descr}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_DESCR')}} />
                                 <label htmlFor='org_descr'>Tag line</label>
                             </div>
                         </fieldset>
                         
-                    </div>
-                    <div className="col m6 s12">
-                        <div className="input-field col s12">
+                        <div className="input-field col s12 m6">
                             <input id='org_pass' type="password" value={this.props.OrgReg.passwd}  onChange={this.passValidiate} />
                             <label htmlFor='org_pass'>Password</label>
                             <span className="helper-text" data-error="Password must have atleast 4 characters"></span>
                         </div>
-                        <div className="input-field col s12">
+                        <div className="input-field col s12 m6">
                             <input id='org_pass_c' type="password" value={this.props.OrgReg.cPasswd}  onChange={this.checkPass} />
                             <label htmlFor='org_pass_c'>Confirm Password</label>
                             <span className="helper-text" data-error="Passwords do not match" data-success="Password matched"></span>
                         </div>
-                        <fieldset>
+                        {/* <fieldset>
                             <legend>Maintainer Details</legend>
                             <div className="input-field col s12">
                                 <input id='org_main_name' type="text" value={this.props.OrgReg.mainName}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_MAIN-NAME')}} />
@@ -180,9 +180,9 @@ class Org_reg extends Component {
                                     <input style={{fontSize:14}} disabled value="@vitstudent.ac.in" type="text" />
                                 </div>
                             </div>
-                        </fieldset>
-                        </div>
+                        </fieldset> */}
                     <center><input type='submit' value="Verify and Register" className="waves-effect waves-light btn"/></center>
+                    {this.state.stat}
                     </form>
                     <div className="col s12" style={{marginTop:10,textAlign:'right', color:'grey'}}>
                         <a style={{cursor:'pointer'}} onClick={(e)=>this.props.change(false)}>Already registered?</a>

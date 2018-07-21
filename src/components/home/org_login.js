@@ -35,13 +35,17 @@ class orgLogin extends Component{
             form.append('usid',this.state.login_usid)
             form.append('passwd',this.state.login_pass)
             try{
+                this.setState({status:'Verifying...'})
+                this.setState({'err':null})
+
                 var request=await axios.post(serverBaseURL+'/auth',form)
                 this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
-                this.setState({'err':null})
                 Cookies.set('token', request.data.access_token, { expires: 7 });
                 window.location.href = "#/dashboard";
+                this.setState({status:null})
                 window.location.reload();
             } catch(e){
+                this.setState({status:null})
                 console.log(e.response  )
                 if(e.response)
                 this.setState({'err':'Invalid id/password'})
@@ -67,6 +71,7 @@ class orgLogin extends Component{
                             <span className="helper-text" data-error="Password in required"></span>
                         </div>
                     <div className="red-text">{this.state.err}</div>
+                    <div className="grey-text">{this.state.status}</div>
                     <center><input type="submit" className="white-text waves-effect waves-light btn" value="Login"/></center>
 
                     </form>

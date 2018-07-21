@@ -27,7 +27,7 @@ export default class extends Component{
     find(e){
         console.log(e)
         this.props.select(e,'UPDATE_MODAL_SELECTED')
-        // // console.log(this.props.selected.instance.open())
+        this.props.selected.instance.open()
     }
     
     render(){

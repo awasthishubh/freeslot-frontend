@@ -166,7 +166,8 @@ class Org_reg extends Component {
                             </div>
                         </div>
                     </fieldset>
-                    <center><a className="waves-effect waves-light btn" onClick={this.send}>Verify and Register</a></center>
+                    <center><a className="waves-effect waves-light btn" onClick={this.send}>Register</a></center>
+                    {'sending'}
                     </form>
                 </div>
             </div>
