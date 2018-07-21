@@ -78,7 +78,16 @@ class Submit_card extends Component {
         else if(this.state.subErr){
             if(this.state.subErr.status===400)
                 return(
-                <div><h4>Image file not recognised</h4>Try reuploading your timetable after cropping out the required area</div>
+                <div>
+                    <h4>Image file not recognised</h4>
+                    Constraints for uploaded screnshot:
+                    <ul className="browser-default" style={{listStyleType: 'disc'}}>
+                        <li> Image must be png file</li>
+                        <li> Image must be horizontally complete, i.e. must show all 13 slots in a day for all the included days</li>
+                        <li> Image can be cropped vertically to include only those rows where there is a filled slot.</li>
+                        <li> Every individual cell included in the image should be present completely. The cropping should not overlap text inside the slot boxes</li>
+                    </ul>
+                </div>
                 )
             if(this.state.subErr.status===409)
                 return(
@@ -163,7 +172,7 @@ class Submit_card extends Component {
     }
 
     async submit(e){
-        this.setState({err:'sending...'})
+        this.setState({err:'Sending...'})
         e.preventDefault()
         this.setState({'subErr':null})
         this.setState({'subMem':null})
@@ -272,7 +281,7 @@ class Submit_card extends Component {
                                     </button>
                                 </div>
                             </form>
-                            <div className="prog">{this.state.err}</div>
+                            <div className="grey-text">{this.state.err}</div>
                             
 
     <div ref={this.modalDom} className="modal">
