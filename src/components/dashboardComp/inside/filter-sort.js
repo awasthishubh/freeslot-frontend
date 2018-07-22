@@ -27,9 +27,10 @@ class filterSort extends Component{
         this.noFilter=React.createRef()
     }
     componentDidMount(){
+        var all=this.props.all
         if(this.props.data){
             this.props.data.map(function(elem){
-                if(elem.visible!==null)
+                if(all || elem.visible!==null)
                 elem.visible=true
                 return null
             })

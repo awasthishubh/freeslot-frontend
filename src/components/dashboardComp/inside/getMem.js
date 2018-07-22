@@ -10,7 +10,7 @@ function RenderCard(props){
             <div className="card-content row">
                 <span className="card-title" >Available Members</span>
                 <div className="container" style={{marginTop:40}}>
-                    <SortFilter data={props.members} type="MEMBERS"/>
+                    <SortFilter data={props.members} type="MEMBERS" all={false}/>
                     <Collapsi data={props.members} view={props.view}/>
                 </div>
             </div>
@@ -56,13 +56,12 @@ export default class extends Component{
             if(this.timePickerTill.current.value.slice(-2)==="PM") end+=12
             if(this.timePickerFrom.current.value.slice(-2)==="PM") start+=12
             if(this.timePickerTill.current.value.slice(-5,-3)==="00") end-=1
-            if(this.timePickerTill.current.value.slice(-5,-3)==="00") end-=1
 
             end-=8
             start-=8
             if(start>end) return this.setState({err:'Select a proper time interval'})
             // console.log(start, end, point)
-
+            this.setState({show:true})
             this.props.members.map(function(mem){
                 var okay=true
                 // console.log(mem.slots[point])
@@ -72,14 +71,14 @@ export default class extends Component{
                         break
                     }
                 }
+                console.log(mem.visible)
                 if(!okay)
-                 mem.visible=null
-                else mem.visible=true
+                    mem.visible=null
+                else if(mem.visible==null)
+                    mem.visible=true
                 return mem
-
             })
             this.forceUpdate()
-            this.setState({show:true})
             
         }
         else{

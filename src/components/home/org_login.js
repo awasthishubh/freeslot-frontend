@@ -37,7 +37,6 @@ class orgLogin extends Component{
             try{
                 this.setState({status:'Verifying...'})
                 this.setState({'err':null})
-
                 var request=await axios.post(serverBaseURL+'/auth',form)
                 this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
                 Cookies.set('token', request.data.access_token, { expires: 7 });
@@ -58,8 +57,8 @@ class orgLogin extends Component{
         // console.log(this.props)
         return(
                 <div className="row"> 
-                <div className="col s12"><h5><center>Enter your login credentials</center></h5></div>   
-                <form onSubmit={this.send}>
+                    <div className="col s12"><h5><center>Enter your login credentials</center></h5></div>   
+                    <form onSubmit={this.send}>
                         <div className="input-field col s12">
                             <input id='login_usid' className="" onChange={this.isFilled} type="text" />
                             <label htmlFor='login_usid' >Organisation ID</label>
@@ -70,9 +69,9 @@ class orgLogin extends Component{
                             <label htmlFor='login_pass' >Password</label>
                             <span className="helper-text" data-error="Password in required"></span>
                         </div>
-                    <div className="red-text">{this.state.err}</div>
-                    <div className="grey-text">{this.state.status}</div>
-                    <center><input type="submit" className="white-text waves-effect waves-light btn" value="Login"/></center>
+                        <div className="red-text">{this.state.err}</div>
+                        <div className="grey-text">{this.state.status}</div>
+                        <center><input type="submit" className="white-text waves-effect waves-light btn" value="Login"/></center>
 
                     </form>
                     <div className="col s12" style={{marginTop:40,textAlign:'right', color:'grey'}}>

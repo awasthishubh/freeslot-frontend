@@ -39,7 +39,7 @@ export default class extends Component{
                     <div className="card-content row">
                         <span className="card-title">Registered Members</span>
                         <div className="container" style={{marginTop:40}}>
-                            <SortFilter data={this.props.members} type="MEMBERS"/>
+                            <SortFilter data={this.props.members} type="MEMBERS" all={true}/>
                             {this.members()}
                         </div>
                     </div>

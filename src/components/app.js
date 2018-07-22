@@ -15,15 +15,14 @@ export default class App extends Component {
     return(
       <div>
         <HashRouter>
-        <Switch>
+          <Switch>
             <Route path='/dashboard'>
               <Dashboard/>
             </Route>
             <Route path='/'>
               <Home/>
             </Route>
-            
-        </Switch>
+          </Switch>
         </HashRouter>
       </div>
       )
