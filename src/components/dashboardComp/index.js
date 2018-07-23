@@ -115,7 +115,7 @@ export class dashboard extends Component{
 
                 <Route path='/dashboard/settings'>
                 <FixedComp>
-                    <Settings  selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del} />
+                    <Settings updateData={this.props.updateData} selected={this.props.dashModal} org={this.props.dashDetails} />
                 </FixedComp>
                 </Route>
             </Switch>

@@ -19,7 +19,6 @@ export default class extends Component{
     }
      
     render(){
-        // // console.log('bottomLeft',this.props)
         var mems
         return(
         <nav id="bottomLeftDash" className="sideNav grey darken-4" style={navStyle}>
@@ -47,12 +46,12 @@ export default class extends Component{
             
         </div>
 
-        <div id="dashHome" style={{marginTop:40,position: 'absolute', bottom:0, width:'100%'}}>
-            {/* <Link to="/dashboard/find" className="nItem" >
+        <div style={{marginTop:40,position: 'absolute', bottom:0, width:'100%'}}>
+            <Link to="/dashboard/settings" className="nItem" id="dashSettings">
                 <i className="material-icons" style={{display: 'inline-block'}}>settings</i>
                 <span className="sideName">Settings</span>
-            </Link> */}
-            <a style={{cursor:'pointer'}} id="dashHome" className="nItem" onClick={this.logout} >
+            </Link>
+            <a style={{cursor:'pointer'}} id="dashLogout" className="nItem" onClick={this.logout} >
                 <i className="material-icons" style={{display: 'inline-block'}}>all_out</i>
                 <span className="sideName">Logout</span>
             </a>
