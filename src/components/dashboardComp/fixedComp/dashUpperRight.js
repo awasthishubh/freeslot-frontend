@@ -14,7 +14,7 @@ export default class extends Component{
         if(this.props.data)
         {    var data={}
             this.props.data.map(function(mem){
-                data[mem.reg]=null
+                data[mem.reg+' ('+mem.name+')']=null
                 return mem
             })
             var elems = document.querySelectorAll('.autocomplete');
@@ -26,6 +26,7 @@ export default class extends Component{
 
     find(e){
         console.log(e)
+        e=e.split(' ')[0]
         this.props.select(e,'UPDATE_MODAL_SELECTED')
         this.props.selected.instance.open()
     }
