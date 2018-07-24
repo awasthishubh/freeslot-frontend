@@ -60,7 +60,7 @@ class orgLogin extends Component{
                     <div className="col s12"><h5><center>Enter your login credentials</center></h5></div>   
                     <form onSubmit={this.send}>
                         <div className="input-field col s12">
-                            <input id='login_usid' className="" onChange={this.isFilled} type="text" />
+                            <input id='login_usid' className="" onChange={(e)=>{e.target.value=e.target.value.toLowerCase();this.isFilled(e)}} type="text" />
                             <label htmlFor='login_usid' >Organisation ID</label>
                             <span className="helper-text" data-error="Organisation id is required"></span>
                         </div>
