@@ -12,7 +12,7 @@ import BottomRight from './dashBottomRight'
 //     position: 'fixed',top:64,left:300,right:0, bottom:0,padding:20, overflowY:'scroll',overflowX:'scroll', zIndex:104
 // }
 var style={
-    position: 'absolute',top:64,left:300,right:0, bottom:0,padding:20, overflowY:'scroll', zIndex:104
+    position: 'absolute',top:64,left:300,right:0, bottom:0,padding:20, overflowY:'auto', zIndex:104
 }
 export class dashboard extends Component{
     
@@ -26,7 +26,7 @@ export class dashboard extends Component{
                     <BottomRight/>
                     </div>
                     <div className="bottomRightDash" style={style}>
-                        <div className="innerDash" style={{height:"100%"}} >{this.props.children}</div>
+                        <div className="innerDash" style={{height:"90%", overflow:'visible'}} >{this.props.children}</div>
                     </div>
                     </div>
 

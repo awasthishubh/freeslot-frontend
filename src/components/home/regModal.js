@@ -203,6 +203,7 @@ class Submit_card extends Component {
                 this.props.updateData('', 'UPDATE_PHNO')
                 this.props.updateData('', 'UPDATE_TT')
                 this.props.updateData('', 'UPDATE_ORG')
+                this.props.updateData('', 'UPDATE_RMNO')
                 this.setState({err:null})
                 return
             } 

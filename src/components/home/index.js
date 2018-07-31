@@ -8,7 +8,7 @@ var backStyle={
     bottom:0,
     left:0,
     right:0,
-    overflowY:'scroll',
+    overflowY:'auto',
 }
 export default class extends Component{
     componentDidMount(){
