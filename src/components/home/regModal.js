@@ -64,18 +64,7 @@ class Submit_card extends Component {
         
     }
     mem(){
-        if(this.modalDom.current)
-            this.modalDom.current.classList.remove('modal-fixed-footer')
-        if(this.state.subMem){
-            this.modalDom.current.classList.add('modal-fixed-footer')
-        // console.log(this.state.subMem.data)
-        return (<div>
-            <h5>Registered Successfully!</h5><hr/>
-            <Chart data={this.state.subMem.data} />
-            </div>
-        )
-        }
-        else if(this.state.subErr){
+        if(this.state.subErr){
             if(this.state.subErr.status===400)
                 return(
                 <div>
@@ -212,6 +201,7 @@ class Submit_card extends Component {
                 // // console.log(error.response.status);
             }
         }
+        M.Modal.init(this.modalDom.current)
         M.Modal.getInstance(this.modalDom.current).open();
         this.setState({err:null})
     }
