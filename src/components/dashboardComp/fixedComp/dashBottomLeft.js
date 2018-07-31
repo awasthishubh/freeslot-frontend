@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
-import M from 'materialize-css'
+import $ from 'jquery'
 var navStyle={
     position: 'fixed',
     width: '300px',
@@ -19,7 +19,7 @@ export default class extends Component{
         window.location.reload()
     }
     close(){
-        M.Sidenav.init(document.getElementById('bottomLeftDash')).close()
+        $('.sidenav-overlay').trigger( "click" )
     }
      
     render(){

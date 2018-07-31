@@ -66,8 +66,8 @@ export default class extends Component{
         }
     }
     cpassChange(e){
-        console.log(this.state.org.newPasswd)
-        console.log(this.state.org.newCpasswd)
+        // console.log(this.state.org.newPasswd)
+        // console.log(this.state.org.newCpasswd)
         if(e.target.value.length){
             if(this.state.org.newPasswd===this.state.org.newCpasswd)
                 return e.target.classList.add('valid')
@@ -89,11 +89,10 @@ export default class extends Component{
                 else return this.setState({err:'Enter a valid new password'})
             }
             form.append('usid',this.state.org.usid)
-            console.log(form)
+            // console.log(form)
             this.setState({status:'Saving...'})
             try{
-                var data=await axios.put(serverBaseURL+'/auth',form)
-                console.log(data.status)
+                await axios.put(serverBaseURL+'/auth',form)
                 this.setState({status:null})
                 this.setState({msg:'Saved'})
                 this.state.org.passwd=''
@@ -120,7 +119,7 @@ export default class extends Component{
     }
 
     render(){
-        console.log(this.state.org)
+        // console.log(this.state.org)
         if(this.state.org)
             return(
                 <div className="card">
@@ -162,12 +161,12 @@ export default class extends Component{
                                 <legend>Change password</legend>
                                 <div  className="input-field col s10 offset-s1">
                                     <input id="newPasswd" className="" type="password" value={this.state.org.newPasswd} onChange={this.changed} onBlur={this.passChange} style={{color:'#37474f'}}/>
-                                    <label for="newPasswd">New Password</label>
+                                    <label htmlFor="newPasswd">New Password</label>
                                     <span className="helper-text" data-error="Password must have atleast 4 char"></span>
                                 </div>
                                 <div  className="input-field col s10 offset-s1">
                                     <input id="newCpasswd" className="" type="password" value={this.state.org.newCpasswd} onChange={this.changed} onBlur={this.cpassChange} style={{color:'#37474f'}}/>
-                                    <label for="newCpasswd">Confirm new Password</label>
+                                    <label htmlFor="newCpasswd">Confirm new Password</label>
                                     <span className="helper-text" data-error="Passwords do not match"></span>
                                 </div>
                             </fieldset>
