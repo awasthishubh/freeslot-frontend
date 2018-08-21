@@ -81,10 +81,6 @@ export default class extends Component {
                 colrs.push(colors[1])
             }
         }
-        
-        // console.log(data, colrs)
-        
-        
         var ctx = this.chartDom.current.getContext('2d');
         new Chart(ctx, {
             type: 'pie',

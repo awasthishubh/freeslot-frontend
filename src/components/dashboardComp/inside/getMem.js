@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Collapsi from './collapsi'
 import SortFilter from './filter-sort'
 import M from 'materialize-css'
+import $ from 'jquery'
 
 function RenderCard(props){
     if(props.show)
@@ -35,9 +36,16 @@ export default class extends Component{
         document.getElementById('dashGetMem').classList.remove('active')
     }
     componentDidMount(){
+        var option={
+            defaultTime: '00:00',
+            twelveHour: false,
+            onSelect: function(e,f){
+                $($(this.$modalEl[0]).find('.timepicker-close')[1]).trigger('click')
+            }
+        }
         document.getElementById('dashGetMem').classList.add('active')
-        M.Timepicker.init(this.timePickerTill.current)
-        M.Timepicker.init(this.timePickerFrom.current)
+        M.Timepicker.init(this.timePickerTill.current, option)
+        M.Timepicker.init(this.timePickerFrom.current, option)
         var elems = document.querySelectorAll('select');
         M.FormSelect.init(elems);
     }
@@ -93,36 +101,38 @@ export default class extends Component{
                 <div className="card s12">
                     <div className="card-content row">
                         <span className="card-title" >Get A Member</span>
+                        <div className="container">
+                            <div style={{fontSize:17, margin:'36px 30px 10px 10px'}}>Choose a Day</div>
+                            <div className="input-field container">
+                            <select defaultValue="default" className="validate valid" ref={this.dayPicker}>
+                                <option value="default" disabled >Days</option>
+                                <option value="0">Monday</option>
+                                <option value="1">Tuesday</option>
+                                <option value="2">Wednesday</option>
+                                <option value="3">Thursday</option>
+                                <option value="4">Friday</option>
+                                <option value="5">Saturday</option>
+                                <option value="6">Sunday</option>
+                            </select>
+                                </div>
 
-                        <div style={{fontSize:17, margin:'36px 30px 10px 10px'}}>Choose a Day</div>
-                        <div className="input-field col s12">
-                        <select defaultValue="default" className="validate valid" ref={this.dayPicker}>
-                            <option value="default" disabled >Days</option>
-                            <option value="0">Monday</option>
-                            <option value="1">Tuesday</option>
-                            <option value="2">Wednesday</option>
-                            <option value="3">Thursday</option>
-                            <option value="4">Friday</option>
-                            <option value="5">Saturday</option>
-                            <option value="6">Sunday</option>
-                        </select>
+
+                            <div style={{fontSize:17, margin:'80px 30px 10px 10px'}}>Choose a Time</div>
+                            <div className="container">
+                                <div className="input-field col s6">
+                                    <input type="text" className="timepicker" ref={this.timePickerFrom} />
+                                    <label htmlFor='mem_reg'>From</label>
+                                </div>
+                                <div className="input-field col s6">
+                                    <input ref={this.timePickerTill} type="text" className="timepicker"/>
+                                    <label htmlFor='mem_reg'>Till</label>
+                                </div>
                             </div>
-
-
-                        <div style={{fontSize:17, margin:'120px 30px 10px 10px'}}>Choose a Time</div>
-                        <div className="input-field col s6">
-                            <input type="text" className="timepicker" ref={this.timePickerFrom} />
-                            <label htmlFor='mem_reg'>From</label>
+                            <div>
+                            <center><a style={{marginTop:30}} className="waves-effect waves-light btn" onClick={this.submit}><i className="material-icons left">send</i>Submit</a></center>
+                            </div>
+                            <div className="err red-text">{this.state.err}</div>
                         </div>
-                        <div className="input-field col s6">
-                            <input ref={this.timePickerTill} type="text" className="timepicker"/>
-                            <label htmlFor='mem_reg'>Till</label>
-                        </div>
-                        <div>
-                        <center><a style={{marginTop:30}} className="waves-effect waves-light btn" onClick={this.submit}><i className="material-icons left">send</i>Submit</a></center>
-                        </div>
-                        <div className="err red-text">{this.state.err}</div>
-
                     </div>
                 </div>
 
