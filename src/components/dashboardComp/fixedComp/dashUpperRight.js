@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import M from 'materialize-css'
-
+import $ from 'jquery'
 var navStyle={
     height:64, position: 'fixed', top:0, left:300, right:0, zIndex:105
 }
@@ -25,10 +25,11 @@ export default class extends Component{
     }
 
     find(e){
-        console.log(e)
+        // console.log(e)
         e=e.split(' ')[0]
         this.props.select(e,'UPDATE_MODAL_SELECTED')
         this.props.selected.instance.open()
+        $('#autocomplete-input')[0].value=''
     }
     
     render(){
