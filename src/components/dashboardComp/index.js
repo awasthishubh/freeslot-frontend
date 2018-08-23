@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateDashboardData, del, verify} from '../../actions/dashboard_action'
+import {updateDashboardData, del, verify,updateReq} from '../../actions/dashboard_action'
 import {HashRouter, Route, Switch } from 'react-router-dom'
 import Home from './inside/home'
 import Members from './inside/members'
@@ -18,6 +18,7 @@ class Modal extends Component{
     render(){
         var data
         if(this.props.data){
+            console.log(this.props.data)
             var selected=this.props.selected
             this.props.data.map(function(mem){
                 if(selected===mem.reg){
@@ -36,7 +37,7 @@ class Modal extends Component{
 function Loader(props){
     if(!props.loggedIn)
     return(
-        <div style={{position: 'fixed', top:0, bottom:0,left:0, right:0, zIndex:2000, background: 'rgba(0,0,0, 0.7)' }}>
+        <div style={{position: 'fixed', top:64, bottom:0,left:300, right:0, zIndex:2000, background: 'rgba(0,0,0, 0.7)' }}>
         <div className="preloader-wrapper big active" style={{height:200, width:200, position: 'absolute', top:'50%', left:'50%', margin: -100}}>
             <div className="spinner-layer spinner-green-only">
             <div className="circle-clipper  left">
@@ -66,7 +67,7 @@ export class dashboard extends Component{
         }
     }
     componentDidMount(){
-        document.title = "FreeSlots | Dashboard"
+        document.title = "Dashboard | FreeSlots"
         // console.log('Mounted Dashboard')
         var elems = document.querySelectorAll('.sidenav');
         window.sideInstance = M.Sidenav.init(elems[0]);
@@ -97,13 +98,23 @@ export class dashboard extends Component{
 
                 <Route path='/dashboard/members'>
                 <FixedComp>
-                    <Members selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del}/>
+                    <Members selected={this.props.dashModal}
+                        updateData={this.props.updateData} 
+                        members={this.props.dashMembers} 
+                        del={this.props.del}
+                    />
                 </FixedComp>
                 </Route>
 
                 <Route path='/dashboard/requests'>
                 <FixedComp>
-                    <MembersReq selected={this.props.dashModal} updateData={this.props.updateData} requests={this.props.dashRequests} del={this.props.del} verify={this.props.verify}/>
+                    <MembersReq 
+                        selected={this.props.dashModal} 
+                        updateReq={this.props.updateReq}
+                        updateData={this.props.updateData} 
+                        requests={this.props.dashRequests} 
+                        del={this.props.del} 
+                        verify={this.props.verify}/>
                 </FixedComp>
                 </Route>
 
@@ -124,7 +135,14 @@ export class dashboard extends Component{
 
               <div id="dashModalMem" ref={this.Modal} className="modal modal-fixed-footer">
                     <div className="modal-content">
-                        <Modal data={this.props.dashRequests?[...this.props.dashRequests, ...this.props.dashMembers] : null} selected={this.props.dashModal.selected}/>
+                        <Modal data={
+                            (()=>{
+                                if(this.props.dashRequests&&this.props.dashMembers)
+                                    return [...this.props.dashRequests, ...this.props.dashMembers]
+                                else 
+                                    return this.props.dashRequests || this.props.dashMembers
+                            })()
+                        } selected={this.props.dashModal.selected}/>
                     </div>
                     <div className="modal-footer" ref={this.modalFooter}>
                     <a style={{cursor:'pointer'}} className="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>
@@ -143,7 +161,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateData,updateDashboardData, del, verify}, dispatch)
+    return bindActionCreators({updateReq,updateData,updateDashboardData, del, verify}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)

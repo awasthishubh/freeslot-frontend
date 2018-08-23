@@ -27,6 +27,8 @@ export default class extends Component{
 
     componentDidMount(){
         document.getElementById('dashReqs').classList.add('active')
+        console.log(this.props)
+        this.props.updateReq()
     }
     componentWillUnmount(){
         document.getElementById('dashReqs').classList.remove('active')

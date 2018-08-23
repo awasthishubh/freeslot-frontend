@@ -17,10 +17,12 @@ export default class extends Component{
 
     render(){
         var props=this.props
-        // console.log('collapsi',this.props)
+        console.log('collapsi',this.props)
         var okay=false
         var mems= this.props.data.map(function(mem){
-            if(mem.visible && (okay=true))
+            console.log(mem)
+            console.log(mem.visible,mem.name)
+            if(mem.visible!=false && (okay=true))
             return(
                 <li key={mem.reg}>
                     <div className="collapsible-header left-align">
