@@ -28,7 +28,11 @@ export default class extends Component{
     }
 
     componentDidMount(){
+        if(!this.props.members) this.props.updateMem()
         document.getElementById('dashMems').classList.add('active')
+    }
+    componentDidUpdate(){
+        if(!this.props.members) this.props.updateMem()
     }
     componentWillUnmount(){
         document.getElementById('dashMems').classList.remove('active')

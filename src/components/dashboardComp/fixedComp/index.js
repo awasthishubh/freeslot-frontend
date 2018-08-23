@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateDashboardData} from '../../../actions/dashboard_action'
+import {updateDashboardData, updateMem} from '../../../actions/dashboard_action'
 import {updateData} from '../../../actions'
 import UpperLeft from './dashUpperLeft'
 import UpperRight from './dashUpperRight'
@@ -22,7 +22,7 @@ export class dashboard extends Component{
                 <div>
                     <UpperLeft/>
                     <BottomLeft selected={this.props.dashSelected} select={this.props.updateSelected} members={this.props.dashMembers} requests={this.props.dashRequests}/>
-                    <UpperRight update={this.props.updateDashboardData} data={this.props.dashMembers} selected={this.props.dashModal} select={this.props.updateData}/>
+                    <UpperRight updateMem={this.props.updateMem} update={this.props.updateDashboardData} data={this.props.dashMembers} selected={this.props.dashModal} select={this.props.updateData}/>
                     <BottomRight/>
                     </div>
                     <div className="bottomRightDash" style={style}>
@@ -39,7 +39,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateDashboardData,updateData}, dispatch)
+    return bindActionCreators({updateDashboardData,updateData, updateMem}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)

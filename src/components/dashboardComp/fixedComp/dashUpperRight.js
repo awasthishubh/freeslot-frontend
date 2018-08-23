@@ -42,7 +42,7 @@ export default class extends Component{
                     <form onSubmit={(e)=>{e.preventDefault();this.find(document.getElementById('autocomplete-input').value)}}>
                         <div className="input-field" style={{ margin: 0}}>
                         <i style={{marginTop: '-6px'}} className="material-icons prefix">search</i>
-                        <input type="text" id="autocomplete-input" autoComplete="off" className="autocomplete" placeholder="Search by registration number"/>
+                        <input onFocus={()=>{if(!this.props.data) this.props.updateMem()}} type="text" id="autocomplete-input" autoComplete="off" className="autocomplete" placeholder="Search by registration number"/>
                         </div>
                     </form>
                 </div>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateDashboardData, del, verify,updateReq} from '../../actions/dashboard_action'
+import {updateDashboardData, del, verify,updateReq,updateMem,updateOrg} from '../../actions/dashboard_action'
 import {HashRouter, Route, Switch } from 'react-router-dom'
 import Home from './inside/home'
 import Members from './inside/members'
@@ -86,19 +86,24 @@ export class dashboard extends Component{
             <Switch>
                 <Route exact path='/dashboard/'>
                     <FixedComp>
-                    <Home members={this.props.dashMembers} requests={this.props.dashRequests} details={this.props.dashDetails}/>
+                    <Home 
+                        updateOrg={this.props.updateOrg}
+                        org={this.props.dashDetails}/>
                     </FixedComp>
                 </Route>
 
                 <Route path='/dashboard/home'>
                 <FixedComp>
-                        <Home members={this.props.dashMembers} requests={this.props.dashRequests} details={this.props.dashDetails}/>
+                        <Home
+                            updateOrg={this.props.updateOrg}
+                            org={this.props.dashDetails}/>
                 </FixedComp>
                 </Route>
 
                 <Route path='/dashboard/members'>
                 <FixedComp>
                     <Members selected={this.props.dashModal}
+                        updateMem={this.props.updateMem}
                         updateData={this.props.updateData} 
                         members={this.props.dashMembers} 
                         del={this.props.del}
@@ -161,7 +166,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateReq,updateData,updateDashboardData, del, verify}, dispatch)
+    return bindActionCreators({updateReq,updateMem,updateOrg,updateData,updateDashboardData, del, verify}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)

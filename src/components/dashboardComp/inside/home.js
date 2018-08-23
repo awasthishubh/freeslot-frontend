@@ -59,50 +59,29 @@ export default class extends Component{
         this.firstUpdate=true
     }
     componentDidMount(){
+        if(!this.props.org)
+        this.props.updateOrg()
         document.getElementById('dashHome').classList.add('active')
-        if(this.props.members){
-            var firstYr=0, secondYr=0, thirdYr=0, fourthYr=0, total=0;
-            this.props.members.map(function(mem){
-                switch (mem.reg.slice(0,2)){
-                    case '18':
-                        firstYr+=1
-                        break
-                    case '17':
-                        secondYr+=1
-                        break
-                    case '16':
-                        thirdYr+=1
-                        break
-                    case '15':
-                        fourthYr+=1
-                        break
-                    default:
-                        break
-                }
-                total+=1
-                return null
-            })
-            this.setState({firstYr,secondYr,thirdYr,fourthYr, total})
-        }
     }
     componentDidUpdate(){
-        if(this.props.members && this.firstUpdate){
-            this.componentDidMount()
-            this.firstUpdate=false
-        }
+        // if(this.props.members && this.firstUpdate){
+        //     this.componentDidMount()
+        //     this.firstUpdate=false
+        // }
+        if(!this.props.org)
+            this.props.updateOrg()
     }
     componentWillUnmount(){
         document.getElementById('dashHome').classList.remove('active')
     }
     
     render(){
-    // console.log(this.props)
-        if(this.props.members)
+    console.log(this.props)
+        if(this.props.org && this.props.org.stat)
         return(
             <div style={{height:'100%'}} >
             <div className="row dashRow" style={{height:'55%'}}>
-                <Details img={this.props.details.dp} name={this.props.details.name} tag={this.props.details.descr}/>
-                {/* <Details title="Maintainer" img={this.props.details.maintainer_photo} name={this.props.details.maintainer_name}/> */}
+                <Details img={this.props.org.details.dp} name={this.props.org.details.name} tag={this.props.org.details.descr}/>
                 
             </div>
             <div className="row dashRow" style={{height:'35%'}}>
@@ -127,13 +106,13 @@ export default class extends Component{
                                 <span className="col s6 m12">
                                 <span className="col s12">
                                     <div className="col s12 m10">
-                                        <span style={styleT} className="col s12 m3">{this.state.firstYr}</span>
-                                        <span style={styleT} className="col s12 m3">{this.state.secondYr}</span>
-                                        <span style={styleT} className="col s12 m3">{this.state.thirdYr}</span>
-                                        <span style={styleT} className="col s12 m3">{this.state.fourthYr}</span>
+                                        <span style={styleT} className="col s12 m3">{this.props.org.stat.firstYr}</span>
+                                        <span style={styleT} className="col s12 m3">{this.props.org.stat.secondYr}</span>
+                                        <span style={styleT} className="col s12 m3">{this.props.org.stat.thirdYr}</span>
+                                        <span style={styleT} className="col s12 m3">{this.props.org.stat.fourthYr}</span>
                                     </div>
                                     {/* <div className> */}
-                                        <span style={styleT} className="col s12 m2"><b>{this.state.total}</b></span>
+                                        <span style={styleT} className="col s12 m2"><b>{this.props.org.stat.members}</b></span>
                                     {/* </div> */}
                                 </span >
                                 </span>
@@ -141,7 +120,7 @@ export default class extends Component{
                         </div>
                     </div>
                 </div>
-                <ShowP head="Requests Pending" stat={this.props.requests?this.props.requests.length:null} size={50}/>
+                <ShowP head="Requests Pending" stat={this.props.org.stat.requests} size={50}/>
             </div>
             </div>
         )

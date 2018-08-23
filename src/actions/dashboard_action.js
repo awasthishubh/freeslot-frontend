@@ -19,11 +19,11 @@ export function updateDashboardData(){
     return async function(dispatch){
         dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
-            var org=await axios(optionsOrg)
-            var mem=await axios(optionsMem)
-            dispatch({type:'UPDATE_ORG_DETAILS', data:org.data})
-            dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data})
-            // dispatch({type:'UPDATE_ORG_REQUESTS', data:mem.data.data.unverified})
+            // var org=await axios(optionsOrg)
+            // var mem=await axios(optionsMem)
+            dispatch({type:'UPDATE_ORG_DETAILS', data:null})
+            dispatch({type:'UPDATE_ORG_MEMBERS', data:null})
+            dispatch({type:'UPDATE_ORG_REQUESTS', data:null})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             console.log(e)
@@ -93,12 +93,35 @@ export function updateMem(){
     return async function(dispatch){
         try{
             var req=await axios({
-                url:`${serverBaseURL}/auth/requests`,
+                url:`${serverBaseURL}/auth/members`,
                 headers: { 'Authorization': 'Bearer '+token},
                 method: 'GET',
             })
             console.log(req.data.data)
-            dispatch({type:'UPDATE_ORG_REQUESTS', data:req.data.data})
+            dispatch({type:'UPDATE_ORG_MEMBERS', data:req.data.data})
+        } catch(e){
+            console.log(e)
+            // dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+        }
+        
+    }
+}
+
+export function updateOrg(){
+    return async function(dispatch){
+        try{
+            var org=await axios({
+                url:`${serverBaseURL}/auth/org`,
+                headers: { 'Authorization': 'Bearer '+token},
+                method: 'GET',
+            })
+            var stat=await axios({
+                url:`${serverBaseURL}/auth/members/stats`,
+                headers: { 'Authorization': 'Bearer '+token},
+                method: 'GET',
+            })
+            console.log({details: org.data.details, stat: stat.data}    )
+            dispatch({type:'UPDATE_ORG_DETAILS', data:{details: org.data.details, stat: stat.data}})
         } catch(e){
             console.log(e)
             // dispatch({type:'UPDATE_ORG_LOGGED', data:false})
