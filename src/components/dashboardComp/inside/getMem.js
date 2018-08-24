@@ -14,7 +14,7 @@ function RenderCard(props){
             <div className="card-content row">
                 <span className="card-title" >Available Members</span>
                 <div className="container" style={{marginTop:40}}>
-                    <SortFilter data={props.members} type="MEMBERS" all={false}/>
+                    <SortFilter data={props.members} update={props.update} all={false}/>
                     <Collapsi data={props.members} view={props.view}/>
                 </div>
             </div>
@@ -40,6 +40,7 @@ export default class extends Component{
         document.getElementById('dashGetMem').classList.remove('active')
     }
     componentDidMount(){
+        this.props.updateData(true,'UPDATE_ORG_LOGGED')
         var option={
             defaultTime: '00:00',
             twelveHour: false,
@@ -76,7 +77,10 @@ export default class extends Component{
             }catch(e){
                 if(e.request.status==404)
                     this.setState({members:[]})
-                else this.setState({err:'Server error'})
+                else{
+                    this.setState({err:'Server error'})
+                    this.props.updateData(false,'UPDATE_ORG_LOGGED')
+                }
             }
             
             this.setState({status:null})
@@ -137,6 +141,7 @@ export default class extends Component{
                     show={this.state.show}
                     members={this.state.members}
                     view={this.viewMem}
+                    update={(data)=>{this.setState({members:data})}}
                 />
             </div>
         )

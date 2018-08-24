@@ -5,7 +5,7 @@ import {connect} from  'react-redux'
 import {modifyData} from '../../../actions/dashboard_action'
 import M from 'materialize-css'
 
-
+ 
 function sortOrder(prop) {  
     return function(a, b) {  
         if (a[prop] > b[prop]) {  
@@ -35,13 +35,10 @@ class filterSort extends Component{
                 return null
             })
             this.props.data.sort(sortOrder('name'))  
-            this.props.modifyData(null, this.props.data, this.props.type)
+            this.props.update(this.props.data)
         }
         M.FormSelect.init(this.sortRef.current)
         M.FormSelect.init(this.filterRef.current)
-
-        // this.nameSort.current.checked=true
-        // this.noFilter.current.checked=true
     }
     filter(e){
         var X=e.target.value
@@ -55,7 +52,7 @@ class filterSort extends Component{
                 }
                 return null
             })
-            this.props.modifyData(X, data, this.props.type)
+            this.props.update(data)
         }
     }
     sort(e){
@@ -64,7 +61,8 @@ class filterSort extends Component{
         if(data && data[0][X]){
             
             data.sort(sortOrder(X))  
-            this.props.modifyData(X, data, this.props.type)
+            this.props.update(data)
+            // this.props.modifyData(X, data, this.props.type)
         }
     }
     render(){

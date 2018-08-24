@@ -36,7 +36,7 @@ export function requests(state=null, action){
 }
 
 
-export function isLoggedIn(state=null, action){
+export function isLoggedIn(state=true, action){
     switch(action.type){
         case 'UPDATE_ORG_LOGGED':
             return action.data

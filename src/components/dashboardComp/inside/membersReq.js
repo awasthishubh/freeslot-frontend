@@ -31,7 +31,7 @@ export default class extends Component{
         if(!this.props.requests) this.props.updateReq()
     }
     componentDidUpdate(){
-        // if(!this.props.requests) this.props.updateReq()
+        if(!this.props.requests && this.props.loggedIn) this.props.updateReq()
     }
     componentWillUnmount(){
         document.getElementById('dashReqs').classList.remove('active')
@@ -46,7 +46,7 @@ export default class extends Component{
                         <div className="card-content row">
                             <span className="card-title">Members Requests</span>
                             <div className="container" style={{marginTop:40}}>
-                                    <SortFilter data={this.props.requests} type="REQUESTS" all={true}/>
+                                    <SortFilter data={this.props.requests} update={(data)=>{this.props.updateData(data,'UPDATE_ORG_REQUESTS')}} all={true}/>
                                     {this.members()}
                             </div>
                         </div>

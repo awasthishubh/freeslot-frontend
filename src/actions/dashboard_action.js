@@ -7,16 +7,9 @@ var token=Cookies.get('token')
 
 export function updateDashboardData(){
     return async function(dispatch){
-        dispatch({type:'UPDATE_ORG_LOGGED', data:null})
-        try{
             dispatch({type:'UPDATE_ORG_DETAILS', data:null})
             dispatch({type:'UPDATE_ORG_MEMBERS', data:null})
             dispatch({type:'UPDATE_ORG_REQUESTS', data:null})
-            dispatch({type:'UPDATE_ORG_LOGGED', data:true})
-        } catch(e){
-            console.log(e)
-            // dispatch({type:'UPDATE_ORG_LOGGED', data:false})
-        }
         
     }
 }
@@ -68,6 +61,7 @@ export function modifyData(X,data,action){
 
 export function updateReq(){
     return async function(dispatch){
+        dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             dispatch({type:'UPDATE_ORG_LOGGED', data:null})
             var req=await axios({
@@ -76,8 +70,8 @@ export function updateReq(){
                 method: 'GET',
             })
             console.log(req.data.data)
-            dispatch({type:'UPDATE_ORG_LOGGED', data:true})
             dispatch({type:'UPDATE_ORG_REQUESTS', data:req.data.data})
+            dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             console.log(e)
             dispatch({type:'UPDATE_ORG_LOGGED', data:false})
@@ -88,6 +82,8 @@ export function updateReq(){
 
 export function updateMem(){
     return async function(dispatch){
+        console.log('sdzx')
+        dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             var req=await axios({
                 url:`${serverBaseURL}/auth/members`,
@@ -96,6 +92,7 @@ export function updateMem(){
             })
             console.log(req.data.data)
             dispatch({type:'UPDATE_ORG_MEMBERS', data:req.data.data})
+            dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             console.log(e)
             dispatch({type:'UPDATE_ORG_LOGGED', data:false})
@@ -106,6 +103,7 @@ export function updateMem(){
 
 export function updateOrg(){
     return async function(dispatch){
+        dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             var org=await axios({
                 url:`${serverBaseURL}/auth/org`,
@@ -117,8 +115,8 @@ export function updateOrg(){
                 headers: { 'Authorization': 'Bearer '+token},
                 method: 'GET',
             })
-            console.log({details: org.data.details, stat: stat.data}    )
             dispatch({type:'UPDATE_ORG_DETAILS', data:{details: org.data.details, stat: stat.data}})
+            dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             console.log(e)
             dispatch({type:'UPDATE_ORG_LOGGED', data:false})

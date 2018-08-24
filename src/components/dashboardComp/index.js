@@ -84,7 +84,8 @@ export class dashboard extends Component{
                     <Home 
                         updateData={this.props.updateData} 
                         updateOrg={this.props.updateOrg}
-                        org={this.props.dashDetails}/>
+                        org={this.props.dashDetails}
+                        loggedIn={this.props.isLoggedIn}/>
                     </FixedComp>
                 </Route>
 
@@ -93,7 +94,8 @@ export class dashboard extends Component{
                         <Home
                             updateData={this.props.updateData} 
                             updateOrg={this.props.updateOrg}
-                            org={this.props.dashDetails}/>
+                            org={this.props.dashDetails}
+                            loggedIn={this.props.isLoggedIn}/>
                 </FixedComp>
                 </Route>
 
@@ -105,6 +107,7 @@ export class dashboard extends Component{
                         updateData={this.props.updateData} 
                         members={this.props.dashMembers} 
                         del={this.props.del}
+                        loggedIn={this.props.isLoggedIn}
                     />
                 </FixedComp>
                 </Route>
@@ -117,13 +120,17 @@ export class dashboard extends Component{
                         updateData={this.props.updateData} 
                         requests={this.props.dashRequests} 
                         del={this.props.del} 
-                        verify={this.props.verify}/>
+                        verify={this.props.verify}
+                        loggedIn={this.props.isLoggedIn}/>
                 </FixedComp>
                 </Route>
 
                 <Route path='/dashboard/find'>
                 <FixedComp>
-                    <GetMem  selected={this.props.dashModal} updateData={this.props.updateData} members={this.props.dashMembers} del={this.props.del} />
+                    <GetMem  
+                        selected={this.props.dashModal} 
+                        updateData={this.props.updateData}
+                        del={this.props.del} />
                 </FixedComp>
                 </Route>
 

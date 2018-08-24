@@ -64,11 +64,7 @@ export default class extends Component{
         document.getElementById('dashHome').classList.add('active')
     }
     componentDidUpdate(){
-        // if(this.props.members && this.firstUpdate){
-        //     this.componentDidMount()
-        //     this.firstUpdate=false
-        // }
-        if(!this.props.org) this.props.updateOrg()
+        if(!this.props.org && this.props.loggedIn) this.props.updateOrg()
     }
     componentWillUnmount(){
         document.getElementById('dashHome').classList.remove('active')

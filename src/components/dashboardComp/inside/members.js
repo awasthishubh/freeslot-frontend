@@ -29,11 +29,13 @@ export default class extends Component{
 
     componentDidMount(){
         this.props.updateData(true,'UPDATE_ORG_LOGGED')
-        if(!this.props.members) this.props.updateMem()
+        if(!this.props.members){
+            this.props.updateMem()
+        }
         document.getElementById('dashMems').classList.add('active')
     }
     componentDidUpdate(){
-        if(!this.props.members) this.props.updateMem()
+        if(!this.props.members && this.props.loggedIn) this.props.updateMem()
     }
     componentWillUnmount(){
         document.getElementById('dashMems').classList.remove('active')
@@ -80,7 +82,7 @@ export default class extends Component{
                         <span className="card-title">Registered Members</span>
                         <div className="blue-text" style={{cursor:'pointer', textAlign:'right'}} onClick={this.downloadcsv}>{this.state.download}</div>
                         <div className="container" style={{marginTop:40}}>
-                            <SortFilter data={this.props.members} type="MEMBERS" all={true}/>
+                            <SortFilter data={this.props.members} update={(data)=>{this.props.updateData(data,'UPDATE_ORG_MEMBERS')}} all={true}/>
                             {this.members()}
                         </div>
                     </div>
