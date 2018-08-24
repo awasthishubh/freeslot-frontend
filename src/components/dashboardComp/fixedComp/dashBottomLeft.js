@@ -36,12 +36,12 @@ export default class extends Component{
             <Link to="/dashboard/members" id="dashMems" className="nItem" onClick={this.close} >
                 <i className="material-icons" style={{display: 'inline-block'}}>people</i>
                 <span className="sideName">Members</span>
-                <span className="badge">{(mems=this.props.members)?mems.length:0}</span>
+                <span className="badge">{(mems=this.props.members)?mems.length:null}</span>
             </Link>
             <Link to="/dashboard/requests" id="dashReqs" className="nItem" onClick={this.close} >
                 <i className="material-icons" style={{display: 'inline-block'}}>person_add</i>
                 <span className="sideName">Member Requests</span>
-                <span className="new badge">{(mems=this.props.requests)?mems.length:0}</span>
+                <span className="badge">{(mems=this.props.requests)?mems.length:null}</span>
             </Link>
             <Link to="/dashboard/find" id="dashGetMem" className="nItem" onClick={this.close} >
                 <i className="material-icons" style={{display: 'inline-block'}}>contact_phone</i>

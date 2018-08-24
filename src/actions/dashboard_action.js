@@ -1,26 +1,14 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import serverBaseURL from '../serverBaseURL.js';
+
 window.Cookies=Cookies
 var token=Cookies.get('token')
-var optionsOrg = {
-    method: 'GET',
-    headers: { 'Authorization': 'Bearer '+token},
-    url: serverBaseURL+'/auth/org'
-};
-
-var optionsMem = {
-    method: 'GET',
-    headers: { 'Authorization': 'Bearer '+token},
-    url: serverBaseURL+'/auth/members'
-};
 
 export function updateDashboardData(){
     return async function(dispatch){
         dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
-            // var org=await axios(optionsOrg)
-            // var mem=await axios(optionsMem)
             dispatch({type:'UPDATE_ORG_DETAILS', data:null})
             dispatch({type:'UPDATE_ORG_MEMBERS', data:null})
             dispatch({type:'UPDATE_ORG_REQUESTS', data:null})
@@ -33,35 +21,42 @@ export function updateDashboardData(){
     }
 }
 
-export function del(reg){
+export function del(reg,data,type){
     return async function(dispatch){
-        dispatch({type:'UPDATE_ORG_LOGGED', data:null})
+        // dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         await axios({
             url:`${serverBaseURL}/auth/members?reg=${reg}`,
             headers: { 'Authorization': 'Bearer '+token},
             method: 'DELETE',
         })
-        // var mem=await axios(optionsMem)
-        // dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data.verified})
-        // dispatch({type:'UPDATE_ORG_REQUESTS', data:mem.data.data.unverified})
-        // dispatch({type:'UPDATE_ORG_LOGGED', data:true})
+        var newData=[]
+        for(var i=0; i<data.length; i++){
+            if(data[i].reg!==reg)
+            newData.push(data[i])
+        }
+        if(type=='M'){
+            dispatch({type:'UPDATE_ORG_MEMBERS', data:newData})
+        } else dispatch({type:'UPDATE_ORG_REQUESTS', data:newData})
+        console.log(type,data)
 
 
     }
 }
 
-export function verify(reg){
+export function verify(reg,data){
     return async function(dispatch){
-        dispatch({type:'UPDATE_ORG_LOGGED', data:null})
+        console.log(data)
         await axios({
             url:`${serverBaseURL}/auth/requests?reg=${reg}`,
             headers: { 'Authorization': 'Bearer '+token},
             method: 'PUT',
         })
-        // var mem=await axios(optionsMem)
-        // dispatch({type:'UPDATE_ORG_MEMBERS', data:mem.data.data.verified})
-        // dispatch({type:'UPDATE_ORG_REQUESTS', data:mem.data.data.unverified})
-        // dispatch({type:'UPDATE_ORG_LOGGED', data:true})
+        var newData=[]
+        for(var i=0; i<data.length; i++){
+            if(data[i].reg!==reg)
+            newData.push(data[i])
+        }
+        dispatch({type:'UPDATE_ORG_REQUESTS', data:newData})
     }
 }
 
@@ -74,16 +69,18 @@ export function modifyData(X,data,action){
 export function updateReq(){
     return async function(dispatch){
         try{
+            dispatch({type:'UPDATE_ORG_LOGGED', data:null})
             var req=await axios({
                 url:`${serverBaseURL}/auth/requests`,
                 headers: { 'Authorization': 'Bearer '+token},
                 method: 'GET',
             })
             console.log(req.data.data)
+            dispatch({type:'UPDATE_ORG_LOGGED', data:true})
             dispatch({type:'UPDATE_ORG_REQUESTS', data:req.data.data})
         } catch(e){
             console.log(e)
-            // dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+            dispatch({type:'UPDATE_ORG_LOGGED', data:false})
         }
         
     }
@@ -101,7 +98,7 @@ export function updateMem(){
             dispatch({type:'UPDATE_ORG_MEMBERS', data:req.data.data})
         } catch(e){
             console.log(e)
-            // dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+            dispatch({type:'UPDATE_ORG_LOGGED', data:false})
         }
         
     }
@@ -124,7 +121,7 @@ export function updateOrg(){
             dispatch({type:'UPDATE_ORG_DETAILS', data:{details: org.data.details, stat: stat.data}})
         } catch(e){
             console.log(e)
-            // dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+            dispatch({type:'UPDATE_ORG_LOGGED', data:false})
         }
         
     }

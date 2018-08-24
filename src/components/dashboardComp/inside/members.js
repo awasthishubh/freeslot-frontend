@@ -28,6 +28,7 @@ export default class extends Component{
     }
 
     componentDidMount(){
+        this.props.updateData(true,'UPDATE_ORG_LOGGED')
         if(!this.props.members) this.props.updateMem()
         document.getElementById('dashMems').classList.add('active')
     }

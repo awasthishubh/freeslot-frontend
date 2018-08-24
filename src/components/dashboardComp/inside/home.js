@@ -59,8 +59,8 @@ export default class extends Component{
         this.firstUpdate=true
     }
     componentDidMount(){
-        if(!this.props.org)
-        this.props.updateOrg()
+        this.props.updateData(true,'UPDATE_ORG_LOGGED')
+        if(!this.props.org) this.props.updateOrg()
         document.getElementById('dashHome').classList.add('active')
     }
     componentDidUpdate(){
@@ -68,8 +68,7 @@ export default class extends Component{
         //     this.componentDidMount()
         //     this.firstUpdate=false
         // }
-        if(!this.props.org)
-            this.props.updateOrg()
+        if(!this.props.org) this.props.updateOrg()
     }
     componentWillUnmount(){
         document.getElementById('dashHome').classList.remove('active')

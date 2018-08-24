@@ -27,10 +27,11 @@ export default class extends Component{
 
     componentDidMount(){
         document.getElementById('dashReqs').classList.add('active')
+        this.props.updateData(true,'UPDATE_ORG_LOGGED')
         if(!this.props.requests) this.props.updateReq()
     }
     componentDidUpdate(){
-        if(!this.props.requests) this.props.updateReq()
+        // if(!this.props.requests) this.props.updateReq()
     }
     componentWillUnmount(){
         document.getElementById('dashReqs').classList.remove('active')

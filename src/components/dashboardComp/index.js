@@ -68,16 +68,11 @@ export class dashboard extends Component{
     }
     componentDidMount(){
         document.title = "Dashboard | FreeSlots"
-        // console.log('Mounted Dashboard')
         var elems = document.querySelectorAll('.sidenav');
         window.sideInstance = M.Sidenav.init(elems[0]);
         this.props.updateDashboardData()
-        // console.log('home',Home)
-        // window.filter=this.props.filter
-        // window.members=this.props.members
         var instance = M.Modal.init(this.Modal.current);
         this.props.updateData(instance,'UPDATE_MODAL_INSTANCE')
-
     }
     render(){
         return(
@@ -87,6 +82,7 @@ export class dashboard extends Component{
                 <Route exact path='/dashboard/'>
                     <FixedComp>
                     <Home 
+                        updateData={this.props.updateData} 
                         updateOrg={this.props.updateOrg}
                         org={this.props.dashDetails}/>
                     </FixedComp>
@@ -95,6 +91,7 @@ export class dashboard extends Component{
                 <Route path='/dashboard/home'>
                 <FixedComp>
                         <Home
+                            updateData={this.props.updateData} 
                             updateOrg={this.props.updateOrg}
                             org={this.props.dashDetails}/>
                 </FixedComp>
@@ -102,7 +99,8 @@ export class dashboard extends Component{
 
                 <Route path='/dashboard/members'>
                 <FixedComp>
-                    <Members selected={this.props.dashModal}
+                    <Members 
+                        selected={this.props.dashModal}
                         updateMem={this.props.updateMem}
                         updateData={this.props.updateData} 
                         members={this.props.dashMembers} 

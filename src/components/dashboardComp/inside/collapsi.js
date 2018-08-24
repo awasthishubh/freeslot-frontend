@@ -17,11 +17,12 @@ export default class extends Component{
 
     render(){
         var props=this.props
-        console.log('collapsi',this.props)
+        // console.log('collapsi',this.props)
         var okay=false
-        var mems= this.props.data.map(function(mem){
-            console.log(mem)
-            console.log(mem.visible,mem.name)
+        var data=this.props.data
+        var mems= data.map(function(mem){
+            // console.log(mem)
+            // console.log(mem.visible,mem.name)
             if(mem.visible!=false && (okay=true))
             return(
                 <li key={mem.reg}>
@@ -51,12 +52,12 @@ export default class extends Component{
 
                         {(()=>{
                             if(props.verify)
-                                return <a style={{cursor:'pointer'}} onClick={()=>props.verify(mem.reg)}>Accept</a>
+                                return <a style={{cursor:'pointer'}} onClick={()=>props.verify(mem.reg,data)}>Accept</a>
                         })()}
     
                         {(()=>{
                             if(props.del)
-                            return <a style={{cursor:'pointer'}} onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg)}}>Remove</a>
+                            return <a style={{cursor:'pointer'}} onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg,data,(props.verify?'R':'M'))}}>Remove</a>
                         })() }
                         
                     </div>

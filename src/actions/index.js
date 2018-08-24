@@ -1,6 +1,7 @@
 import axios from 'axios'
 import serverBaseURL from '../serverBaseURL.js';
 export function updateData(data, type){
+    console.log(type, data)
     return {
         type, data
     }
