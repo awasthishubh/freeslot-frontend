@@ -80,10 +80,10 @@ export function updateReq(){
     }
 }
 
-export function updateMem(){
+export function updateMem(noLoading){
     return async function(dispatch){
         console.log('sdzx')
-        dispatch({type:'UPDATE_ORG_LOGGED', data:null})
+        if(!noLoading) dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             var req=await axios({
                 url:`${serverBaseURL}/auth/members`,
@@ -124,3 +124,24 @@ export function updateOrg(){
         
     }
 }
+
+export function timeStat(){
+    return async function(dispatch){
+        // dispatch({type:'UPDATE_ORG_LOGGED', data:null})
+        try{
+            var stat=await axios({
+                url:`${serverBaseURL}/auth/members/stats`,
+                headers: { 'Authorization': 'Bearer '+token},
+                method: 'GET',
+            })
+            // dispatch({type:'UPDATE_ORG_DETAILS', data:{details: org.data.details, stat: stat.data}})
+            // dispatch({type:'UPDATE_ORG_LOGGED', data:true})
+        } catch(e){
+            console.log(e)
+            dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+        }
+        
+    }
+}
+
+

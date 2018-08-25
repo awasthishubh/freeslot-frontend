@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {updateDashboardData, del, verify,updateReq,updateMem,updateOrg} from '../../actions/dashboard_action'
+import {updateDashboardData, del, verify,updateReq,updateMem,updateOrg,timeStat} from '../../actions/dashboard_action'
 import {HashRouter, Route, Switch } from 'react-router-dom'
 import Home from './inside/home'
 import Members from './inside/members'
 import MembersReq from './inside/membersReq'
 import GetMem from './inside/getMem'
+import TimeStart from './inside/timeStat'
 import Chart from '../chart'
 import {updateData} from '../../actions'
 import Settings from './inside/settings'
@@ -74,6 +75,10 @@ export class dashboard extends Component{
         var instance = M.Modal.init(this.Modal.current);
         this.props.updateData(instance,'UPDATE_MODAL_INSTANCE')
     }
+    timeStat(){
+        
+    }
+
     render(){
         return(
         <div>
@@ -139,6 +144,12 @@ export class dashboard extends Component{
                     <Settings updateData={this.props.updateData} selected={this.props.dashModal} org={this.props.dashDetails} />
                 </FixedComp>
                 </Route>
+
+                <Route path='/dashboard/statistics'>
+                <FixedComp>
+                    <TimeStart updateData={this.props.updateData} update={this.props.timeStat} />
+                </FixedComp>
+                </Route>
             </Switch>
             </HashRouter>
             <Loader loggedIn={this.props.isLoggedIn}/>
@@ -171,7 +182,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({updateReq,updateMem,updateOrg,updateData,updateDashboardData, del, verify}, dispatch)
+    return bindActionCreators({timeStat,updateReq,updateMem,updateOrg,updateData,updateDashboardData, del, verify}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(dashboard)

@@ -8,9 +8,9 @@ import M from 'materialize-css'
  
 function sortOrder(prop) {  
     return function(a, b) {  
-        if (a[prop] > b[prop]) {  
+        if (a[prop].toLocaleLowerCase() > b[prop].toLocaleLowerCase()) {  
             return 1;  
-        } else if (a[prop] < b[prop]) {  
+        } else if (a[prop].toLocaleLowerCase() < b[prop].toLocaleLowerCase()) {  
             return -1;  
         }  
         return 0;  
@@ -59,7 +59,6 @@ class filterSort extends Component{
         var X=e.target.value
         var data=this.props.data
         if(data && data[0][X]){
-            
             data.sort(sortOrder(X))  
             this.props.update(data)
             // this.props.modifyData(X, data, this.props.type)
