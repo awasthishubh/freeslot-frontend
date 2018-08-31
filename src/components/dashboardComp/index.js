@@ -150,11 +150,11 @@ export class dashboard extends Component{
                 </FixedComp>
                 </Route>
 
-                {/* <Route path='/dashboard/statistics'>
+                <Route path='/dashboard/statistics'>
                 <FixedComp>
                     <TimeStart updateData={this.props.updateData} update={this.props.timeStat} />
                 </FixedComp>
-                </Route> */}
+                </Route>
             </Switch>
             </HashRouter>
             <Loader loggedIn={this.props.isLoggedIn}/>
