@@ -23,7 +23,7 @@ export default class extends Component{
         var mems= data.map(function(mem){
             // console.log(mem)
             // console.log(mem.visible,mem.name)
-            if(mem.visible!=false && (okay=true))
+            if(mem.visible!==false && (okay=true))
             return(
                 <li key={mem.reg}>
                     <div className="collapsible-header left-align">

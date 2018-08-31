@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import M from 'materialize-css'
 var navStyle={
-    height:64, position: 'fixed', width: 300, top:0, left:0, zIndex:900
+    height:64, position: 'fixed', width: 300, top:0, left:0, zIndex:900, backgroundColor: '#0044A9'
 }
 
 export default class extends Component{
     componentDidMount
     render(){
         return(
-        <nav id="upperLeftDash" className="teal row" style={navStyle} >
+        <nav id="upperLeftDash" className="row" style={navStyle} >
             <div className="col s1 hide-on-med-and-up">
                 <a style={{cursor:'pointer'}} onClick={()=>M.Sidenav.init(document.getElementById('bottomLeftDash')).open()}><i style={{fontSize:30}} className="material-icons">menu</i></a>
             </div>

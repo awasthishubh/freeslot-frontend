@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/materialize.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">   -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover.css" />
+    <link rel="shortcut icon" href="ico.png" />
     <style>
       /* width */
 ::-webkit-scrollbar {
@@ -44,7 +48,7 @@
         position: relative!important;
       }
       body {
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Lato', sans-serif;
     }
     .nItem {
       padding-left: 20px;
@@ -90,14 +94,16 @@ ul.home > .active{
 }
 .homeBack{
   background: url('./background.svg');
-  background-size: auto 100%;
-  background-position: center
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.homebtn, .homebtn:hover{
+.homebtn, .homebtn:hover, .homebtn:focus{
   color: white;
   background: rgb(255,255,255,0.15);
   border: 1px solid white;
-  border-radius: 5px
+  border-radius: 5px;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0,0.25)
 }
 
 
@@ -107,7 +113,12 @@ ul.home > .active{
   }
 }
 
-
+@media screen and (max-width:700px){
+  .homeBack{
+    background-size: auto 100%;
+    background-position: left bottom!important;
+  }
+}
 
 @media screen and (max-width:600px){
   
@@ -181,8 +192,14 @@ fieldset{
     padding: 3vw!important;
     font-size: 4.1vw!important;
   }
-  .despHome{
+  /* .despHome{
     font-size:5vw!important
+  } */
+}
+@media screen and (max-width:1150px){
+  .homeBack{
+    background-size: auto 100%;
+    background-position: center;
   }
 }
 
@@ -190,7 +207,7 @@ fieldset{
     
     </style>
   </head>
-  <body class="blue">
+  <body class="">
     <div class="container"></div>
   </body>
   <script  src="https://code.jquery.com/jquery-3.3.1.js"></script>

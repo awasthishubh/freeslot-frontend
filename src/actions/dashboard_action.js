@@ -27,7 +27,7 @@ export function del(reg,data,type){
             if(data[i].reg!==reg)
             newData.push(data[i])
         }
-        if(type=='M'){
+        if(type==='M'){
             dispatch({type:'UPDATE_ORG_MEMBERS', data:newData})
         } else dispatch({type:'UPDATE_ORG_REQUESTS', data:newData})
         console.log(type,data)

@@ -141,15 +141,20 @@ export class dashboard extends Component{
 
                 <Route path='/dashboard/settings'>
                 <FixedComp>
-                    <Settings updateData={this.props.updateData} selected={this.props.dashModal} org={this.props.dashDetails} />
+                    <Settings 
+                        updateData={this.props.updateData} 
+                        updateOrg={this.props.updateOrg}
+                        org={this.props.dashDetails}
+                        loggedIn={this.props.isLoggedIn}/>
+                        {/* selected={this.props.dashModal}  */}
                 </FixedComp>
                 </Route>
 
-                <Route path='/dashboard/statistics'>
+                {/* <Route path='/dashboard/statistics'>
                 <FixedComp>
                     <TimeStart updateData={this.props.updateData} update={this.props.timeStat} />
                 </FixedComp>
-                </Route>
+                </Route> */}
             </Switch>
             </HashRouter>
             <Loader loggedIn={this.props.isLoggedIn}/>

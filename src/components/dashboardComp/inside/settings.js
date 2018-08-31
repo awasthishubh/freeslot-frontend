@@ -14,15 +14,18 @@ export default class extends Component{
         this.submit=this.submit.bind(this)
     }
     componentDidUpdate(){
+        if(!this.props.org && this.props.loggedIn) this.props.updateOrg()
         if(this.props.org && this.okay){
             this.componentDidMount()
             this.okay=false
         }
     }
     componentDidMount(){
+        this.props.updateData(true,'UPDATE_ORG_LOGGED')
+        if(!this.props.org) this.props.updateOrg()
         document.getElementById('dashSettings').classList.add('active')
         if(this.props.org){
-            var org = Object.assign({}, this.props.org);
+            var org = Object.assign({}, this.props.org.details);
             org.passwd=''
             org.newCpasswd=''
             org.newPasswd=''
@@ -49,6 +52,7 @@ export default class extends Component{
         else e.target.classList.remove('valid')
     }
     changed(e){
+        // console.log(e)
         e.target.classList.remove('invalid')
         e.target.classList.remove('valid')
         var org=this.state.org
@@ -92,17 +96,22 @@ export default class extends Component{
             // console.log(form)
             this.setState({status:'Saving...'})
             try{
-                await axios.put(serverBaseURL+'/auth',form)
+                await axios.patch(serverBaseURL+'/auth',form)
                 this.setState({status:null})
                 this.setState({msg:'Saved'})
-                this.state.org.passwd=''
-                this.state.org.newCpasswd=''
-                this.state.org.newPasswd=''
+                this.state.org.passwd=this.state.org.newCpasswd=this.state.org.newPasswd=''
                 this.setState({org:this.state.org})
-                this.props.org.name=this.state.org.name
-                this.props.org.descr=this.state.org.descr
-                this.props.org.dp=this.state.org.dp
-                this.props.updateData(this.state.org,'UPDATE_ORG_DETAILS')
+                this.props.org.details= Object.assign({},this.state.org)
+                this.props.org.details.passwd=this.props.org.details.newCpasswd=this.props.org.details.newPasswd=undefined
+                // this.props.org.details={
+                //     name:this.state.org.name,
+                //     descr: this.state.org.descr,
+                //     dp: this.state.org.dp,
+                //     usid: this.state.org.descr,
+                //     descr: this.state.org.descr,
+                //     descr: this.state.org.descr,
+                // }
+                this.props.updateData(this.props.org,'UPDATE_ORG_DETAILS')
             } catch(e){
                 if(e.response.status===401){
                     this.setState({err:'Wrong password entered'})

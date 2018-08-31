@@ -75,7 +75,7 @@ export default class extends Component{
                 })
                 this.setState({members:data.data.members})
             }catch(e){
-                if(e.request.status==404)
+                if(e.request.status===404)
                     this.setState({members:[]})
                 else{
                     this.setState({err:'Server error'})
