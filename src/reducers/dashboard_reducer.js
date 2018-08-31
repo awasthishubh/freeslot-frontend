@@ -61,3 +61,12 @@ export function dashModal(state={selected:null, instance:null}, action){
             return state
     }
 }
+
+export function timeStat(state=null, action){
+    switch(action.type){
+        case 'UPDATE_TIMESTAT':
+            return action.data
+        default:
+            return state
+    }
+}

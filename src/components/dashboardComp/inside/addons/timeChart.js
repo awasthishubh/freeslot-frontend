@@ -10,38 +10,14 @@ export default class extends Component {
     }
 
     componentDidMount(){
-        var displayData={
-            stat:{
-            "8": 35,
-            "9": 41,
-            "10": 39,
-            "11": 40,
-            "12": 12,
-            "13": 7,
-            "14": 46,
-            "15": 39,
-            "16": 30,
-            "17": 39,
-            "18": 10,
-            "19": 7,
-            "20": 4
-        }, day:'Monday'}    
-        var colors=['#00e676','#ff1744']
-        var data=[], colrs=[], labels=[]
-        for(var i=8; i<20; i++){
-            data.push(displayData.stat[i])
-            if(i<10) i='0'+i
-            labels.push(i+':00')
-            colrs.push(colors[1])
-        }
         var ctx = this.chartDom.current.getContext('2d');
-        new Chart(ctx, {
+        window.zx=new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
+                labels: [],
                 datasets: [{
-                    label: displayData.day,
-                    data: data,
+                    label: 'Choose a day',
+                    data: [],
                     backgroundColor: 'transparent',
                     borderColor: "#2196f3",
                 }]
@@ -56,7 +32,7 @@ export default class extends Component {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            // beginAtZero:true,
+                            beginAtZero:true,
                         },
                         scaleLabel: {
                           display: true,
@@ -77,7 +53,33 @@ export default class extends Component {
         });
     }
 
+    componentDidUpdate(){
+        if(this.props.data.stat){
+            var displayData=this.props.data
+            var colors=['#00e676','#ff1744']
+            var data=[], colrs=[], labels=[]
+            for(var i=8; i<20; i++){
+                data.push(displayData.stat[i])
+                if(i<10) i='0'+i
+                labels.push(i+':00')
+                colrs.push(colors[1])
+            }
+            data= {
+                labels: labels,
+                datasets: [{
+                    label: displayData.day,
+                    data: data,
+                    backgroundColor: 'transparent',
+                    borderColor: "#2196f3",
+                }]
+            }
+            window.zx.data=data;
+            window.zx.update()
+        }
+    }
+
     render(){
+        console.log(this.props)
         return(
                     // <div className="col s6   ">
                         <canvas ref={this.chartDom} ></canvas>

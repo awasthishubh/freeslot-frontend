@@ -47,10 +47,10 @@ export default class extends Component{
                 <i className="material-icons" style={{display: 'inline-block'}}>contact_phone</i>
                 <span className="sideName">Get a member</span>
             </Link>
-            {/* <Link to="/dashboard/statistics" id="dashStat" className="nItem" onClick={this.close} >
+            <Link to="/dashboard/statistics" id="dashStat" className="nItem" onClick={this.close} >
                 <i className="material-icons" style={{display: 'inline-block'}}>access_time</i>
                 <span className="sideName">Timing Statistics</span>
-            </Link> */}
+            </Link>
             
         </div>
 
