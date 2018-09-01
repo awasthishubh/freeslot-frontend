@@ -14,7 +14,7 @@ var navStyle={
 
 export default class extends Component{
     logout(){
-        Cookies.set('token',null)
+        Cookies.set('token','')
         window.location.hash=""
         window.location.reload()
     }

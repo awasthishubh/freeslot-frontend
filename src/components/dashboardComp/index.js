@@ -12,7 +12,7 @@ import Chart from '../chart'
 import {updateData} from '../../actions'
 import Settings from './inside/settings'
 import M from 'materialize-css'
-
+import Cookies from 'js-cookie'
 import FixedComp from './fixedComp'
 
 class Modal extends Component{
@@ -38,15 +38,15 @@ class Modal extends Component{
 function Loader(props){
     if(!props.loggedIn)
     return(
-        <div style={{position: 'fixed', top:64, bottom:0,left:300, right:0, zIndex:2000, background: 'rgba(0,0,0, 0.7)' }}>
+        <div className="loader" style={{position: 'fixed', top:70, bottom:0,left:305, right:0, zIndex:105, background: '#e0e0e0', padding:20 }}>
         <div className="preloader-wrapper big active" style={{height:200, width:200, position: 'absolute', top:'50%', left:'50%', margin: -100}}>
-            <div className="spinner-layer spinner-green-only">
-            <div className="circle-clipper  left">
-                <div className="circle"></div>
-            </div><div className="gap-patch">
+            <div className="spinner-layer spinner-green-only" >
+            <div className="circle-clipper left" >
+                <div className="circle" style={{border: '7px dashed rgb(0, 68, 169)'}}></div>
+            </div><div className="gap-patch" >
                 <div className="circle"></div>
             </div><div className="circle-clipper right">
-                <div className="circle"></div>
+                <div className="circle" style={{border: '10px dashed rgb(0, 68, 169)'}}></div>
             </div>
             </div>
         </div>
@@ -63,7 +63,7 @@ export class dashboard extends Component{
     }
     componentDidUpdate(){
         if(this.props.isLoggedIn===false){
-            // Cookies.set()
+            Cookies.set('token','')
             window.location.href='/'
         }
     }
@@ -80,6 +80,7 @@ export class dashboard extends Component{
     }
 
     render(){
+        // console.log('ind', this.props)
         return(
         <div>
             <HashRouter>
@@ -152,7 +153,11 @@ export class dashboard extends Component{
 
                 <Route path='/dashboard/statistics'>
                 <FixedComp>
-                    <TimeStart updateData={this.props.updateData} update={this.props.timeStat} />
+                    <TimeStart
+                        updateData={this.props.updateData}
+                        update={this.props.timeStat}
+                        timeStat={this.props.dashtimeStat}
+                        loggedIn={this.props.isLoggedIn}/>
                 </FixedComp>
                 </Route>
             </Switch>

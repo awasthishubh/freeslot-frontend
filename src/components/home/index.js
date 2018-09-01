@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import M from 'materialize-css'
 import RegModal from './regModal'
 import OrgModal from './orgModal'
+import Cookies from 'js-cookie'
 var backStyle={
     position: 'absolute',
     top: 0,
@@ -13,9 +14,15 @@ var backStyle={
 export default class extends Component{
     componentDidMount(){
         // console.log(document.getElementsByClassName('tabs'))
-        document.title = "FreeSlots | Home"
+        document.title = "Home | FreeSlots"
         M.Tabs.init(document.getElementsByClassName('tabs'))
         M.Modal.init(document.querySelectorAll('.modal'))
+    }
+    orgClick(e){
+        e.preventDefault()
+        console.log('sd')
+        if(Cookies.get('token')) window.location.hash='#/dashboard'
+        else M.Modal.getInstance(document.getElementById('orgReg')).open();
     }
     render(){
         return(
@@ -34,7 +41,7 @@ export default class extends Component{
                     <i className="hide-on-small-only material-icons left">person</i>Member
                 </a>
                 <div className="col l2 s1 m2" style={{margin: '0 auto'}}></div>
-                <a  href="#orgReg" className="hvr-grow waves-effect waves-ligh hoverable modal-trigger homebtn col m3 l2 s5 btn-large" 
+                <a  href="#orgReg" onClick={this.orgClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col m3 l2 s5 btn-large" 
                     style={{overflow:'hidden', color:'#004ec3',fontWeight:700}} >
                     <i className="hide-on-small-only material-icons right">people</i>Organisation
                 </a>

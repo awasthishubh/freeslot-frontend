@@ -24,7 +24,7 @@ export default class extends Component{
             <div className="modal-content">
             {this.modal()}
             </div>
-        </div>
+        </div> 
         )
         
     }
