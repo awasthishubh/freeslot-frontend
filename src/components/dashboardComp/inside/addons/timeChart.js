@@ -10,8 +10,10 @@ export default class extends Component {
     }
 
     componentDidMount(){
+        var responsive=true
+        if(document.documentElement.clientWidth<600) responsive=false;
         var ctx = this.chartDom.current.getContext('2d');
-        window.zx=new Chart(ctx, {
+        this.zx=new Chart(ctx, {
             type: 'line',
             data: {
                 labels: [],
@@ -23,7 +25,8 @@ export default class extends Component {
                 }]
             },
             options: {
-                responsive: true,
+                responsive: responsive,
+                // maintainAspectRatio: false,
         
                 tooltips: {
                     mode: 'index',
@@ -51,6 +54,7 @@ export default class extends Component {
                 }
             }
         });
+        
     }
 
     componentDidUpdate(){
@@ -73,16 +77,16 @@ export default class extends Component {
                     borderColor: "#2196f3",
                 }]
             }
-            window.zx.data=data;
-            window.zx.update()
+            this.zx.data=data;
+            this.zx.update()
         }
     }
 
     render(){
-        console.log(this.props)
+        // console.log(this.props)
         return(
                     // <div className="col s6   ">
-                        <canvas ref={this.chartDom} ></canvas>
+                        <canvas width="700px" ref={this.chartDom} ></canvas>
                         // <center>{this.time()}</center>
                 // </div>
                 

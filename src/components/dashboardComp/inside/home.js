@@ -71,7 +71,7 @@ export default class extends Component{
     }
     
     render(){
-    console.log(this.props)
+    // console.log(this.props)
         if(this.props.org && this.props.org.stat)
         return(
             <div style={{height:'100%'}} >
@@ -79,7 +79,7 @@ export default class extends Component{
                 <Details img={this.props.org.details.dp} name={this.props.org.details.name} tag={this.props.org.details.descr}/>
                 
             </div>
-            <div className="row dashRow" style={{height:'35%'}}>
+            <div className="row dashRow" style={{height:'45%'}}>
                 {/* <ShowP head="Members" stat={this.props.members?this.props.members.length:null} size={50}/> */}
                 <div className="col s12 m8" style={{height:'100%'}}>
                     <div className="card hoverable darken-1" style={{height:'100%'}}>

@@ -19,7 +19,7 @@ class Modal extends Component{
     render(){
         var data
         if(this.props.data){
-            console.log(this.props.data)
+            // console.log(this.props.data)
             var selected=this.props.selected
             this.props.data.map(function(mem){
                 if(selected===mem.reg){

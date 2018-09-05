@@ -10,6 +10,7 @@ export function updateDashboardData(){
             dispatch({type:'UPDATE_ORG_DETAILS', data:null})
             dispatch({type:'UPDATE_ORG_MEMBERS', data:null})
             dispatch({type:'UPDATE_ORG_REQUESTS', data:null})
+            dispatch({type:'UPDATE_TIMESTAT', data:null})
         
     }
 }
@@ -30,7 +31,7 @@ export function del(reg,data,type){
         if(type==='M'){
             dispatch({type:'UPDATE_ORG_MEMBERS', data:newData})
         } else dispatch({type:'UPDATE_ORG_REQUESTS', data:newData})
-        console.log(type,data)
+        // console.log(type,data)
 
 
     }
@@ -38,7 +39,7 @@ export function del(reg,data,type){
 
 export function verify(reg,data){
     return async function(dispatch){
-        console.log(data)
+        // console.log(data)
         await axios({
             url:`${serverBaseURL}/auth/requests?reg=${reg}`,
             headers: { 'Authorization': 'Bearer '+token},
@@ -69,11 +70,11 @@ export function updateReq(){
                 headers: { 'Authorization': 'Bearer '+token},
                 method: 'GET',
             })
-            console.log(req.data.data)
+            // console.log(req.data.data)
             dispatch({type:'UPDATE_ORG_REQUESTS', data:req.data.data})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
-            console.log(e)
+            // console.log(e)
             dispatch({type:'UPDATE_ORG_LOGGED', data:false})
         }
         
@@ -82,7 +83,7 @@ export function updateReq(){
 
 export function updateMem(noLoading){
     return async function(dispatch){
-        console.log('sdzx')
+        // console.log('sdzx')
         if(!noLoading) dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             var req=await axios({
@@ -90,7 +91,7 @@ export function updateMem(noLoading){
                 headers: { 'Authorization': 'Bearer '+token},
                 method: 'GET',
             })
-            console.log(req.data.data)
+            // console.log(req.data.data)
             dispatch({type:'UPDATE_ORG_MEMBERS', data:req.data.data})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
@@ -135,7 +136,7 @@ export function timeStat(){
                 method: 'GET',
             })
             dispatch({type:'UPDATE_TIMESTAT', data:stat.data})
-            // dispatch({type:'UPDATE_ORG_LOGGED', data:true})
+            dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             console.log(e)
             dispatch({type:'UPDATE_ORG_LOGGED', data:false})

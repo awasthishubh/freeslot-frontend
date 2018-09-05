@@ -37,10 +37,18 @@ export default class extends Component{
                         </ul>
                         <ul className="row">
                             <li className="col s5 m6"><b>Rm No: </b>{mem.rmno}</li>
-                            <li className="col s7 m6"><b>Phno: </b>{mem.phno}</li>
+                            <li className="col s7 m6"><b>Phno: </b>
+                                <a target="_blank" href={`https://api.whatsapp.com/send?phone=91${mem.phno}`}>
+                                    {mem.phno}
+                                </a>
+                            </li>
                         </ul>
                         <ul className="row">
-                            <li className="col s12"><b>Email: </b>{mem.email}</li>
+                            <li className="col s12"><b>Email: </b>
+                                <a href={`mailto:${mem.phno}`}>
+                                    {mem.email}
+                                </a>
+                            </li>
                         </ul>
                         
                     </span>
@@ -59,7 +67,6 @@ export default class extends Component{
                             if(props.del)
                             return <a style={{cursor:'pointer'}} onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg,data,(props.verify?'R':'M'))}}>Remove</a>
                         })() }
-                        
                     </div>
                     </div>
                 </li>

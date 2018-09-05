@@ -27,13 +27,13 @@ export default class extends React.Component{
         this.setState({day:e.target.value-1})
     }
     render(){
-        console.log('pr',this.props)
-        console.log(this.props.timeStat)
+        // console.log('pr',this.props)
+        // console.log(this.props.timeStat)
         var days=['Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         return(
             <div className="card">
                 <div className="card-content row">
-                    <div className="card-title">Edit Organization Details</div>
+                    <div className="card-title">Timing Statistics</div>
                     <div className="input-field col s10 l4 m6 offset-s1 offset-l4 offset-m3">
                         <select id="day" defaultValue={0} onChange={this.dayChange}>
                         <option value={0}  disabled>Choose a Day</option>
@@ -45,7 +45,7 @@ export default class extends React.Component{
                         })()}
                         </select>
                     </div>
-                    <div className="container row" style={{marginTop: 40}}>
+                    <div className="container row" style={{marginTop: 40, overflow:'auto'}}>
                         {this.props.timeStat?<TimeChart data={{
                             stat:this.props.timeStat[this.state.day],
                             day:days[this.state.day]

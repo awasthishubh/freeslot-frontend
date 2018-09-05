@@ -9,27 +9,27 @@ import M from 'materialize-css'
 import serverBaseURL from '../../serverBaseURL';
 
 
-const Options=props=>{
-    // console.log(props)
-    if(props.list)
-        return (
-            <select defaultValue="0" onChange={(e)=>props.update(e.target.value, 'UPDATE_ORG')} >
-                <option value="0" disabled >Choose an Organisation</option>
-                {props.list.map(function(d){
-                    return (<option key={d.usid} value={d.usid}>
-                        {d.name} ({d.usid})
-                        </option>
-                    )
-                })}
-            </select>
-        )
-    else 
-        return(
-            <select defaultValue="0">
-                <option value="0" disabled >Loading</option>
-            </select>
-        )
-}
+// const Options=props=>{
+//     // console.log(props)
+//     if(props.list)
+//         return (
+//             <select defaultValue="0" onChange={(e)=>props.update(e.target.value, 'UPDATE_ORG')} >
+//                 <option value="0" disabled >Choose an Organisation</option>
+//                 {props.list.map(function(d){
+//                     return (<option key={d.usid} value={d.usid}>
+//                         {d.name} ({d.usid})
+//                         </option>
+//                     )
+//                 })}
+//             </select>
+//         )
+//     else 
+//         return(
+//             <select defaultValue="0">
+//                 <option value="0" disabled >Loading</option>
+//             </select>
+//         )
+// }
 
 class Submit_card extends Component {
     constructor(props){
@@ -82,6 +82,10 @@ class Submit_card extends Component {
                 return(
                 <div><h4>You are already a part of selected organisation</h4>Contact your organisation's maintainer if you need to re-register</div>
                 )
+            if(this.state.subErr.status===404)
+            return(
+                <div><h4>Invalid Organisation ID</h4>Contact your organisation for unique id</div>
+            )
         }
         else if(this.state.subMiss){
             return(
@@ -156,7 +160,7 @@ class Submit_card extends Component {
             this.setState({valPhno:true})    
         } else{
             e.target.classList.add('invalid')
-            this.setState({valPhno:true})    
+            this.setState({valPhno:false})    
         }
     }
 
@@ -181,7 +185,7 @@ class Submit_card extends Component {
                 form.append(key,this.props.MemDetails[key])
                 // console.log(key,this.props.MemDetails[key])
             }
-            console.log(form)
+            // console.log(form)
             try{     
                 var response=await axios.post(serverBaseURL+'/members', form)
                 // console.log(response.data.status);
@@ -226,8 +230,10 @@ class Submit_card extends Component {
                                     <span className="helper-text" data-error="Name is required"></span>
                                 </div>
                                 <div className="input-field col m6 s12">
-                                        <Options list={this.props.orgAll} update={this.props.updateData} />
-                                    <label>Organisation</label>
+                                        {/* <Options list={this.props.orgAll} update={this.props.updateData} /> */}
+                                    <input id='mem_org' type="text" value={this.props.MemDetails.org}  onChange={(e)=>this.onChange(e,'UPDATE_ORG',1)} />
+                                    <label  htmlFor='mem_org'>Organisation ID</label>
+                                    <span className="helper-text" data-error="Organisation ID is required"></span>
                                 </div>
 
                                 <div className="input-field col m6 s12">
