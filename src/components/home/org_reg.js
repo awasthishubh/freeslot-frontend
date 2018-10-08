@@ -38,43 +38,43 @@ class Org_reg extends Component {
         clearTimeout(typingTimer);
         var updateData=this.props.updateData
         typingTimer = setTimeout(async function(){
-        try{
-            var data= await axios.get(serverBaseURL+'/organisations')
-            // // console.log(data)
-            var isAvailable=true;
-            data.data.map(function(data){
-                if(data.usid===value){
-                    // // console.log(data.usid)
-                    isAvailable = false
-                }
-                return data
-            })
-
-            if(isAvailable){
+            var available=null
+            try{
+                available= (await axios.get(serverBaseURL+'/organisations/avbl?usid='+value)).data.available
+            } catch(e){
+                if(e.response.data.available===false) available=false
+            }
+            if(available){
                 updateData(true, 'VALIDIATE_ORG_USID');
                 document.querySelector("#org_id").classList.add('valid')
             } else{
                 updateData(false, 'VALIDIATE_ORG_USID');
                 document.querySelector("#org_id").classList.add('invalid')
             }
-        } catch(e){
-            console.log(e)
-        }
-    }, 2000)
-        
-        
+        }, 2000)
     }
-    send(e){
+    async send(e){
         e.preventDefault()
         var vailidation=this.props.validation
         if(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.cPasswd && vailidation.usid!=="loading")
         {
+            var form = new FormData();
+            form.append('usid',this.props.OrgReg.usid)
+            form.append('passwd',this.props.OrgReg.passwd)
+            form.append('name',this.props.OrgReg.name)
+            form.append('descr',this.props.OrgReg.descr)
+            form.append('dp',this.props.OrgReg.dp)
             this.setState({stat:'Sending...'})
-            var dp=this.props.OrgReg.dp
-            if(!dp) dp='https://www.hackworks.com/img/account/default-team-avatar.png'
-            var url= serverBaseURL+'/oauth/'
-            var params=`?usid=${this.props.OrgReg.usid}&passwd=${this.props.OrgReg.passwd}&name=${this.props.OrgReg.name}&mail_id=${this.props.OrgReg.mainEmail}@vitstudent.ac.in&descr=${this.props.OrgReg.descr}&dp=${dp}&redirect=${window.location.protocol+'//'+window.location.host+'/close.htm'}`
-            window.open(url+params,null,'height=480,width=640')
+            var data= await axios.post(serverBaseURL+'/organisations',form)
+            Cookies.set('token', data.data.token, { expires: 7 });
+            window.location.href = "#/dashboard";
+            window.location.reload();
+
+            // var dp=this.props.OrgReg.dp
+            // if(!dp) dp='https://www.hackworks.com/img/account/default-team-avatar.png'
+            // var url= serverBaseURL+'/oauth/'
+            // var params=`?usid=${this.props.OrgReg.usid}&passwd=${this.props.OrgReg.passwd}&name=${this.props.OrgReg.name}&mail_id=${this.props.OrgReg.mainEmail}@vitstudent.ac.in&descr=${this.props.OrgReg.descr}&dp=${dp}&redirect=${window.location.protocol+'//'+window.location.host+'/close.htm'}`
+            // window.open(url+params,null,'height=480,width=640')
             // this.setState({stat:null})
             // console.log(111, params)
         }
@@ -146,7 +146,7 @@ class Org_reg extends Component {
                             <legend>Optional Details</legend>
                             <div className="input-field col s12 m6">
                                 <input className="validate" required="" aria-required="true" id='org_dp' type="text" value={this.props.OrgReg.dp}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_DP')}} />
-                                <label htmlFor='org_dp'>Logo URL</label>
+                                <label htmlFor='org_dp'>Gravatar Email ID</label>
                             </div>
                             <div className="input-field col s12 m6">
                                 <input className="validate" required="" aria-required="true" id='org_descr' type="text" value={this.props.OrgReg.descr}  onChange={(e)=>{this.props.updateData(e.target.value, 'UPDATE_ORG_DESCR')}} />
