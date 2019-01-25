@@ -29,6 +29,7 @@ export default class extends Component{
             org.passwd=''
             org.newCpasswd=''
             org.newPasswd=''
+            console.log(org)
             this.setState({org})
         }
     }
@@ -85,7 +86,7 @@ export default class extends Component{
         if(this.state.org.passwd.length>=4){
             form.append('name',this.state.org.name)
             form.append('descr',this.state.org.descr)
-            form.append('dp',this.state.org.dp)
+            form.append('gravatar',this.state.org.gravatar)
             form.append('passwd',this.state.org.passwd)
             if(this.state.org.newPasswd){
                 if(this.state.org.newPasswd.length>=4 && this.state.org.newPasswd===this.state.org.newCpasswd)
@@ -98,7 +99,7 @@ export default class extends Component{
             try{
                 await axios.patch(serverBaseURL+'/auth',form)
                 this.setState({status:null})
-                this.setState({msg:'Saved'})
+                this.setState({msg:'Saved.'})
                 this.state.org.passwd=this.state.org.newCpasswd=this.state.org.newPasswd=''
                 this.setState({org:this.state.org})
                 this.props.org.details= Object.assign({},this.state.org)
@@ -111,7 +112,8 @@ export default class extends Component{
                 //     descr: this.state.org.descr,
                 //     descr: this.state.org.descr,
                 // }
-                this.props.updateData(this.props.org,'UPDATE_ORG_DETAILS')
+                this.props.updateData(null,'UPDATE_ORG_DETAILS')
+                
             } catch(e){
                 if(e.response.status===401){
                     this.setState({err:'Wrong password entered'})
@@ -128,7 +130,7 @@ export default class extends Component{
     }
 
     render(){
-        // console.log(this.state.org)
+        console.log(this.state.org)
         if(this.state.org)
             return(
                 <div className="card">
@@ -157,9 +159,9 @@ export default class extends Component{
                             </div>
 
                             <div className="parentInput">
-                                <div className="col inputSideTitle s12">Logo url:</div>
+                                <div className="col inputSideTitle s12">Gravatar Email ID:</div>
                                 <div  className="input-field col s10 offset-s1">
-                                    <input id="dp" className="" disabled type="text" value={this.state.org.dp} onChange={this.changed} style={{color:'#37474f'}} onBlur={this.deFocus}/>
+                                    <input id="gravatar" className="" disabled type="text" value={this.state.org.gravatar} onChange={this.changed} style={{color:'#37474f'}} onBlur={this.deFocus}/>
                                 </div>
                                 <div className="col s1" style={{padding:0}}>
                                 <a style={{cursor:'pointer'}} onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></a>
