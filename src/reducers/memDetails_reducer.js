@@ -51,6 +51,9 @@ export default function(state=defaultState, action){
 
         case 'RESET_MEM_DETAILS':
             return defaultState
+        
+        case 'UPDATE_MEM_ALL':
+            return action.data
 
         default:
             return newState

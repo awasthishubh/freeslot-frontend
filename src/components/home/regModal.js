@@ -8,99 +8,52 @@ import Chart from '../chart'
 import M from 'materialize-css'
 import serverBaseURL from '../../serverBaseURL';
 
-function Input(props){
-    return(
-        <div className="input-field col m6 s12">
-            <input id={props.id}
-                type="text" 
-                onBlur={props.onBlur}
-                value={props.value}  
-                onChange={props.onChange} />
-            <label htmlFor={props.is}>{props.label}</label>
-            <span className="helper-text" data-error={props.errorText}></span>
-        </div>
-    )
-}
-
-function InputForm(){
-    return(
-        <div>
-        <Input id='mem_name' label='Name' 
-            value={this.props.MemDetails.name} 
-            onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)}
-            errorText="Name is required"
-        />
-        <Input id='mem_org' label='Organisation ID' 
-            value={this.props.MemDetails.org}
-            onChange={(e)=>this.onChange(e,'UPDATE_ORG',1)}
-            errorText="Organisation ID is required"
-        />
-        <Input id='mem_reg' label='Registration Number' 
-            value={this.props.MemDetails.reg}  
-            onChange={(e)=>{e.target.value=e.target.value.toUpperCase();this.onChange(e,'UPDATE_REG')}}
-            onBlur={this.validateReg.bind(this)}
-            errorText="Enter a valid registration number"
-        />
-        <Input id='mem_email' label='Email' 
-            value={this.props.MemDetails.email}  
-            onChange={(e)=>this.onChange(e,'UPDATE_EMAIL')} 
-            onBlur={this.validateEmail.bind(this)}
-            errorText="Enter a valid email address"
-        />
-        <Input id='mem_phno' label='Phone Number' 
-            value={this.props.MemDetails.phno}  
-            onChange={(e)=>this.onChange(e,'UPDATE_PHNO')} 
-            onBlur={this.validatePhno.bind(this)}
-            errorText="Enter a valid 10 digint Phone Number"
-        />
-        <Input id='mem_rmno' label='Block-RoomNumber' 
-            value={this.props.MemDetails.rmno}  
-            onChange={(e)=>this.onChange(e,'UPDATE_RMNO',1)}
-            errorText="Enter Room Number"
-        />
-        </div>
-    )
-}
-
-function File(props){
-    return(
-        <div>
-            <div className="file-field input-field col s12">
-                <div className="btn">
-                    <span>{props.label}</span>
-                    <input id={props.id} type="file" onChange={props.onChange} />
-                </div>
-                <div className="file-path-wrapper">
-                    <input className="file-path" type="text" />
-                <span className="helper-text" data-error={props.errorText}></span>
-                </div>
-            </div>
-
-            <div className="col s12" style={{textAlign:'center', marginTop:7}}>
-                <button className="btn waves-effect waves-light" type="submit" name="action">Submit
-                    <i className="material-icons right">send</i>
-                </button>
-            </div>
-        </div>
-    )
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    return false
 }
 
 class Submit_card extends Component {
     constructor(props){
         super(props)
         this.state={
-            valName:false, valReg:false,
+            valReg:false,
             valEmail:false,valPhno:false,
-            valOrg:false,valImage:false,err:null
+            valOrg:false,valImage:false,err:null,
         }
         this.onChange=this.onChange.bind(this)
         this.modalDom = React.createRef();
-        this.modalFooter = React.createRef();
     }
 
     componentDidMount() {
         var elems = document.querySelectorAll('select');
         M.FormSelect.init(elems);
+        try{
+            var memDetails=JSON.parse(window.atob(getQueryVariable('data')))
+            if(memDetails){
+                this.setState({modal:'confirm'})
+                this.props.updateData({
+                    name: memDetails.name,
+                    reg: memDetails.reg,
+                    email: memDetails.email,
+                    phno: memDetails.phno,
+                    rmno:memDetails.hostel,
+                    org:''
+                }, 'UPDATE_MEM_ALL')
+                this.setState({slots:memDetails.slots})
+                this.setState({valReg:true})
+                this.setState({valEmail:true})
+                this.setState({valPhno:true})
+                M.Modal.getInstance(document.getElementById('memReg')).open()
+            }
+        } catch(e){}
     }
 
     componentDidUpdate(){
@@ -223,6 +176,41 @@ class Submit_card extends Component {
         else if(!this.state.valPhno) this.setState({'subMiss':'Phno Number'})
         else if(!this.props.MemDetails.org) this.setState({'subMiss':'Organisation'})
         else if(!this.props.MemDetails.rmno) this.setState({'subMiss':'Room Number'})
+        else
+        {
+            var form= new FormData()
+            for (var key in this.props.MemDetails) {
+                form.append(key,this.props.MemDetails[key])
+            }
+            try{
+                var response=await axios.post(serverBaseURL+'/members', form)
+                this.setState({'subMem':response.data})
+                this.setState({'modal':'RESPONSE'})
+                this.props.updateData('', 'RESET_MEM_DETAILS')
+                this.setState({err:null})
+                return
+            } 
+            catch(error){
+                this.setState({'subErr':error.response})
+            }
+        }
+        M.Modal.init(this.modalDom.current)
+        M.Modal.getInstance(this.modalDom.current).open();
+        this.setState({err:null})
+    }
+    async confirmed(e){
+        this.setState({err:'Sending...'})
+        e.preventDefault()
+        this.setState({'subErr':null})
+        this.setState({'subMem':null})
+        this.setState({'modal':'RESPONSE'})
+        this.setState({'subMiss':null})
+        if(!this.props.MemDetails.name) this.setState({'subMiss':'Name'})
+        else if(!this.state.valReg) this.setState({'subMiss':'Registration Number'})
+        else if(!this.state.valEmail) this.setState({'subMiss':'Email'})
+        else if(!this.state.valPhno) this.setState({'subMiss':'Phno Number'})
+        else if(!this.props.MemDetails.org) this.setState({'subMiss':'Organisation'})
+        else if(!this.props.MemDetails.rmno) this.setState({'subMiss':'Room Number'})
         else if(!this.state.valImage) this.setState({'subMiss':'Image File'})
         else
         {
@@ -270,7 +258,7 @@ class Submit_card extends Component {
                         <div className="modal-content">
                             {this.mem.bind(this)()}
                         </div>
-                        <div className="modal-footer" ref={this.modalFooter}>
+                        <div className="modal-footer">
                             <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a>
                         </div>
                     </div>
@@ -278,33 +266,45 @@ class Submit_card extends Component {
               </div>
             </div>
         )
-        else if(this.state.modal=='RESPONSE'){
-            return (
+        else if(this.state.modal=='RESPONSE')
+            return(
                 <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
                     <div className="modal-content">
                         <h6>Registered Successfully!</h6><hr/>
                         <Chart data={this.state.subMem.data} />
                     </div>
                     <div className="modal-footer">
-                        <a onClick={()=>this.setState({'modal':'SUBMIT'})} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
+                        <a onClick={()=>this.setState({'subMem':null})} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
                         <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
                     </div>
                 </div>
             )
-        }
-        else return(
+        else return (
             <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
                 <div className="modal-content">
-                    <h6>Registered Successfully!</h6><hr/>
-                    <Chart data={this.state.subMem.data} />
+                    <h4>Confirm Your Details</h4>
+                    <div className="card-content row">
+                        <form id="regfrm"  onSubmit={this.submit.bind(this)}>
+                            {InputForm.bind(this)()}
+                        </form>
+                        <Chart data={{slots:this.state.slots}} />
+                        <div className="grey-text">{this.state.err}</div>
+                        <div ref={this.modalDom} className="modal">
+                            <div className="modal-content">
+                                {this.mem.bind(this)()}
+                            </div>
+                            <div className="modal-footer">
+                                <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="modal-footer">
-                    <a onClick={()=>this.setState({'subMem':null})} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
+                    <a onClick={()=>this.setState({'modal':'SUBMIT'})} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
                     <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
                 </div>
             </div>
         )
-        
     }
 }
 
@@ -315,3 +315,88 @@ function mapDispatchToProps(dispatch){
     return bindActionCreators({updateData}, dispatch)
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Submit_card)
+
+
+
+
+
+
+
+
+function Input(props){
+    return(
+        <div className="input-field col m6 s12">
+            <input id={props.id}
+                type="text" 
+                onBlur={props.onBlur}
+                value={props.value}  
+                onChange={props.onChange} />
+            <label htmlFor={props.id}>{props.label}</label>
+            <span className="helper-text" data-error={props.errorText}></span>
+        </div>
+    )
+}
+
+function InputForm(){
+    return(
+        <div>
+        <Input id='mem_name' label='Name' 
+            value={this.props.MemDetails.name} 
+            onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)}
+            errorText="Name is required"
+        />
+        <Input id='mem_org' label='Organisation ID' 
+            value={this.props.MemDetails.org}
+            onChange={(e)=>this.onChange(e,'UPDATE_ORG',1)}
+            onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)}
+            errorText="Organisation ID is required"
+        />
+        <Input id='mem_reg' label='Registration Number' 
+            value={this.props.MemDetails.reg}  
+            onChange={(e)=>{e.target.value=e.target.value.toUpperCase();this.onChange(e,'UPDATE_REG')}}
+            onBlur={this.validateReg.bind(this)}
+            errorText="Enter a valid registration number"
+        />
+        <Input id='mem_email' label='Email' 
+            value={this.props.MemDetails.email}  
+            onChange={(e)=>this.onChange(e,'UPDATE_EMAIL')} 
+            onBlur={this.validateEmail.bind(this)}
+            errorText="Enter a valid email address"
+        />
+        <Input id='mem_phno' label='Phone Number' 
+            value={this.props.MemDetails.phno}  
+            onChange={(e)=>this.onChange(e,'UPDATE_PHNO')} 
+            onBlur={this.validatePhno.bind(this)}
+            errorText="Enter a valid 10 digint Phone Number"
+        />
+        <Input id='mem_rmno' label='Block-RoomNumber' 
+            value={this.props.MemDetails.rmno}  
+            onChange={(e)=>this.onChange(e,'UPDATE_RMNO',1)}
+            errorText="Enter Room Number"
+        />
+        </div>
+    )
+}
+
+function File(props){
+    return(
+        <div>
+            <div className="file-field input-field col s12">
+                <div className="btn">
+                    <span>{props.label}</span>
+                    <input id={props.id} type="file" onChange={props.onChange} />
+                </div>
+                <div className="file-path-wrapper">
+                    <input className="file-path" type="text" />
+                <span className="helper-text" data-error={props.errorText}></span>
+                </div>
+            </div>
+
+            <div className="col s12" style={{textAlign:'center', marginTop:7}}>
+                <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i className="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    )
+}
