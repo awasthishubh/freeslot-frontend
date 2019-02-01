@@ -49,6 +49,9 @@ export default function(state=defaultState, action){
             newState.rmno=action.data
             return newState
 
+        case 'RESET_MEM_DETAILS':
+            return defaultState
+
         default:
             return newState
     }

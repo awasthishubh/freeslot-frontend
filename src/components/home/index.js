@@ -11,19 +11,38 @@ var backStyle={
     right:0,
     overflowY:'auto',
 }
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    return false
+}
+
 export default class extends Component{
     componentDidMount(){
         // console.log(document.getElementsByClassName('tabs'))
         document.title = "Home | FreeSlots"
         M.Tabs.init(document.getElementsByClassName('tabs'))
         M.Modal.init(document.querySelectorAll('.modal'))
+        try{
+            if(JSON.parse(window.atob(getQueryVariable('data'))).slots)
+            M.Modal.getInstance(document.getElementById('memReg')).open()
+        } catch(e){}
     }
-    orgClick(e){
-        e.preventDefault()
-        console.log('sd')
+    orgClick(){
         if(Cookies.get('token')) window.location.hash='#/dashboard'
         else M.Modal.getInstance(document.getElementById('orgReg')).open();
     }
+    memClick(){
+        M.Modal.getInstance(document.getElementById('memReg')).open();
+    }
+
     render(){
         return(
             <div style={backStyle} className="homeBack">
@@ -36,12 +55,12 @@ export default class extends Component{
             <div className="row" style={{fontSize:20, position: 'absolute',top: '52vh', width: '100%', textAlign:'center'}}>
                 <div style={{fontSize:20, color:'black',fontWeight:300}}>Continue as</div>
 
-                <a href="#memReg" className="hvr-grow waves-effect waves-ligh hoverable modal-trigger homebtn col offset-l3 offset-s1 offset-m2 m3 l2 s4 btn-large"
+                <a onClick={this.memClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col offset-l3 offset-s1 offset-m2 m3 l2 s4 btn-large"
                      style={{overflow:'hidden', color:'#004ec3', fontWeight:700}}>
                     <i className="hide-on-small-only material-icons left">person</i>Member
                 </a>
                 <div className="col l2 s1 m2" style={{margin: '0 auto'}}></div>
-                <a  href="#orgReg" onClick={this.orgClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col m3 l2 s5 btn-large" 
+                <a onClick={this.orgClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col m3 l2 s5 btn-large" 
                     style={{overflow:'hidden', color:'#004ec3',fontWeight:700}} >
                     <i className="hide-on-small-only material-icons right">people</i>Organisation
                 </a>
