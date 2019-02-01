@@ -30,6 +30,7 @@ export default class extends Component{
         document.title = "Home | FreeSlots"
         M.Tabs.init(document.getElementsByClassName('tabs'))
         M.Modal.init(document.querySelectorAll('.modal'))
+        M.Modal.getInstance(document.getElementById('memReg')).open()
         
     }
     orgClick(){

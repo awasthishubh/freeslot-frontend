@@ -7,7 +7,7 @@ import axios from 'axios'
 import Chart from '../chart'
 import M from 'materialize-css'
 import serverBaseURL from '../../serverBaseURL';
-
+import TimeTable from '../timetable'
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
@@ -51,9 +51,9 @@ class Submit_card extends Component {
                 this.setState({valReg:true})
                 this.setState({valEmail:true})
                 this.setState({valPhno:true})
-                M.Modal.getInstance(document.getElementById('memReg')).open()
+            
             }
-        } catch(e){}
+        } catch(e){throw e}
     }
 
     componentDidUpdate(){
@@ -287,7 +287,7 @@ class Submit_card extends Component {
                         <form id="regfrm"  onSubmit={this.submit.bind(this)}>
                             {InputForm.bind(this)()}
                         </form>
-                        <Chart data={{slots:this.state.slots}} />
+                        <TimeTable slots={this.state.slots} />
                         <div className="grey-text">{this.state.err}</div>
                         <div ref={this.modalDom} className="modal">
                             <div className="modal-content">
