@@ -53,7 +53,7 @@ class Submit_card extends Component {
                 this.setState({valPhno:true})
             
             }
-        } catch(e){throw e}
+        } catch(e){}
     }
 
     componentDidUpdate(){
@@ -274,7 +274,7 @@ class Submit_card extends Component {
                         <Chart data={this.state.subMem.data} />
                     </div>
                     <div className="modal-footer">
-                        <a onClick={()=>this.setState({'subMem':null})} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
+                        <a onClick={()=>{this.setState({'modal':'SUBMIT'})}} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
                         <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
                     </div>
                 </div>
@@ -348,7 +348,6 @@ function InputForm(){
         <Input id='mem_org' label='Organisation ID' 
             value={this.props.MemDetails.org}
             onChange={(e)=>this.onChange(e,'UPDATE_ORG',1)}
-            onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)}
             errorText="Organisation ID is required"
         />
         <Input id='mem_reg' label='Registration Number' 

@@ -34,9 +34,10 @@ export default function(props){
         '17:00-17:50','18:00-18:50','19:00-19:50'
     ]
     return(
-        <table>
+        <div style={{width:'100%',overflowY:'auto'}}>
+        <table style={{border:'2px solid black'}}>
             <tbody>
-                <tr sty="border-bottom: 1px solid #3c8dbc;">
+                <tr>
                     {(()=>{
                         var tdslot=[<td style={titleTD}>Day</td>]
                         for(var i=0; i<12;i++){
@@ -61,6 +62,7 @@ export default function(props){
             })()}
             </tbody>
         </table>
+        </div>
     )
 }
 
