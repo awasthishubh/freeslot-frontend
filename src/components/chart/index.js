@@ -20,9 +20,9 @@ function DayT(props){
 export default class extends Component {
     render() {
         return (
-        <div>
+        <div style={{orderTop: '1px solid #bdbdbd', paddingTop: 10}}>
             <div style={{textAlign: 'center', marginBottom: '15px'}}>
-                <div style={{fontSize:'40px'}} >{this.props.data.name}</div>
+                <div style={{fontSize:'30px'}} >{this.props.data.name}</div>
                 <div style={{fontSize:'15px'}}>{this.props.data.reg}</div>
                 <div style={{fontSize:'15px'}}>{this.props.data.email}</div>
                 <div style={{fontSize:'15px'}}>{this.props.data.phno}</div>

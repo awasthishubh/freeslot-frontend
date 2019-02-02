@@ -48,14 +48,17 @@ class Submit_card extends Component {
                     email: memDetails.email,
                     phno: memDetails.phno,
                     rmno:memDetails.hostel,
-                    org:''
+                    org:'',
+                    slots:memDetails.slots,
+                    timeTable: {}
                 }, 'UPDATE_MEM_ALL')
+                console.log(this.props.MemDetails)
                 this.setState({slots:memDetails.slots})
                 this.setState({valReg:true})
                 this.setState({valEmail:true})
                 this.setState({valPhno:true})
             }
-        } catch(e){throw e}
+        } catch(e){}
     }
 
     componentDidUpdate(){
@@ -128,7 +131,7 @@ class Submit_card extends Component {
         var reg=/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
         if(reg.test(e.target.value)){
             e.target.classList.add('valid')
-            this.setState({valEmail:true})    
+            this.setState({valEmail:true})
         }
         else{
             e.target.classList.add('invalid')
@@ -209,30 +212,30 @@ class Submit_card extends Component {
     async confirmed(e){
         this.setState({err:'Sending...'})
         e.preventDefault()
-        // this.setState({'subErr':null})
-        // this.setState({'subMem':null})
-        // // this.setState({'modal':'RESPONSE'})
-        // this.setState({'subMiss':null})
-        console.log(!this.props.MemDetails.org)
+        this.setState({'subErr':null})
+        this.setState({'subMem':null})
+        // this.setState({'modal':'RESPONSE'})
+        this.setState({'subMiss':null})
         if(!this.props.MemDetails.name) this.setState({'subMiss':'Name'})
         else if(!this.state.valReg) this.setState({'subMiss':'Registration Number'})
         else if(!this.state.valEmail) this.setState({'subMiss':'Email'})
         else if(!this.state.valPhno) this.setState({'subMiss':'Phno Number'})
-        else if(!this.props.MemDetails.org){
-            this.setState({'subMiss':'Organisation'})
-            // alert()
-        }
+        else if(!this.props.MemDetails.org) this.setState({'subMiss':'Organisation'})
         else if(!this.props.MemDetails.rmno) this.setState({'subMiss':'Room Number'})
         else
         {
+            var form= new FormData()
+            for (var key in this.props.MemDetails) {
+                form.append(key,this.props.MemDetails[key])
+            }
             try{
-                // var response=await axios.post(serverBaseURL+'/members', this.props.MemDetails)
-                // this.setState({'subMem':response.data})
-                // this.setState({'modal':'RESPONSE'})
-                // this.props.updateData('', 'RESET_MEM_DETAILS')
-                // this.setState({err:null})
-                // return
-            } 
+                var response=await axios.post(serverBaseURL+'/member', this.props.MemDetails)
+                this.setState({'subMem':response.data})
+                this.setState({'modal':'RESPONSE'})
+                this.props.updateData('', 'RESET_MEM_DETAILS')
+                this.setState({err:null})
+                return
+            }
             catch(error){
                 this.setState({'subErr':error.response})
             }
