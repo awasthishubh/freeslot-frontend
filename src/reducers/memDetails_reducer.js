@@ -5,21 +5,12 @@ var defaultState= {
     org: '',
     phno: '',
     rmno:'',
-    timeTable: {}
+    timeTable: {},
+    slots:[[],[],[],[],[],[],[]]
 }
 
 export default function(state=defaultState, action){
-
-    var newState= {
-        name: state.name,
-        reg: state.reg,
-        email: state.email,
-        org: state.org,
-        phno: state.phno,
-        rmno: state.rmno,
-        timeTable: state.timeTable
-    }
-    
+    var newState= {...state}
     switch(action.type){
         case 'UPDATE_NAME':
             newState.name=action.data
@@ -47,6 +38,10 @@ export default function(state=defaultState, action){
 
         case 'UPDATE_RMNO':
             newState.rmno=action.data
+            return newState
+
+        case 'UPDATE_SLOTS':
+            newState.slots=action.data
             return newState
 
         case 'RESET_MEM_DETAILS':
