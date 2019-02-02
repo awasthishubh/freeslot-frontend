@@ -11,7 +11,6 @@ export function updateDashboardData(){
             dispatch({type:'UPDATE_ORG_MEMBERS', data:null})
             dispatch({type:'UPDATE_ORG_REQUESTS', data:null})
             dispatch({type:'UPDATE_TIMESTAT', data:null})
-        
     }
 }
 

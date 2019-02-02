@@ -8,6 +8,8 @@ import Chart from '../chart'
 import M from 'materialize-css'
 import serverBaseURL from '../../serverBaseURL';
 import TimeTable from '../timetable'
+import Modal from './modal'
+
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
@@ -33,6 +35,7 @@ class Submit_card extends Component {
     }
 
     componentDidMount() {
+        M.Modal.init(document.querySelectorAll('#memReg')[0])
         var elems = document.querySelectorAll('select');
         M.FormSelect.init(elems);
         try{
@@ -51,18 +54,13 @@ class Submit_card extends Component {
                 this.setState({valReg:true})
                 this.setState({valEmail:true})
                 this.setState({valPhno:true})
-            
             }
-        } catch(e){}
+        } catch(e){throw e}
     }
 
     componentDidUpdate(){
         var elems = document.querySelectorAll('select');
         M.FormSelect.init(elems);
-        M.Modal.init(document.querySelectorAll('#memReg')[0])
-    }
-    componentWillUnmount(){
-        
     }
     mem(){
         if(this.state.subErr){
@@ -201,7 +199,7 @@ class Submit_card extends Component {
     }
     
     close(){
-        // M.Modal.getInstance(this.modalDom.current).close()
+        M.Modal.getInstance(this.modalDom.current).close()
     }
     
     submitAnother(){
@@ -247,34 +245,15 @@ class Submit_card extends Component {
     render(){
         if(!this.state.modal || this.state.modal=='SUBMIT')
         return(
-            // <div id="memReg" className="modal" style={{top:'5%!important', maxHeight:'85%'}}>
-            //   <div className="modal-content row">
-            //     <h4>Enter Your Details</h4>
-            //         {/* <form id="regfrm"  onSubmit={this.submit.bind(this)}>
-            //             {InputForm.bind(this)()}
-            //             <File id="fle" label="TimeTable" 
-            //                 errorText='Select a PNG file only'
-            //                 onChange={this.validateFile.bind(this)}
-            //             />
-            //         </form> */}
-            //         <div className="grey-text">{this.state.err}</div>
-                    // <div ref={this.modalDom} className="modal">
-                    //     <div className="modal-content">
-                    //         {this.mem.bind(this)()}
-                    //     </div>
-                    //     <div className="modal-footer">
-                    //         <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a>
-                    //     </div>
-                    // </div>
-            //   </div>
-            // </div>
             <Modal 
-                modalDom={this.modalDom}
                 footerFixed={false}
                 style={{top:'5%!important', maxHeight:'85%'}} 
                 title='Enter Your Details' 
                 err={this.state.err}
                 footer={[]}
+                subModalContent={this.mem.bind(this)()}
+                subModalAction={this.close.bind(this)}
+                modalDom={this.modalDom}
             >
                 <form id="regfrm"  onSubmit={this.submit.bind(this)}>
                     {InputForm.bind(this)()}
@@ -287,63 +266,31 @@ class Submit_card extends Component {
         )
         else if(this.state.modal=='RESPONSE')
             return(
-            //     <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
-            //         <div className="modal-content">
-            //             <h6>Registered Successfully!</h6><hr/>
-            //             <Chart data={this.state.subMem.data} />
-            //         </div>
-            //         <div className="modal-footer">
-            //             <a onClick={()=>{this.setState({'modal':'SUBMIT'})}} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
-            //             <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
-            //         </div>
-            //     </div>
                 <Modal 
-                    modalDom={this.modalDom}
                     footerFixed={true}
                     style={{top:'5%', maxHeight:'90%'}}
                     title='Registered Successfully!' 
                     err={''}
+                    subModalContent={this.mem.bind(this)()}
+                    subModalAction={this.close.bind(this)}
+                    modalDom={this.modalDom}
                     footer={[
                         {title:'Submit Another', onClick:()=>{this.setState({'modal':'SUBMIT'})}},
-                        {title:'Close', onClick:()=>{this.close.bind(this)()}}
+                        {title:'Close', onClick:()=>{()=>M.Modal.getInstance(document.getElementById('memReg')).close()}}
                     ]}
                 >
                     <Chart data={this.state.subMem.data} />
                 </Modal>
             )
         else return (
-            // <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
-            //     <div className="modal-content">
-            //         <h4>Confirm Your Details</h4>
-            //         <div ref={this.modalDom} className="modal modal-fixed-footer" style={{height:'50%'}}>
-            //                 <div className="modal-content">
-            //                     {this.mem.bind(this)()}
-            //                 </div>
-            //                 <div className="modal-footer">
-            //                     <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a>
-            //                 </div>
-            //             </div>
-            //         <div className="card-content row">
-            //             <form id="regfrm"  onSubmit={this.submit.bind(this)}>
-            //                 {InputForm.bind(this)()}
-            //             </form>
-            //             <TimeTable slots={this.state.slots} />
-            //             <div className="grey-text">{this.state.err}</div>
-
-                        
-            //         </div>
-            //     </div>
-            //     <div className="modal-footer">
-            //         <a onClick={this.submitAnother.bind(this)} className="waves-effect waves-green btn themeBlue"></a>
-            //         <a onClick={this.confirmed.bind(this)} className="waves-effect waves-green btn themeBlue" style={{marginLeft:10}}>Confirm</a>
-            //     </div>
-            // </div>
-            <Modal
-                modalDom={this.modalDom}
+            <Modal 
                 footerFixed={true}
                 style={{top:'5%', maxHeight:'90%'}} 
                 title='Confirm Your Details' 
                 err={this.state.err}
+                subModalContent={this.mem.bind(this)()}
+                subModalAction={this.close.bind(this)}
+                modalDom={this.modalDom}
                 footer={[
                     {title:'Submit Another', onClick:this.submitAnother.bind(this)},
                     {title:'Confirm', onClick:this.confirmed.bind(this)}
@@ -366,54 +313,6 @@ function mapDispatchToProps(dispatch){
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Submit_card)
 
-
-
-function Modal(props){
-    var footerFixed=props.footerFixed?'modal-fixed-footer':''
-    var {style,title,err,children,footer}=props
-
-
-    return(
-    <div id="memReg" className={`modal`}>
-        <div className="modal-content">
-            {/* <h4>{title}</h4> */}
-            
-            <div className="card-content row">
-                {children}
-                {/* <div className="grey-text">{err}</div> */}
-            </div>
-        </div>
-        <div className="modal-footer">
-            {/* {(()=>{
-                var footerItems=[];
-                footer.forEach((element,i) => {
-                    footerItems.push(
-                        <a key={i} onClick={element.onClick} 
-                        className="waves-effect waves-green btn themeBlue">
-                        {element.title}</a>
-                    )
-                });
-                return(footerItems)
-            })()} */}
-        </div>
-
-
-        <div ref={props.modalDom} className="modal">
-            <div className="modal-content">
-                {/* {this.mem.bind(this)()} */}
-            </div>
-            <div className="modal-footer">
-                {/* <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a> */}
-            </div>
-        </div>
-
-    </div>
-    )
-}
-
-
-
-
 function Input(props){
     return(
         <div className="input-field col m6 s12">
@@ -421,8 +320,7 @@ function Input(props){
                 type="text" 
                 onBlur={props.onBlur}
                 value={props.value}  
-                onChange={props.onChange}
-                 />
+                onChange={props.onChange} />
             <label htmlFor={props.id}>{props.label}</label>
             <span className="helper-text" data-error={props.errorText}></span>
         </div>
