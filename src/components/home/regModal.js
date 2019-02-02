@@ -59,6 +59,7 @@ class Submit_card extends Component {
     componentDidUpdate(){
         var elems = document.querySelectorAll('select');
         M.FormSelect.init(elems);
+        M.Modal.init(document.querySelectorAll('#memReg')[0])
     }
     componentWillUnmount(){
         
@@ -198,33 +199,41 @@ class Submit_card extends Component {
         M.Modal.getInstance(this.modalDom.current).open();
         this.setState({err:null})
     }
+    
+    close(){
+        // M.Modal.getInstance(this.modalDom.current).close()
+    }
+    
+    submitAnother(){
+        this.setState({'modal':'SUBMIT'})
+        this.props.updateData('', 'RESET_MEM_DETAILS')
+    }
     async confirmed(e){
         this.setState({err:'Sending...'})
         e.preventDefault()
-        this.setState({'subErr':null})
-        this.setState({'subMem':null})
-        this.setState({'modal':'RESPONSE'})
-        this.setState({'subMiss':null})
+        // this.setState({'subErr':null})
+        // this.setState({'subMem':null})
+        // // this.setState({'modal':'RESPONSE'})
+        // this.setState({'subMiss':null})
+        console.log(!this.props.MemDetails.org)
         if(!this.props.MemDetails.name) this.setState({'subMiss':'Name'})
         else if(!this.state.valReg) this.setState({'subMiss':'Registration Number'})
         else if(!this.state.valEmail) this.setState({'subMiss':'Email'})
         else if(!this.state.valPhno) this.setState({'subMiss':'Phno Number'})
-        else if(!this.props.MemDetails.org) this.setState({'subMiss':'Organisation'})
+        else if(!this.props.MemDetails.org){
+            this.setState({'subMiss':'Organisation'})
+            // alert()
+        }
         else if(!this.props.MemDetails.rmno) this.setState({'subMiss':'Room Number'})
-        else if(!this.state.valImage) this.setState({'subMiss':'Image File'})
         else
         {
-            var form= new FormData()
-            for (var key in this.props.MemDetails) {
-                form.append(key,this.props.MemDetails[key])
-            }
             try{
-                var response=await axios.post(serverBaseURL+'/members', form)
-                this.setState({'subMem':response.data})
-                this.setState({'modal':'RESPONSE'})
-                this.props.updateData('', 'RESET_MEM_DETAILS')
-                this.setState({err:null})
-                return
+                // var response=await axios.post(serverBaseURL+'/members', this.props.MemDetails)
+                // this.setState({'subMem':response.data})
+                // this.setState({'modal':'RESPONSE'})
+                // this.props.updateData('', 'RESET_MEM_DETAILS')
+                // this.setState({err:null})
+                // return
             } 
             catch(error){
                 this.setState({'subErr':error.response})
@@ -234,76 +243,117 @@ class Submit_card extends Component {
         M.Modal.getInstance(this.modalDom.current).open();
         this.setState({err:null})
     }
-    close(){
-        M.Modal.getInstance(this.modalDom.current).close()
-    }
-    
     
     render(){
         if(!this.state.modal || this.state.modal=='SUBMIT')
         return(
-            <div id="memReg" className="modal" style={{top:'5%!important', maxHeight:'85%'}}>
-              <div className="modal-content">
-                <h4>Enter Your Details</h4>
-                <div className="card-content row">
-                    <form id="regfrm"  onSubmit={this.submit.bind(this)}>
-                        {InputForm.bind(this)()}
-                        <File id="fle" label="TimeTable" 
-                            errorText='Select a PNG file only'
-                            onChange={this.validateFile.bind(this)}
-                        />
-                    </form>
-                    <div className="grey-text">{this.state.err}</div>
-                    <div ref={this.modalDom} className="modal">
-                        <div className="modal-content">
-                            {this.mem.bind(this)()}
-                        </div>
-                        <div className="modal-footer">
-                            <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a>
-                        </div>
-                    </div>
-                </div>
-              </div>
-            </div>
+            // <div id="memReg" className="modal" style={{top:'5%!important', maxHeight:'85%'}}>
+            //   <div className="modal-content row">
+            //     <h4>Enter Your Details</h4>
+            //         {/* <form id="regfrm"  onSubmit={this.submit.bind(this)}>
+            //             {InputForm.bind(this)()}
+            //             <File id="fle" label="TimeTable" 
+            //                 errorText='Select a PNG file only'
+            //                 onChange={this.validateFile.bind(this)}
+            //             />
+            //         </form> */}
+            //         <div className="grey-text">{this.state.err}</div>
+                    // <div ref={this.modalDom} className="modal">
+                    //     <div className="modal-content">
+                    //         {this.mem.bind(this)()}
+                    //     </div>
+                    //     <div className="modal-footer">
+                    //         <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a>
+                    //     </div>
+                    // </div>
+            //   </div>
+            // </div>
+            <Modal 
+                modalDom={this.modalDom}
+                footerFixed={false}
+                style={{top:'5%!important', maxHeight:'85%'}} 
+                title='Enter Your Details' 
+                err={this.state.err}
+                footer={[]}
+            >
+                <form id="regfrm"  onSubmit={this.submit.bind(this)}>
+                    {InputForm.bind(this)()}
+                    <File id="fle" label="TimeTable" 
+                        errorText='Select a PNG file only'
+                        onChange={this.validateFile.bind(this)}
+                    />
+                </form>
+            </Modal>
         )
         else if(this.state.modal=='RESPONSE')
             return(
-                <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
-                    <div className="modal-content">
-                        <h6>Registered Successfully!</h6><hr/>
-                        <Chart data={this.state.subMem.data} />
-                    </div>
-                    <div className="modal-footer">
-                        <a onClick={()=>{this.setState({'modal':'SUBMIT'})}} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
-                        <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
-                    </div>
-                </div>
+            //     <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
+            //         <div className="modal-content">
+            //             <h6>Registered Successfully!</h6><hr/>
+            //             <Chart data={this.state.subMem.data} />
+            //         </div>
+            //         <div className="modal-footer">
+            //             <a onClick={()=>{this.setState({'modal':'SUBMIT'})}} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
+            //             <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
+            //         </div>
+            //     </div>
+                <Modal 
+                    modalDom={this.modalDom}
+                    footerFixed={true}
+                    style={{top:'5%', maxHeight:'90%'}}
+                    title='Registered Successfully!' 
+                    err={''}
+                    footer={[
+                        {title:'Submit Another', onClick:()=>{this.setState({'modal':'SUBMIT'})}},
+                        {title:'Close', onClick:()=>{this.close.bind(this)()}}
+                    ]}
+                >
+                    <Chart data={this.state.subMem.data} />
+                </Modal>
             )
         else return (
-            <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
-                <div className="modal-content">
-                    <h4>Confirm Your Details</h4>
-                    <div className="card-content row">
-                        <form id="regfrm"  onSubmit={this.submit.bind(this)}>
-                            {InputForm.bind(this)()}
-                        </form>
-                        <TimeTable slots={this.state.slots} />
-                        <div className="grey-text">{this.state.err}</div>
-                        <div ref={this.modalDom} className="modal">
-                            <div className="modal-content">
-                                {this.mem.bind(this)()}
-                            </div>
-                            <div className="modal-footer">
-                                <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="modal-footer">
-                    <a onClick={()=>this.setState({'modal':'SUBMIT'})} href="#!" className="waves-effect waves-green btn-flat">Submit Another</a>
-                    <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
-                </div>
-            </div>
+            // <div id="memReg" className="modal modal-fixed-footer" style={{top:'5%', maxHeight:'90%'}}>
+            //     <div className="modal-content">
+            //         <h4>Confirm Your Details</h4>
+            //         <div ref={this.modalDom} className="modal modal-fixed-footer" style={{height:'50%'}}>
+            //                 <div className="modal-content">
+            //                     {this.mem.bind(this)()}
+            //                 </div>
+            //                 <div className="modal-footer">
+            //                     <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a>
+            //                 </div>
+            //             </div>
+            //         <div className="card-content row">
+            //             <form id="regfrm"  onSubmit={this.submit.bind(this)}>
+            //                 {InputForm.bind(this)()}
+            //             </form>
+            //             <TimeTable slots={this.state.slots} />
+            //             <div className="grey-text">{this.state.err}</div>
+
+                        
+            //         </div>
+            //     </div>
+            //     <div className="modal-footer">
+            //         <a onClick={this.submitAnother.bind(this)} className="waves-effect waves-green btn themeBlue"></a>
+            //         <a onClick={this.confirmed.bind(this)} className="waves-effect waves-green btn themeBlue" style={{marginLeft:10}}>Confirm</a>
+            //     </div>
+            // </div>
+            <Modal
+                modalDom={this.modalDom}
+                footerFixed={true}
+                style={{top:'5%', maxHeight:'90%'}} 
+                title='Confirm Your Details' 
+                err={this.state.err}
+                footer={[
+                    {title:'Submit Another', onClick:this.submitAnother.bind(this)},
+                    {title:'Confirm', onClick:this.confirmed.bind(this)}
+                ]}
+            >
+                <form id="regfrm"  onSubmit={this.submit.bind(this)}>
+                    {InputForm.bind(this)()}
+                </form>
+                <TimeTable slots={this.state.slots} />
+            </Modal>
         )
     }
 }
@@ -318,7 +368,48 @@ export default connect(mapStateToProps,mapDispatchToProps)(Submit_card)
 
 
 
+function Modal(props){
+    var footerFixed=props.footerFixed?'modal-fixed-footer':''
+    var {style,title,err,children,footer}=props
 
+
+    return(
+    <div id="memReg" className={`modal`}>
+        <div className="modal-content">
+            {/* <h4>{title}</h4> */}
+            
+            <div className="card-content row">
+                {children}
+                {/* <div className="grey-text">{err}</div> */}
+            </div>
+        </div>
+        <div className="modal-footer">
+            {/* {(()=>{
+                var footerItems=[];
+                footer.forEach((element,i) => {
+                    footerItems.push(
+                        <a key={i} onClick={element.onClick} 
+                        className="waves-effect waves-green btn themeBlue">
+                        {element.title}</a>
+                    )
+                });
+                return(footerItems)
+            })()} */}
+        </div>
+
+
+        <div ref={props.modalDom} className="modal">
+            <div className="modal-content">
+                {/* {this.mem.bind(this)()} */}
+            </div>
+            <div className="modal-footer">
+                {/* <a href="#!" onClick={this.close.bind(this)} className="waves-effect waves-green btn-flat"><b>Close</b></a> */}
+            </div>
+        </div>
+
+    </div>
+    )
+}
 
 
 
@@ -330,7 +421,8 @@ function Input(props){
                 type="text" 
                 onBlur={props.onBlur}
                 value={props.value}  
-                onChange={props.onChange} />
+                onChange={props.onChange}
+                 />
             <label htmlFor={props.id}>{props.label}</label>
             <span className="helper-text" data-error={props.errorText}></span>
         </div>
