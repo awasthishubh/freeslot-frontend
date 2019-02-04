@@ -34,7 +34,16 @@ export default function(props){
         '17:00-17:50','18:00-18:50','19:00-19:50'
     ]
     return(
-        <div style={{width:'100%',overflowY:'auto'}}>
+        <div style={{width:'100%',overflowY:'auto', margin:'10px 0px'}}>
+        {/* <fieldset> */}
+            <legend><b  >TimeTable</b></legend>
+            <div style={{textAlign: 'center', marginBottom: 15}}>
+                <div style={{height:'15px', width: '30px', backgroundColor: 'rgb(177, 198, 253)', display:'inline-block'}} ></div>
+                <div style={{display:'inline-block', margin:'0px 40px 0px 10px'}} >Free</div>
+                <div style={{height:'15px', width: '30px', backgroundColor: '#1e88e5', display:'inline-block'}} ></div>
+                <div style={{display:'inline-block', marginLeft:'10px'}} >Busy</div>
+                <div></div>
+            </div>
         <table style={{border:'2px solid black'}}>
             <tbody>
                 <tr>
@@ -62,6 +71,7 @@ export default function(props){
             })()}
             </tbody>
         </table>
+        {/* </fieldset> */}
         </div>
     )
 }

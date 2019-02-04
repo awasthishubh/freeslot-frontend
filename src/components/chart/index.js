@@ -27,14 +27,13 @@ export default class extends Component {
                 <div style={{fontSize:'15px'}}>{this.props.data.email}</div>
                 <div style={{fontSize:'15px'}}>{this.props.data.phno}</div>
             </div>
-            <div style={{textAlign: 'center', marginBottom: 15}}>
-                {/* <div style={{fontSize:'20px'}} >Free Timming Clock</div> */}
+            {/* <div style={{textAlign: 'center', marginBottom: 15}}>
                 <div style={{height:'15px', width: '30px', backgroundColor: 'rgb(177, 198, 253)', display:'inline-block'}} ></div>
                 <div style={{display:'inline-block', margin:'0px 40px 0px 10px'}} >Free</div>
                 <div style={{height:'15px', width: '30px', backgroundColor: '#1e88e5', display:'inline-block'}} ></div>
                 <div style={{display:'inline-block', marginLeft:'10px'}} >Busy</div>
                 <div></div>
-            </div>
+            </div> */}
           {/* <table className="row striped highlight centered"> */}
             {/* <thead >
               <tr className="row">

@@ -50,7 +50,7 @@ export default class extends Component{
             <div style={backStyle} className="homeBack">
             <div><img src="ico.png" alt="icon" style={{ position: 'absolute', top: 20, left: 20, width: 50}}/></div>
             <div style={{position: 'absolute',top: '29vh', width: '100%', textAlign:'center', color:'black'}}>
-                <h1 className="titleHome" style={{fontWeight:900, marginBottom:0}}>FreeSlots</h1>
+                <h1 className="titleHome" style={{fontWeight:900, marginBottom:0}}>FreeSlot</h1>
                 <div className="despHome" style={{fontSize:15}} >A simple application to manage your team.</div>
             </div>
 

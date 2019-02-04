@@ -9,6 +9,7 @@ import M from 'materialize-css'
 import serverBaseURL from '../../serverBaseURL';
 import TimeTable from '../timetable'
 import Modal from './modal'
+import { relative } from 'path';
 
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
@@ -41,7 +42,7 @@ class Submit_card extends Component {
         try{
             var memDetails=JSON.parse(window.atob(getQueryVariable('data')))
             if(memDetails){
-                this.setState({modal:'confirm'})
+                this.setState({modal:'CONFIRMATION'})
                 this.props.updateData({
                     name: memDetails.name,
                     reg: memDetails.reg,
@@ -165,31 +166,25 @@ class Submit_card extends Component {
         }
     }
 
-    async submit(e){
-        this.setState({err:'Sending...'})
+    async parseImg(e){
         e.preventDefault()
         this.setState({'subErr':null})
         this.setState({'subMem':null})
-        this.setState({'modal':'SUBMIT'})
         this.setState({'subMiss':null})
-        if(!this.props.MemDetails.name) this.setState({'subMiss':'Name'})
-        else if(!this.state.valReg) this.setState({'subMiss':'Registration Number'})
-        else if(!this.state.valEmail) this.setState({'subMiss':'Email'})
-        else if(!this.state.valPhno) this.setState({'subMiss':'Phno Number'})
-        else if(!this.props.MemDetails.org) this.setState({'subMiss':'Organisation'})
-        else if(!this.props.MemDetails.rmno) this.setState({'subMiss':'Room Number'})
+        if(!this.state.valImage) this.setState({'subMiss':'Image File'})
         else
-        {
+        {   this.setState({disableBtn:true})
             var form= new FormData()
-            for (var key in this.props.MemDetails) {
-                form.append(key,this.props.MemDetails[key])
-            }
+            form.append('timeTable',this.props.MemDetails['timeTable'])
             try{
-                var response=await axios.post(serverBaseURL+'/members', form)
-                this.setState({'subMem':response.data})
-                this.setState({'modal':'RESPONSE'})
-                this.props.updateData('', 'RESET_MEM_DETAILS')
+                var response=await axios.post(serverBaseURL+'/parseimg', form)
+                console.log(response.data.slots)
+                this.props.updateData(response.data.slots,'UPDATE_SLOTS')
+                // this.setState({'subMem':response.data})
+                this.setState({'modal':'CONFIRMATION'})
                 this.setState({err:null})
+                console.log(this.props.MemDetails.slots)
+                this.setState({disableBtn:false})
                 return
             } 
             catch(error){
@@ -198,7 +193,6 @@ class Submit_card extends Component {
         }
         M.Modal.init(this.modalDom.current)
         M.Modal.getInstance(this.modalDom.current).open();
-        this.setState({err:null})
     }
     
     close(){
@@ -210,7 +204,7 @@ class Submit_card extends Component {
         this.props.updateData('', 'RESET_MEM_DETAILS')
     }
     async confirmed(e){
-        this.setState({err:'Sending...'})
+        this.setState({disableBtn:true})
         e.preventDefault()
         this.setState({'subErr':null})
         this.setState({'subMem':null})
@@ -224,50 +218,26 @@ class Submit_card extends Component {
         else if(!this.props.MemDetails.rmno) this.setState({'subMiss':'Room Number'})
         else
         {
-            var form= new FormData()
-            for (var key in this.props.MemDetails) {
-                form.append(key,this.props.MemDetails[key])
-            }
             try{
                 var response=await axios.post(serverBaseURL+'/member', this.props.MemDetails)
                 this.setState({'subMem':response.data})
                 this.setState({'modal':'RESPONSE'})
                 this.props.updateData('', 'RESET_MEM_DETAILS')
                 this.setState({err:null})
+                this.setState({disableBtn:false})
                 return
             }
             catch(error){
                 this.setState({'subErr':error.response})
+                this.setState({disableBtn:false})
             }
         }
         M.Modal.init(this.modalDom.current)
         M.Modal.getInstance(this.modalDom.current).open();
-        this.setState({err:null})
     }
     
     render(){
-        if(!this.state.modal || this.state.modal=='SUBMIT')
-        return(
-            <Modal 
-                footerFixed={false}
-                style={{top:'5%!important', maxHeight:'85%'}} 
-                title='Enter Your Details' 
-                err={this.state.err}
-                footer={[]}
-                subModalContent={this.mem.bind(this)()}
-                subModalAction={this.close.bind(this)}
-                modalDom={this.modalDom}
-            >
-                <form id="regfrm"  onSubmit={this.submit.bind(this)}>
-                    {InputForm.bind(this)()}
-                    <File id="fle" label="TimeTable" 
-                        errorText='Select a PNG file only'
-                        onChange={this.validateFile.bind(this)}
-                    />
-                </form>
-            </Modal>
-        )
-        else if(this.state.modal=='RESPONSE')
+        if(this.state.modal=='RESPONSE')
             return(
                 <Modal 
                     footerFixed={true}
@@ -285,26 +255,53 @@ class Submit_card extends Component {
                     <Chart data={this.state.subMem.data} />
                 </Modal>
             )
-        else return (
-            <Modal 
-                footerFixed={true}
-                style={{top:'5%', maxHeight:'90%'}} 
-                title='Confirm Your Details' 
-                err={this.state.err}
-                subModalContent={this.mem.bind(this)()}
-                subModalAction={this.close.bind(this)}
-                modalDom={this.modalDom}
-                footer={[
-                    {title:'Submit Another', onClick:this.submitAnother.bind(this)},
-                    {title:'Confirm', onClick:this.confirmed.bind(this)}
-                ]}
-            >
-                <form id="regfrm"  onSubmit={this.submit.bind(this)}>
-                    {InputForm.bind(this)()}
-                </form>
-                <TimeTable slots={this.state.slots} />
-            </Modal>
-        )
+        else {
+            var confirmScreen=this.state.modal=='CONFIRMATION'
+            return(
+                <Modal 
+                    footerFixed={confirmScreen?true:false}
+                    style={{top:'5%', maxHeight:'90%'}} 
+                    title={confirmScreen?'Confirm Your Details':'Enter Your Details'}
+                    subModalContent={this.mem.bind(this)()}
+                    subModalAction={this.close.bind(this)}
+                    modalDom={this.modalDom}
+                    footer={confirmScreen?[
+                        {title:'Submit Another', onClick:this.submitAnother.bind(this)},
+                        {title:'Confirm', disabledTitle:'Sending...',
+                        disableBtn:this.state.disableBtn|| this.state.disableBtn, onClick:this.confirmed.bind(this)}
+                    ]:[]}
+                >
+                    <form id="regfrm"  onSubmit={this.parseImg.bind(this)}>
+                        {InputForm.bind(this)()}
+                        {!confirmScreen?<File id="fle" label="TimeTable" 
+                            disableBtn={this.state.disableBtn}
+                            onChange={this.validateFile.bind(this)}
+                        />:<TimeTable slots={this.props.MemDetails.slots} />}
+                    </form>
+                </Modal>
+            )
+        }
+        // else 
+        // else return (
+        //     <Modal 
+        //         footerFixed={true}
+        //         style={{top:'5%', maxHeight:'90%'}} 
+        //         title='Confirm Your Details' 
+        //         err={this.state.err}
+        //         subModalContent={this.mem.bind(this)()}
+        //         subModalAction={this.close.bind(this)}
+        //         modalDom={this.modalDom}
+        //         footer={[
+        //             {title:'Submit Another', onClick:this.submitAnother.bind(this)},
+        //             {title:'Confirm', onClick:this.confirmed.bind(this)}
+        //         ]}
+        //     >
+        //         <form id="regfrm"  onSubmit={this.confirmed.bind(this)}>
+        //             {InputForm.bind(this)()}
+        //         </form>
+        //         <TimeTable slots={this.props.MemDetails.slots} />
+        //     </Modal>
+        // )
     }
 }
 
@@ -332,7 +329,7 @@ function Input(props){
 
 function InputForm(){
     return(
-        <div>
+        <div className="row">
         <Input id='mem_name' label='Name' 
             value={this.props.MemDetails.name} 
             onChange={(e)=>this.onChange(e,'UPDATE_NAME',1)}
@@ -366,29 +363,41 @@ function InputForm(){
             onChange={(e)=>this.onChange(e,'UPDATE_RMNO',1)}
             errorText="Enter Room Number"
         />
+        <input type="submit" style={{position:'absolute', left: -9999}}/>
         </div>
     )
 }
 
 function File(props){
     return(
-        <div>
-            <div className="file-field input-field col s12">
-                <div className="btn">
-                    <span>{props.label}</span>
-                    <input id={props.id} type="file" onChange={props.onChange} />
+        <fieldset>
+            <legend><b>TimeTable</b></legend>
+            <div className="row" style={{position:'relative'}}>
+                <div className="file-field input-field col s12 m6">
+                    <div className="btn">
+                        <span>Upload</span>
+                        <input id={props.id} type="file" onChange={props.onChange} />
+                    </div>
+                    <div className="file-path-wrapper">
+                        <input className="file-path" type="text" />
+                    <span className="helper-text" data-error='Select a PNG file only'></span>
+                    </div>
                 </div>
-                <div className="file-path-wrapper">
-                    <input className="file-path" type="text" />
-                <span className="helper-text" data-error={props.errorText}></span>
+                <span className="hide-on-small-only col s1" 
+                    style={{textAlign:"center",fontSize:20,padding:10}} >OR</span>
+                <div className="col s12 hide-on-med-and-up" style={{textAlign:"center"}}>OR</div>
+                <div className="input-field  col m5 s12" style={{textAlign:"center",fontSize:20,padding:10}}>
+                    <a href="#">Get it from vtop.</a>
                 </div>
             </div>
 
             <div className="col s12" style={{textAlign:'center', marginTop:7}}>
-                <button className="btn waves-effect waves-light" type="submit" name="action">Submit
-                    <i className="material-icons right">send</i>
+                <button className={`${props.disableBtn?'btn-disabled':''} btn waves-effect waves-light`} type="submit" name="action">
+                    {props.disableBtn?'Parsing...':'Parse Timetable'}
+                    {props.disableBtn?'':<i className="material-icons right">send</i>}
                 </button>
             </div>
-        </div>
+
+            </fieldset>
     )
 }

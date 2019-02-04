@@ -2,17 +2,16 @@ import React from 'react'
 
 export default function Modal(props){
     var footerFixed=props.footerFixed?'modal-fixed-footer':''
-    var {style,title,err,children,footer}=props
+    var {style,title,children,footer}=props
 
 
     return(
-    <div id="memReg" className={`modal ${footerFixed}`} style={style}>
+    <div id="memReg" className={`modal ${footerFixed}`} style={{top:'5%', maxHeight:'90%'}}>
         <div className="modal-content">
             <h4>{title}</h4>
             
             <div className="card-content row">
                 {children}
-                <div className="grey-text">{err}</div>
             </div>
         </div>
 
@@ -22,8 +21,9 @@ export default function Modal(props){
                 footer.forEach((element,i) => {
                     footerItems.push(
                         <a key={i} onClick={element.onClick} 
-                        className="waves-effect waves-green btn themeBlue">
-                        {element.title}</a>
+                        className={`${element.disableBtn?'btn-disabled':''} waves-effect waves-green btn themeBlue`}
+                        >
+                        {element.disableBtn?element.disabledTitle:element.title}</a>
                     )
                 });
 
