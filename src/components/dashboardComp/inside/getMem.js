@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import Collapsi from './collapsi'
 import SortFilter from './filter-sort'
 import M from 'materialize-css'
-import $ from 'jquery'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import serverBaseURL from '../../../serverBaseURL.js';
@@ -39,8 +38,7 @@ export default class extends Component{
     componentDidMount(){
         this.props.updateData(true,'UPDATE_ORG_LOGGED')
         document.getElementById('dashGetMem').classList.add('active')
-        var elems = document.querySelectorAll('select');
-        M.FormSelect.init(elems);
+        
     }
     viewMem(reg){
         this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
@@ -59,7 +57,7 @@ export default class extends Component{
                 if(e.request.status===404)
                     this.setState({members:[]})
                 else{
-                    // this.props.updateData(false,'UPDATE_ORG_LOGGED')
+                    this.props.updateData(false,'UPDATE_ORG_LOGGED')
                     throw e
                 }
             }

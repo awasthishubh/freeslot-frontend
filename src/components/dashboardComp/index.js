@@ -14,7 +14,7 @@ import Settings from './inside/settings'
 import M from 'materialize-css'
 import Cookies from 'js-cookie'
 import FixedComp from './fixedComp'
-
+import PlanDesk from './inside/planDesk'
 class Modal extends Component{
     render(){
         var data
@@ -148,6 +148,15 @@ export class dashboard extends Component{
                         org={this.props.dashDetails}
                         loggedIn={this.props.isLoggedIn}/>
                         {/* selected={this.props.dashModal}  */}
+                </FixedComp>
+                </Route>
+
+                <Route path='/dashboard/plan'>
+                <FixedComp>
+                    <PlanDesk  
+                        selected={this.props.dashModal} 
+                        updateData={this.props.updateData}
+                        del={this.props.del} />
                 </FixedComp>
                 </Route>
 

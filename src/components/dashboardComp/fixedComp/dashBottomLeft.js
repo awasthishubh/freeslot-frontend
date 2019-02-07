@@ -51,6 +51,10 @@ export default class extends Component{
                 <i className="material-icons" style={{display: 'inline-block'}}>access_time</i>
                 <span className="sideName">Timing Statistics</span>
             </Link>
+            <Link to="/dashboard/plan" id="dashStat" className="nItem" onClick={this.close} >
+                <i className="material-icons" style={{display: 'inline-block'}}>timelapse</i>
+                <span className="sideName">Plan Desk Duties</span>
+            </Link>
             
         </div>
 
