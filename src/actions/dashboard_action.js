@@ -14,23 +14,16 @@ export function updateDashboardData(){
     }
 }
 
-export function del(reg,data,type){
+export function del(reg,type){
     return async function(dispatch){
-        // dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         await axios({
             url:`${serverBaseURL}/auth/members?reg=${reg}`,
             headers: { 'Authorization': 'Bearer '+token},
             method: 'DELETE',
-        })
-        var newData=[]
-        for(var i=0; i<data.length; i++){
-            if(data[i].reg!==reg)
-            newData.push(data[i])
-        }
+        })  
         if(type==='M'){
-            dispatch({type:'UPDATE_ORG_MEMBERS', data:newData})
-        } else dispatch({type:'UPDATE_ORG_REQUESTS', data:newData})
-        // console.log(type,data)
+            dispatch({type:'UPDATE_ORG_MEMBERS_DEL', reg})
+        } else dispatch({type:'UPDATE_ORG_REQUESTS_DEL', reg})
 
 
     }
@@ -44,12 +37,7 @@ export function verify(reg,data){
             headers: { 'Authorization': 'Bearer '+token},
             method: 'PUT',
         })
-        var newData=[]
-        for(var i=0; i<data.length; i++){
-            if(data[i].reg!==reg)
-            newData.push(data[i])
-        }
-        dispatch({type:'UPDATE_ORG_REQUESTS', data:newData})
+        dispatch({type:'UPDATE_ORG_REQUESTS_DEL', reg})
     }
 }
 

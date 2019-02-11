@@ -1,5 +1,4 @@
 export function all(state=null, action){
-    // console.log(action)
     switch(action.type){
         case 'UPDATE_ORG_ALL':
             return action.data
@@ -21,15 +20,24 @@ export function members(state=null, action){
     switch(action.type){
         case 'UPDATE_ORG_MEMBERS':
             return action.data
+        case 'UPDATE_ORG_MEMBERS_DEL':
+            var newState=[...state]
+            newState.splice(newState.findIndex(e=>e.reg==action.reg),1)
+            return newState
         default:
             return state
     }
 }
 
 export function requests(state=null, action){
+    
     switch(action.type){
         case 'UPDATE_ORG_REQUESTS':
             return action.data
+        case 'UPDATE_ORG_REQUESTS_DEL':
+            var newState=[...state]
+            newState.splice(newState.findIndex(e=>e.reg==action.reg),1)
+            return newState
         default:
             return state
     }

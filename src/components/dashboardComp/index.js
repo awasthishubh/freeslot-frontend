@@ -79,6 +79,7 @@ export class dashboard extends Component{
         super(props)
         this.sideNav=React.createRef();
         this.Modal=React.createRef();
+        this.viewMem=this.viewMem.bind(this)
     }
     componentDidUpdate(){
         if(this.props.isLoggedIn===false){
@@ -94,8 +95,9 @@ export class dashboard extends Component{
         var instance = M.Modal.init(this.Modal.current);
         this.props.updateData(instance,'UPDATE_MODAL_INSTANCE')
     }
-    timeStat(){
-        
+    viewMem(reg){
+        this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
+        this.props.dashModal.instance.open()
     }
 
     render(){
@@ -126,11 +128,10 @@ export class dashboard extends Component{
                 <Route path='/dashboard/members'>
                 <FixedComp>
                     <Members 
-                        selected={this.props.dashModal}
+                        viewMem={this.viewMem}
                         updateMem={this.props.updateMem}
                         updateData={this.props.updateData} 
                         members={this.props.dashMembers} 
-                        del={this.props.del}
                         loggedIn={this.props.isLoggedIn}
                     />
                 </FixedComp>
@@ -139,12 +140,10 @@ export class dashboard extends Component{
                 <Route path='/dashboard/requests'>
                 <FixedComp>
                     <MembersReq 
-                        selected={this.props.dashModal} 
+                        viewMem={this.viewMem}
                         updateReq={this.props.updateReq}
                         updateData={this.props.updateData} 
-                        requests={this.props.dashRequests} 
-                        del={this.props.del} 
-                        verify={this.props.verify}
+                        membersReq={this.props.dashRequests} 
                         loggedIn={this.props.isLoggedIn}/>
                 </FixedComp>
                 </Route>

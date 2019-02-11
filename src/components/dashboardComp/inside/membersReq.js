@@ -6,18 +6,15 @@ export default class extends Component{
     constructor(props){
         super(props)
         this.collapsible=React.createRef()
-        this.members=this.members.bind(this)
-        this.viewMem=this.viewMem.bind(this)
-    }
-    viewMem(reg){
-        this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
-        this.props.selected.instance.open()
     }
 
     members(){
+        console.log(this.props)
         if(this.props.requests && this.props.requests.length>0){
             return(
-                <Collapsi view={this.viewMem} data={this.props.requests} verify={this.props.verify} del={this.props.del}/>
+                <Collapsi view={this.viewMem} data={this.props.requests} 
+                verify={this.props.verify} 
+                del={this.props.del}/>
             )
         }
         else{
@@ -28,10 +25,10 @@ export default class extends Component{
     componentDidMount(){
         document.getElementById('dashReqs').classList.add('active')
         this.props.updateData(true,'UPDATE_ORG_LOGGED')
-        if(!this.props.requests) this.props.updateReq()
+        if(!this.props.membersReq) this.props.updateReq()
     }
     componentDidUpdate(){
-        if(!this.props.requests && this.props.loggedIn) this.props.updateReq()
+        if(!this.props.membersReq && this.props.loggedIn) this.props.updateReq()
     }
     componentWillUnmount(){
         document.getElementById('dashReqs').classList.remove('active')
@@ -46,8 +43,12 @@ export default class extends Component{
                         <div className="card-content row">
                             <span className="card-title">Members Requests</span>
                             <div className="container" style={{marginTop:40}}>
-                                    <SortFilter data={this.props.requests} update={(data)=>{this.props.updateData(data,'UPDATE_ORG_REQUESTS')}} all={true}/>
-                                    {this.members()}
+                            <SortFilter
+                                members={this.props.membersReq} 
+                                viewMem={this.props.viewMem}
+                                verified={false}
+                            />
+                                    
                             </div>
                         </div>
                     </div>
