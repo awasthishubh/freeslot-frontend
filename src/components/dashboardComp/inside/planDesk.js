@@ -13,7 +13,7 @@ function MemCard(props){
         <div className="card">
                 <div className="card-content row">
                     <div className="card-title">{props.title}</div>
-                    <MemTable members={props.members}/>
+                    <MemTable viewMem={props.viewMem} members={props.members}/>
                 </div>
         </div>
         )
@@ -23,7 +23,13 @@ function MemCard(props){
 export default class extends React.Component{
     constructor(props){
         super(props)
+        console.log(props)
         this.state={members:false}
+    }
+    viewMem(reg){
+        console.log(this.props)
+        this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
+        this.props.selected.instance.open()
     }
     async send(start,end,day, memType){
         console.log(start,end,day,memType)
@@ -47,7 +53,7 @@ export default class extends React.Component{
         this.setState({show:true})
     }
     render(){
-        console.log(this.state.members)
+        console.log(this.props)
         return(
             <div>
                 <ChooseDayTime
@@ -55,7 +61,7 @@ export default class extends React.Component{
                     onSubmit={this.send.bind(this)}
                     memberView
                 />
-                <MemCard title='Available Members' members={this.state.members}/>
+                <MemCard viewMem={this.viewMem.bind(this)} title='Available Members' members={this.state.members}/>
             </div>
         )
     }

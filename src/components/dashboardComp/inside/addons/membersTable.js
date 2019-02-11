@@ -12,7 +12,7 @@ export default function(props){
           </tr>
         </thead>
         <tbody>
-            <MemberTR members={props.members}/>
+            <MemberTR viewMem={props.viewMem} members={props.members}/>
         </tbody>
         </table>
 
@@ -22,11 +22,16 @@ export default function(props){
 function MemberTR(props){
     var TRs=[]
     props.members.forEach((element,i) => {
-        TRs.push(<tr key={element?element.reg:i}>
+        if(element&&element.reg)
+        TRs.push(<tr key={element.reg}>
             <td>{`${element.forSlot}:00-${element.forSlot+1}:00`}</td>
             <td>{element.name}</td>
             <td>{element.reg}</td>
-            <td><a style={{cursor:'pointer'}}>View more...</a></td>
+            <td><a onClick={()=>props.viewMem(element)} style={{cursor:'pointer'}}>View more...</a></td>
+        </tr>)
+        else TRs.push(<tr key={i}>
+            <td>{`${element.forSlot}:00-${element.forSlot+1}:00`}</td>
+            <td colSpan={3}>No one's available</td>
         </tr>)
     });
     return TRs
