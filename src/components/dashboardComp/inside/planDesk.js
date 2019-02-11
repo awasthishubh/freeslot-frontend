@@ -3,10 +3,27 @@ import ChooseDayTime from './addons/chooseDayTime'
 import axios from 'axios'
 import serverBaseURL from '../../../serverBaseURL'
 import Cookies from 'js-cookie'
+import MemTable from  './addons/membersTable'
+
+function MemCard(props){
+    console.log(props)
+    if(props.members){
+        console.log(props.members)
+        return(
+        <div className="card">
+                <div className="card-content row">
+                    <div className="card-title">{props.title}</div>
+                    <MemTable members={props.members}/>
+                </div>
+        </div>
+        )
+    } else return <div/>
+}
 
 export default class extends React.Component{
     constructor(props){
         super(props)
+        this.state={members:false}
     }
     async send(start,end,day, memType){
         console.log(start,end,day,memType)
@@ -30,12 +47,16 @@ export default class extends React.Component{
         this.setState({show:true})
     }
     render(){
+        console.log(this.state.members)
         return(
-        <ChooseDayTime
-            title='Plan Desk Duties'
-            onSubmit={this.send.bind(this)}
-            memberView
-        />
+            <div>
+                <ChooseDayTime
+                    title='Plan Desk Duties'
+                    onSubmit={this.send.bind(this)}
+                    memberView
+                />
+                <MemCard title='Available Members' members={this.state.members}/>
+            </div>
         )
     }
 }
