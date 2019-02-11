@@ -53,9 +53,9 @@ export default class extends Component{
                         
                     </span>
                     <div className="card-action">
-                    {(()=>{
+                        {(()=>{
                             if(props.view)
-                                return <a style={{cursor:'pointer'}} onClick={()=>props.view(mem.reg)}>View more</a>
+                                return <a style={{cursor:'pointer'}} onClick={()=>props.view(mem)}>View more</a>
                         })()}
 
                         {(()=>{

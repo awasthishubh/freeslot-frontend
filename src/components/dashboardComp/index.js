@@ -16,21 +16,40 @@ import Cookies from 'js-cookie'
 import FixedComp from './fixedComp'
 import PlanDesk from './inside/planDesk'
 class Modal extends Component{
+    // constructor(props){
+    //     super(props)
+    //     this.modalRef=React.createRef();
+    // }
+    // componentDidMount(){
+    //     var instance = M.Modal.init(this.Modal.current);
+    //     this.props.updateData(instance,'UPDATE_MODAL_INSTANCE',{
+    //         onCloseStart:()=>{
+
+    //         }
+    //     })
+    // }
+    componentDidUpdate(){
+        this.props.modalRef.current.getElementsByClassName('modal-content')[0].scrollTop=0
+    }
+
     render(){
-        var data
-        if(this.props.data){
-            // console.log(this.props.data)
-            var selected=this.props.selected
-            this.props.data.map(function(mem){
-                if(selected===mem.reg){
-                    data= <Chart data={mem} />
-                    return null
-                }
-                return null
-            })
-        }
-        if(data) return data
-        return <h5>Member Not Found</h5>
+        console.log(this.props.member)
+        return(
+            <div id="dashModalMem" ref={this.props.modalRef} className="modal modal-fixed-footer">
+                <div className="modal-content">
+                    {(()=>{
+                        if(this.props.member){
+                            return <Chart data={this.props.member} />
+                        }
+                        else return <h5>Member Not Found</h5>
+                    })()}
+                </div>
+                <div className="modal-footer" ref={this.modalFooter}>
+                <a style={{cursor:'pointer'}} className="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>
+                </div>
+            </div>
+
+        )
     }
     
 }
@@ -80,7 +99,6 @@ export class dashboard extends Component{
     }
 
     render(){
-        // console.log('ind', this.props)
         return(
         <div>
             <HashRouter>
@@ -172,24 +190,9 @@ export class dashboard extends Component{
             </Switch>
             </HashRouter>
             <Loader loggedIn={this.props.isLoggedIn}/>
-
-              <div id="dashModalMem" ref={this.Modal} className="modal modal-fixed-footer">
-                    <div className="modal-content">
-                        <Modal data={
-                            (()=>{
-                                if(this.props.dashRequests&&this.props.dashMembers)
-                                    return [...this.props.dashRequests, ...this.props.dashMembers]
-                                else 
-                                    return this.props.dashRequests || this.props.dashMembers
-                            })()
-                        } selected={this.props.dashModal.selected}/>
-                    </div>
-                    <div className="modal-footer" ref={this.modalFooter}>
-                    <a style={{cursor:'pointer'}} className="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>
-                    </div>
-                </div>
-
-</div>
+            <Modal modalRef={this.Modal} member={this.props.dashModal.selected}/>
+        </div> 
+              
 
 
         )

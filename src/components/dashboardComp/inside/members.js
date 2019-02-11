@@ -13,7 +13,7 @@ export default class extends Component{
         this.viewMem=this.viewMem.bind(this)
         this.downloadcsv=this.downloadcsv.bind(this)
         this.state={download:'Download CSV'}
-    }
+    } 
     viewMem(reg){
         this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
         this.props.selected.instance.open()
