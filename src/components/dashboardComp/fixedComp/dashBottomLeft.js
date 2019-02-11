@@ -28,7 +28,7 @@ export default class extends Component{
         <nav id="bottomLeftDash" className="sideNav grey darken-4" style={navStyle}>
             
         <div className="row" >
-            <div className="" style={{marginTop:40}}>
+            <div className="" style={{marginTop:0}}>
             <Link id="dashHome" to="/dashboard/home" className="nItem" onClick={this.close}>
                 <i className="material-icons" style={{display: 'inline-block'}}>home</i>
                 <span className="sideName">Home</span>
@@ -47,14 +47,15 @@ export default class extends Component{
                 <i className="material-icons" style={{display: 'inline-block'}}>contact_phone</i>
                 <span className="sideName">Get a member</span>
             </Link>
+            <Link to="/dashboard/plan" id="dashPlan" className="nItem" onClick={this.close} >
+                <i className="material-icons" style={{display: 'inline-block'}}>timelapse</i>
+                <span className="sideName">Plan Desk Duties</span>
+            </Link>
             <Link to="/dashboard/statistics" id="dashStat" className="nItem" onClick={this.close} >
                 <i className="material-icons" style={{display: 'inline-block'}}>access_time</i>
                 <span className="sideName">Timing Statistics</span>
             </Link>
-            <Link to="/dashboard/plan" id="dashStat" className="nItem" onClick={this.close} >
-                <i className="material-icons" style={{display: 'inline-block'}}>timelapse</i>
-                <span className="sideName">Plan Desk Duties</span>
-            </Link>
+            
             
         </div>
 

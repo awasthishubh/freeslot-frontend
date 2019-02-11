@@ -27,7 +27,11 @@ export default class extends Component{
     find(e){
         // console.log(e)
         e=e.split(' ')[0]
-        this.props.select(e,'UPDATE_MODAL_SELECTED')
+        var {data}=this.props
+        window.asd=data
+        var index=data.findIndex(el=>el.reg==e)
+        console.log(data,index,e)
+        this.props.select(data[index],'UPDATE_MODAL_SELECTED')
         this.props.selected.instance.open()
         $('#autocomplete-input')[0].value=''
     }

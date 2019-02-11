@@ -5,9 +5,9 @@ var styleT={
 }
 function Details(props){
     return(
-        <div className=" col s12" style={{height:'100%'}}>
-            <div className="card hoverable darken-1" style={{height:'100%'}}>
-                <div className="card-content row black-text" style={{height:'88%'}}>
+        <div className=" col s12" style={{height:'100%',padding:0   }}>
+            <div className="card hoverable darken-1" style={{height:'100%',margin:0}}>
+                <div className="card-content row black-text" style={{height:'88%',margin:0}}>
                     <span className="card-title">{props.title}</span>
                         <div className="col m6 s12" style={{fontSize:20, textAlign:'center', height:'100%'}}>
                             <div className="valign-wrapper" style={{height: '100%', width:'100%'}} >
@@ -39,9 +39,9 @@ function Details(props){
 function ShowP(props){
     return(
         
-        <div className="col s12 m4" style={{height:'100%'}}>
-            <div className="card hoverable darken-1" style={{height:'100%'}}>
-                <div className="card-content black-text" style={{height:'88%'}}>
+        <div className="col s12 m4 cardDash" style={{height:'100%', padding:0, ...props.style}}>
+            <div className="card hoverable darken-1" style={{height:'100%',margin:0}}>
+                <div className="card-content black-text" style={{height:'88%', margin:0}}>
                     <span className="card-title"  style={{height:'25%'}}>{props.head}</span>
                     <div  className="valign-wrapper" style={{ height: '100%'}} >
                         <p style={{fontSize:props.size, textAlign:'center',width:'100%'}}>{props.stat}</p>
@@ -75,14 +75,14 @@ export default class extends Component{
         if(this.props.org && this.props.org.stat)
         return(
             <div style={{height:'100%'}} >
-            <div className="row dashRow" style={{height:'55%'}}>
+            <div className="row dashRow" style={{height:'55%',margin:'0px 0px 20px 0px'}}>
                 <Details img={this.props.org.details.dp} name={this.props.org.details.name} tag={this.props.org.details.descr}/>
                 
             </div>
-            <div className="row dashRow" style={{height:'45%'}}>
+            <div className="row dashRow" style={{height:'45%', margin:0}}>
                 {/* <ShowP head="Members" stat={this.props.members?this.props.members.length:null} size={50}/> */}
-                <div className="col s12 m8" style={{height:'100%'}}>
-                    <div className="card hoverable darken-1" style={{height:'100%'}}>
+                <div className="col s12 m8" style={{height:'100%', padding:0}}>
+                    <div className="card hoverable darken-1" style={{height:'100%', margin:0}}>
                         <div className="card-content black-text" style={{height:'88%'}}>
                             <span className="card-title">Members Stats</span>
                             <div  className="row" style={{ height: '100%', marginTop:'4vh'}} >
@@ -115,7 +115,7 @@ export default class extends Component{
                         </div>
                     </div>
                 </div>
-                <ShowP head="Requests Pending" stat={this.props.org.stat.requests} size={50}/>
+                <ShowP style={{paddingLeft:20}} head="Requests Pending" stat={this.props.org.stat.requests} size={50}/>
             </div>
             </div>
         )

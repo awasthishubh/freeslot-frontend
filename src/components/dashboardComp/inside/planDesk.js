@@ -26,6 +26,12 @@ export default class extends React.Component{
         console.log(props)
         this.state={members:false}
     }
+    componentDidMount(){
+        document.getElementById('dashPlan').classList.add('active')
+    }
+    componentWillUnmount(){
+        document.getElementById('dashPlan').classList.remove('active')
+    }
     viewMem(reg){
         console.log(this.props)
         this.props.updateData(reg,'UPDATE_MODAL_SELECTED')

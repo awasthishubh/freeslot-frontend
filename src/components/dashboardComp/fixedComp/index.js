@@ -26,7 +26,7 @@ export class dashboard extends Component{
                     <BottomRight/>
                     </div>
                     <div className="bottomRightDash" style={style}>
-                        <div className="innerDash" style={{height:"90%", overflow:'visible'}} >{this.props.children}</div>
+                        <div className="innerDash" style={{height:"calc(100vh - 124px)", overflow:'visible'}} >{this.props.children}</div>
                     </div>
                     </div>
 
