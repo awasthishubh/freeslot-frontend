@@ -4,6 +4,9 @@
     padding: 0;
 } */
       /* width */
+.autoHeight{
+  max-height: 80%;
+}
 ::-webkit-scrollbar {
     width: 10px;
 }

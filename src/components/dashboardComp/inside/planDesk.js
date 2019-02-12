@@ -38,6 +38,7 @@ export default class extends React.Component{
         this.props.selected.instance.open()
     }
     async send(start,end,day, memType){
+        this.setState({disableBtn:true})
         console.log(start,end,day,memType)
         this.setState({status:'Planning...'})
         try{
@@ -51,21 +52,23 @@ export default class extends React.Component{
             if(e.request.status===404)
                 this.setState({members:[]})
             else{
-                // this.props.updateData(false,'UPDATE_ORG_LOGGED')
+                this.props.updateData(false,'UPDATE_ORG_LOGGED')
                 throw e
             }
         }
+        this.setState({disableBtn:false})
         this.setState({status:null})
-        this.setState({show:true})
     }
     render(){
-        console.log(this.props)
+        console.log(this.state.disableBtn)
         return(
             <div>
                 <ChooseDayTime
                     title='Plan Desk Duties'
                     onSubmit={this.send.bind(this)}
+                    status={this.state.status}
                     memberView
+                    disableBtn={this.state.disableBtn}
                 />
                 <MemCard viewMem={this.viewMem.bind(this)} title='Available Members' members={this.state.members}/>
             </div>

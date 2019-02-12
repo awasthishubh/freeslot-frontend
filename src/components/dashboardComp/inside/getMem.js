@@ -11,13 +11,11 @@ function RenderCard(props){
         <div className="card s12">
             <div className="card-content row">
                 <span className="card-title" >Available Members</span>
-                <div className="container" style={{marginTop:40}}>
                     <SortFilter 
                         members={props.members} 
                         viewMem={props.viewMem}
                         verified
                     />
-                </div>
             </div>
         </div>
     )
@@ -41,6 +39,7 @@ export default class extends Component{
         
     }
     async submit(start, end, point){
+            this.setState({disableBtn:true})
             this.setState({status:'Finding...'})
             try{
                 var data=await axios({
@@ -57,6 +56,7 @@ export default class extends Component{
                     throw e
                 }
             }
+            this.setState({disableBtn:false})
             this.setState({status:null})
             this.setState({show:true})
     }
@@ -67,8 +67,10 @@ export default class extends Component{
             <div className="row">
                 
                 <ChooseDayTime
+                    title='Get a Member'
                     onSubmit={this.submit}
                     status={this.state.status}
+                    disableBtn={this.state.disableBtn}
                 />
                 <RenderCard 
                     viewMem={this.props.viewMem}

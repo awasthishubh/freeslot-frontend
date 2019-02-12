@@ -6,7 +6,7 @@ export default function Modal(props){
 
 
     return(
-    <div id="memReg" className={`modal ${footerFixed}`} style={{top:'5%', maxHeight:'90%'}}>
+    <div id="memReg" className={`modal ${footerFixed||'autoHeight'}`} style={{top:'5%!important', maxHeight:footerFixed?'90%':'fit-content'}}>
         <div className="modal-content">
             <h4>{title}</h4>
             
@@ -30,7 +30,7 @@ export default function Modal(props){
                 return(footerItems)
             })()}
         </div>
-        <div style={style} ref={props.modalDom} className={`fixed-subModal modal ${footerFixed}`}>
+        <div style={style} ref={props.modalDom} className={`${footerFixed?'fixed-subModal':''} modal ${footerFixed||'autoHeight'}`}>
             <div className="modal-content">
                 {props.subModalContent}
             </div>

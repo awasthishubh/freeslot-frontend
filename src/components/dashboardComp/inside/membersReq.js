@@ -28,14 +28,12 @@ export default class extends Component{
                     <div className="card s12">
                         <div className="card-content row">
                             <span className="card-title">Members Requests</span>
-                            <div className="container" style={{marginTop:40}}>
                             <SortFilter
                                 members={this.props.membersReq} 
                                 viewMem={this.props.viewMem}
                                 verified={false}
                             />
                                     
-                            </div>
                         </div>
                     </div>
                 </div>

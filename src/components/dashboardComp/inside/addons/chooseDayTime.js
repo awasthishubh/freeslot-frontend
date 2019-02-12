@@ -47,6 +47,7 @@ export default class extends React.Component{
     }
 
     render(){
+        console.log(this.props.disableBtn)
         return(
             <div className="card s12">
                 <div className="card-content row">
@@ -97,7 +98,7 @@ export default class extends React.Component{
                         </div>
 
                         <div>
-                        <center><a style={{marginTop:10}} className="waves-effect waves-light btn" onClick={this.submit}><i className="material-icons left">send</i>Submit</a></center>
+                        <center><a style={{marginTop:10}} className={`waves-effect waves-light btn ${this.props.disableBtn?'btn-disabled':''}`} onClick={this.submit}><i className="material-icons left">send</i>Submit</a></center>
                         </div>
                         <div className="err red-text">{this.state.err}</div>
                         <div className="err grey-text">{this.props.status}</div>
