@@ -29,7 +29,7 @@ export default class extends Component{
         e=e.split(' ')[0]
         var {data}=this.props
         window.asd=data
-        var index=data.findIndex(el=>el.reg==e)
+        var index=data.findIndex(el=>el.reg===e)
         console.log(data,index,e)
         this.props.select(data[index],'UPDATE_MODAL_SELECTED')
         this.props.selected.instance.open()

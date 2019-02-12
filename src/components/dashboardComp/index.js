@@ -8,7 +8,7 @@ import Members from './inside/members'
 import MembersReq from './inside/membersReq'
 import GetMem from './inside/getMem'
 import TimeStart from './inside/timeStat'
-import Chart from '../chart'
+import TimeTable from '../timeTable'
 import {updateData} from '../../actions'
 import Settings from './inside/settings'
 import M from 'materialize-css'
@@ -39,7 +39,7 @@ class Modal extends Component{
                 <div className="modal-content">
                     {(()=>{
                         if(this.props.member){
-                            return <Chart data={this.props.member} />
+                            return <TimeTable data={this.props.member} />
                         }
                         else return <h5>Member Not Found</h5>
                     })()}

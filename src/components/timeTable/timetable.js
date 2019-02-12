@@ -17,7 +17,7 @@ function TR(props){
             {(()=>{
                 var tds=[<td key="day" style={titleTD}>{days[props.day]}</td>]
                 for(var i=0; i<12;i++){
-                    if(i==5){continue;}
+                    if(i===5){continue;}
                     tds.push(<TD key={i} slot={i} day={props.day} slots={props.slots}/>)
                 }
                 return tds
@@ -41,7 +41,7 @@ export default function(props){
                     {(()=>{
                         var tdslot=[<td style={titleTD}>Day</td>]
                         for(var i=0; i<12;i++){
-                            if(i==5){
+                            if(i===5){
                                 tdslot.push(<td style={titleTD} rowspan='8'>Lunch</td>);
                                 continue;
                             }

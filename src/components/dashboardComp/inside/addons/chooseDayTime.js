@@ -28,7 +28,7 @@ export default class extends React.Component{
     async submit(){
         console.log('a')
         this.setState({err:null})
-        if(this.dayPicker.current.value=="default") return this.setState({err:'Choose a day first'})
+        if(this.dayPicker.current.value==="default") return this.setState({err:'Choose a day first'})
         if(!this.timePickerFrom.current.value && !this.timePickerTill.current.value) return this.setState({err:'Choose a day first'})
 
         var memberType
@@ -38,7 +38,7 @@ export default class extends React.Component{
         if(this.props.memberView) memberType=parseInt(this.memPicker.current.value,10)
 
         console.log(start, end, point)
-        if(start==NaN || end==NaN || start>=end) return this.setState({err:'Select a proper time interval'})
+        if(isNaN(start) || isNaN(end) || start>=end) return this.setState({err:'Select a proper time interval'})
         
         this.props.onSubmit(start, end, point,memberType)
 

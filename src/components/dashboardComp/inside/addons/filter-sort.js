@@ -19,10 +19,10 @@ class filterSort extends Component{
         M.FormSelect.init(this.filterRef.current)
     }
     filter(e){
-        var year=parseInt(e.target.value)
+        var year=parseInt(e.target.value,10)
         var now=new Date()
         var regex=/.*/
-        if(year==0) regex=/.*/
+        if(year===0) regex=/.*/
         else if(now.getMonth>=6) regex=new RegExp("^"+(now.getFullYear()-year+1).toString().slice(2,4)) 
         else regex=new RegExp("^"+(now.getFullYear()-year).toString().slice(2,4)) 
         this.setState({filterRegex:regex})

@@ -1,7 +1,7 @@
 import Chart from './chart'
 import React from 'react'
 import {Component} from 'react'
-import TimeTable from '../timetable'
+// import TimeTable from '../timetable'
 function DayT(props){
     var day=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return(
@@ -45,7 +45,7 @@ export default class extends Component {
     
             {/* <tbody> */}
                 {/* <DayT slots={this.props.data.slots}/> */}
-                <TimeTable slots={this.props.data.slots}/>
+                {/* <TimeTable slots={this.props.data.slots}/> */}
             {/* </tbody> */}
           {/* </table> */}
           </div>

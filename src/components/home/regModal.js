@@ -4,19 +4,19 @@ import {connect} from 'react-redux'
 import { updateData} from '../../actions'
 import { bindActionCreators } from 'redux'
 import axios from 'axios'
-import Chart from '../chart'
+// import Chart from '../chart'
 import M from 'materialize-css'
 import serverBaseURL from '../../serverBaseURL';
-import TimeTable from '../timetable'
+import TimeTable from '../timeTable'
+import TimeTableIn from '../timeTable/timetable'
 import Modal from './modal'
-import { relative } from 'path';
 
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
     for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable) {
+        if (decodeURIComponent(pair[0]) === variable) {
             return decodeURIComponent(pair[1]);
         }
     }
@@ -29,16 +29,16 @@ function DownloadExt(){
             <h5 style={{margin:0}}>Download Extenstion</h5>
             Install a small extention to extract timetable from VTOP.
             <div style={{textAlign:'center', position:'relative'}}>
-                <img src={require('../../resources/extention.gif')} width="80%" useMap="#map"/>
-                <a target="_blank" style={{position:'absolute', top:0, height:'100%',left:0,width:'50%'}} href="https://addons.mozilla.org/en-US/firefox/addon/freeslot/"/>
-                <a target="_blank" style={{position:'absolute', top:0, height:'100%',left:'50%',width:'50%'}} href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/"/>
+                <img alt="download browser's extention" src={require('../../resources/extention.gif')} width="80%" useMap="#map"/>
+                {/* <a target="_blank" rel="noopener noreferrer" style={{position:'absolute', top:0, height:'100%',left:0,width:'50%'}} href="https://addons.mozilla.org/en-US/firefox/addon/freeslot/"> </a>// eslint-disable-next-line */}
+                <a target="_blank" rel="noopener noreferrer" style={{position:'absolute', top:0, height:'100%',left:'0',width:'100%'}} href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/"> </a>
             </div>
             <div>
-                <a target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/freeslot/">
+                {/* <a target="_blank" rel="noopener noreferrer" href="https://addons.mozilla.org/en-US/firefox/addon/freeslot/">
                     <span style={{float:'left'}}>Firefox Addon</span>
-                </a>
-                <a target="_blank" href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/">
-                    <span style={{float:'right'}}>Chrome Webstore</span>
+                </a> */}
+                <a target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/">
+                    <span style={{float:'right'}}>Get it from Chrome Webstore ></span>
                 </a>
             </div>
         </div>
@@ -273,7 +273,7 @@ class Submit_card extends Component {
     }
     
     render(){
-        if(this.state.modal=='RESPONSE')
+        if(this.state.modal==='RESPONSE')
             return(
                 <Modal 
                     footerFixed={true}
@@ -288,11 +288,11 @@ class Submit_card extends Component {
                         {title:'Close', onClick:()=>{M.Modal.getInstance(document.getElementById('memReg')).close()}}
                     ]}
                 >
-                    <Chart data={this.state.subMem.data} />
+                    <TimeTable data={this.state.subMem.data} />
                 </Modal>
             )
         else {
-            var confirmScreen=this.state.modal=='CONFIRMATION'
+            var confirmScreen=this.state.modal==='CONFIRMATION'
             return(
                 <Modal 
                     footerFixed={confirmScreen?true:false}
@@ -313,7 +313,7 @@ class Submit_card extends Component {
                             extClick={this.getExt.bind(this)}
                             disableBtn={this.state.disableBtn}
                             onChange={this.validateFile.bind(this)}
-                        />:<TimeTable slots={this.props.MemDetails.slots} />}
+                        />:<TimeTableIn slots={this.props.MemDetails.slots} />}
                     </form>
                 </Modal>
             )
@@ -403,7 +403,7 @@ function File(props){
                     style={{textAlign:"center",fontSize:20,padding:10}} >OR</span>
                 <div className="col s12 hide-on-med-and-up" style={{textAlign:"center"}}>OR</div>
                 <div className="input-field  col m5 s12" style={{textAlign:"center",fontSize:20,padding:10}}>
-                    <a onClick={props.extClick} href="#">Get it from vtop.</a>
+                    <a onClick={props.extClick} style={{cursor:'pointer'}}>Get it from vtop.</a>
                 </div>
             </div>
 
