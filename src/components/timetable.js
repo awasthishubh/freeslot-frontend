@@ -28,22 +28,13 @@ function TR(props){
 
 export default function(props){
     console.log(props.slots)
-    var slotTime=['08:00-08:50','09:00-09:50',
-        '10:00-10:50','11:00-11:50','12:00-12:50','13',
-        '14:00-14:50','15:00-15:50','16:00-16:50',
-        '17:00-17:50','18:00-18:50','19:00-19:50'
+    var slotTime=['08:00-\n08:50','09:00-\n09:50',
+        '10:00-\n10:50','11:00-\n11:50','12:00-\n12:50','13',
+        '14:00-\n14:50','15:00-\n15:50','16:00-\n16:50',
+        '17:00-\n17:50','18:00-\n18:50','19:00-\n19:50'
     ]
     return(
-        <div style={{width:'100%',overflowY:'auto', margin:'10px 0px'}}>
-        {/* <fieldset> */}
-            <legend><b  >TimeTable</b></legend>
-            <div style={{textAlign: 'center', marginBottom: 15}}>
-                <div style={{height:'15px', width: '30px', backgroundColor: 'rgb(177, 198, 253)', display:'inline-block'}} ></div>
-                <div style={{display:'inline-block', margin:'0px 40px 0px 10px'}} >Free</div>
-                <div style={{height:'15px', width: '30px', backgroundColor: '#1e88e5', display:'inline-block'}} ></div>
-                <div style={{display:'inline-block', marginLeft:'10px'}} >Busy</div>
-                <div></div>
-            </div>
+        
         <table style={{border:'2px solid black'}}>
             <tbody>
                 <tr>
@@ -71,8 +62,6 @@ export default function(props){
             })()}
             </tbody>
         </table>
-        {/* </fieldset> */}
-        </div>
     )
 }
 

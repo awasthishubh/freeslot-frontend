@@ -23,6 +23,29 @@ function getQueryVariable(variable) {
     return false
 }
 
+function DownloadExt(){
+    return(
+        <div>
+            <h5 style={{margin:0}}>Download Extenstion</h5>
+            Install a small extention to extract timetable from VTOP.
+            <div style={{textAlign:'center', position:'relative'}}>
+                <img src={require('../../resources/extention.gif')} width="80%" useMap="#map"/>
+                <a target="_blank" style={{position:'absolute', top:0, height:'100%',left:0,width:'50%'}} href="https://addons.mozilla.org/en-US/firefox/addon/freeslot/"/>
+                <a target="_blank" style={{position:'absolute', top:0, height:'100%',left:'50%',width:'50%'}} href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/"/>
+            </div>
+            <div>
+                <a target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/freeslot/">
+                    <span style={{float:'left'}}>Firefox Addon</span>
+                </a>
+                <a target="_blank" href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/">
+                    <span style={{float:'right'}}>Chrome Webstore</span>
+                </a>
+            </div>
+        </div>
+    )
+
+}
+
 class Submit_card extends Component {
     constructor(props){
         super(props)
@@ -93,6 +116,11 @@ class Submit_card extends Component {
         if(this.state.subMiss){
             return(
                 <div><h4>Incomplete form</h4>You missed <b>{this.state.subMiss}</b> field</div>
+            )
+        }
+        if(this.state.downloadExt){
+            return(
+                <DownloadExt/>
             )
         }
         return null
@@ -188,15 +216,22 @@ class Submit_card extends Component {
                 return
             } 
             catch(error){
+                this.setState({disableBtn:false})   
                 this.setState({'subErr':error.response})
             }
         }
+        this.setState({disableBtn:false})
         M.Modal.init(this.modalDom.current)
         M.Modal.getInstance(this.modalDom.current).open();
     }
     
     close(){
         M.Modal.getInstance(this.modalDom.current).close()
+    }
+    getExt(){
+        this.setState({downloadExt:true})
+        M.Modal.init(this.modalDom.current)
+        M.Modal.getInstance(this.modalDom.current).open();
     }
     
     submitAnother(){
@@ -232,6 +267,7 @@ class Submit_card extends Component {
                 this.setState({disableBtn:false})
             }
         }
+        this.setState({disableBtn:false})
         M.Modal.init(this.modalDom.current)
         M.Modal.getInstance(this.modalDom.current).open();
     }
@@ -249,7 +285,7 @@ class Submit_card extends Component {
                     modalDom={this.modalDom}
                     footer={[
                         {title:'Submit Another', onClick:()=>{this.setState({'modal':'SUBMIT'})}},
-                        {title:'Close', onClick:()=>{()=>M.Modal.getInstance(document.getElementById('memReg')).close()}}
+                        {title:'Close', onClick:()=>{M.Modal.getInstance(document.getElementById('memReg')).close()}}
                     ]}
                 >
                     <Chart data={this.state.subMem.data} />
@@ -274,6 +310,7 @@ class Submit_card extends Component {
                     <form id="regfrm"  onSubmit={this.parseImg.bind(this)}>
                         {InputForm.bind(this)()}
                         {!confirmScreen?<File id="fle" label="TimeTable" 
+                            extClick={this.getExt.bind(this)}
                             disableBtn={this.state.disableBtn}
                             onChange={this.validateFile.bind(this)}
                         />:<TimeTable slots={this.props.MemDetails.slots} />}
@@ -281,27 +318,6 @@ class Submit_card extends Component {
                 </Modal>
             )
         }
-        // else 
-        // else return (
-        //     <Modal 
-        //         footerFixed={true}
-        //         style={{top:'5%', maxHeight:'90%'}} 
-        //         title='Confirm Your Details' 
-        //         err={this.state.err}
-        //         subModalContent={this.mem.bind(this)()}
-        //         subModalAction={this.close.bind(this)}
-        //         modalDom={this.modalDom}
-        //         footer={[
-        //             {title:'Submit Another', onClick:this.submitAnother.bind(this)},
-        //             {title:'Confirm', onClick:this.confirmed.bind(this)}
-        //         ]}
-        //     >
-        //         <form id="regfrm"  onSubmit={this.confirmed.bind(this)}>
-        //             {InputForm.bind(this)()}
-        //         </form>
-        //         <TimeTable slots={this.props.MemDetails.slots} />
-        //     </Modal>
-        // )
     }
 }
 
@@ -387,7 +403,7 @@ function File(props){
                     style={{textAlign:"center",fontSize:20,padding:10}} >OR</span>
                 <div className="col s12 hide-on-med-and-up" style={{textAlign:"center"}}>OR</div>
                 <div className="input-field  col m5 s12" style={{textAlign:"center",fontSize:20,padding:10}}>
-                    <a href="#">Get it from vtop.</a>
+                    <a onClick={props.extClick} href="#">Get it from vtop.</a>
                 </div>
             </div>
 
