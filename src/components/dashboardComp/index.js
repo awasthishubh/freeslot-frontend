@@ -79,7 +79,6 @@ export class dashboard extends Component{
         super(props)
         this.sideNav=React.createRef();
         this.Modal=React.createRef();
-        this.viewMem=this.viewMem.bind(this)
     }
     componentDidUpdate(){
         if(this.props.isLoggedIn===false){
@@ -94,10 +93,6 @@ export class dashboard extends Component{
         this.props.updateDashboardData()
         var instance = M.Modal.init(this.Modal.current);
         this.props.updateData(instance,'UPDATE_MODAL_INSTANCE')
-    }
-    viewMem(reg){
-        this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
-        this.props.dashModal.instance.open()
     }
 
     render(){
@@ -128,7 +123,6 @@ export class dashboard extends Component{
                 <Route path='/dashboard/members'>
                 <FixedComp>
                     <Members 
-                        viewMem={this.viewMem}
                         updateMem={this.props.updateMem}
                         updateData={this.props.updateData} 
                         members={this.props.dashMembers} 
@@ -140,7 +134,6 @@ export class dashboard extends Component{
                 <Route path='/dashboard/requests'>
                 <FixedComp>
                     <MembersReq 
-                        viewMem={this.viewMem}
                         updateReq={this.props.updateReq}
                         updateData={this.props.updateData} 
                         membersReq={this.props.dashRequests} 
@@ -151,9 +144,8 @@ export class dashboard extends Component{
                 <Route path='/dashboard/find'>
                 <FixedComp>
                     <GetMem  
-                        selected={this.props.dashModal} 
                         updateData={this.props.updateData}
-                        del={this.props.del} />
+                    />
                 </FixedComp>
                 </Route>
 
@@ -173,7 +165,7 @@ export class dashboard extends Component{
                     <PlanDesk  
                         selected={this.props.dashModal} 
                         updateData={this.props.updateData}
-                        del={this.props.del} />
+                    />
                 </FixedComp>
                 </Route>
 

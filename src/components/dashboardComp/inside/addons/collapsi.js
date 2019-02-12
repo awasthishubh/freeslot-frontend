@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import M from 'materialize-css'
-import {del, verify} from '../../../actions/dashboard_action'
-import {updateData} from '../../../actions'
+import {del, verify} from '../../../../actions/dashboard_action'
+import {updateData} from '../../../../actions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
@@ -18,7 +18,7 @@ class collapsi extends Component{
     }
     viewMem(reg){
         this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
-        this.props.selected.instance.open()
+        this.props.dashModal.instance.open()
     }
 
     render(){
@@ -64,7 +64,7 @@ class collapsi extends Component{
                     </span>
                     <div className="card-action">
                         {(()=>{
-                                return <a style={{cursor:'pointer'}} onClick={()=>props.viewMem(mem)}>View more</a>
+                                return <a style={{cursor:'pointer'}} onClick={()=>this.viewMem(mem)}>View more</a>
                         })()}
 
                         {(()=>{
@@ -86,13 +86,16 @@ class collapsi extends Component{
                 {membersCollapsi}
                 </ul>
         )
-        else return <div style={{textAlign: 'center', fontSize: 20, paddingBottom: 30}}>No Member found</div>
+        else return <div style={{textAlign: 'center', fontSize: 20, paddingBottom: 30}}>Nothing found.</div>
     }
 }
 
+function mapStateToProps(state){
+    return {dashModal:state.dashModal}
+}
 
 function mapDispatchToProps(dispatch){
     return bindActionCreators({updateData,del, verify}, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(collapsi)
+export default connect(mapStateToProps, mapDispatchToProps)(collapsi)

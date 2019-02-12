@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import Collapsi from './collapsi'
-import SortFilter from './filter-sort'
+import SortFilter from './addons/filter-sort'
 
 export default class extends Component{
     constructor(props){
@@ -8,19 +7,6 @@ export default class extends Component{
         this.collapsible=React.createRef()
     }
 
-    members(){
-        console.log(this.props)
-        if(this.props.requests && this.props.requests.length>0){
-            return(
-                <Collapsi view={this.viewMem} data={this.props.requests} 
-                verify={this.props.verify} 
-                del={this.props.del}/>
-            )
-        }
-        else{
-            return <div style={{fontSize:20, padding: 20}}>No request found</div>             
-        }
-    }
 
     componentDidMount(){
         document.getElementById('dashReqs').classList.add('active')

@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import Collapsi from './collapsi'
-import SortFilter from './filter-sort'
-import M from 'materialize-css'
+import SortFilter from './addons/filter-sort'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import serverBaseURL from '../../../serverBaseURL.js';
@@ -14,8 +12,11 @@ function RenderCard(props){
             <div className="card-content row">
                 <span className="card-title" >Available Members</span>
                 <div className="container" style={{marginTop:40}}>
-                    <SortFilter data={props.members} update={props.update} all={false}/>
-                    <Collapsi data={props.members} view={props.view}/>
+                    <SortFilter 
+                        members={props.members} 
+                        viewMem={props.viewMem}
+                        verified
+                    />
                 </div>
             </div>
         </div>
@@ -28,7 +29,6 @@ export default class extends Component{
         super(props)
         this.submit=this.submit.bind(this)
         this.state={show:null,err:null}
-        this.viewMem=this.viewMem.bind(this)
         this.members=null
     }
     
@@ -39,10 +39,6 @@ export default class extends Component{
         this.props.updateData(true,'UPDATE_ORG_LOGGED')
         document.getElementById('dashGetMem').classList.add('active')
         
-    }
-    viewMem(reg){
-        this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
-        this.props.selected.instance.open()
     }
     async submit(start, end, point){
             this.setState({status:'Finding...'})
@@ -75,10 +71,9 @@ export default class extends Component{
                     status={this.state.status}
                 />
                 <RenderCard 
-                    show={this.state.show}
+                    viewMem={this.props.viewMem}
                     members={this.state.members}
-                    view={this.viewMem}
-                    update={(data)=>{this.setState({members:data})}}
+                    show={this.state.show}
                 />
             </div>
         )

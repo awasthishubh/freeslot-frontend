@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import SortFilter from './filter-sort'
+import SortFilter from './addons/filter-sort'
 import axios from 'axios'
 import serverBaseURL from '../../../serverBaseURL.js';
 import Cookies from 'js-cookie'

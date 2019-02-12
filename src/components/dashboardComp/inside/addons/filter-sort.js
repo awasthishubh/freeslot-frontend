@@ -2,7 +2,7 @@ import React from 'react'
 import {Component} from 'react'
 import { bindActionCreators } from 'redux'
 import {connect} from  'react-redux'
-import {modifyData} from '../../../actions/dashboard_action'
+import {modifyData} from '../../../../actions/dashboard_action'
 import M from 'materialize-css'
 import Collapsi from './collapsi'
 
@@ -39,10 +39,10 @@ class filterSort extends Component{
                 viewMem={this.props.viewMem} 
                 members={this.props.members} 
                 verified={this.props.verified}
-            />
+            /> 
         }
         else{
-            return <div style={{fontSize:20, padding: 20}}>No member found under your organisation</div>             
+            return <div style={{fontSize:20, padding: 20}}>Nothing found.</div>             
         }
     }
     render(){
