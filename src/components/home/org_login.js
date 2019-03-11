@@ -40,9 +40,10 @@ class orgLogin extends Component{
                 var request=await axios.post(serverBaseURL+'/auth',form)
                 this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
                 Cookies.set('token', request.data.access_token, { expires: 7 });
+                console.log(111,Cookies.get('token'))
                 window.location.href = "#/dashboard";
                 this.setState({status:null})
-                window.location.reload();
+                // window.location.reload();
             } catch(e){
                 this.setState({status:null})
                 console.log(e.response  )

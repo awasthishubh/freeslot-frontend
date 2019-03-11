@@ -3,7 +3,6 @@ import Cookies from 'js-cookie'
 import serverBaseURL from '../serverBaseURL.js';
 
 window.Cookies=Cookies
-var token=Cookies.get('token')
 
 export function updateDashboardData(){
     return async function(dispatch){
@@ -18,7 +17,7 @@ export function del(reg,type){
     return async function(dispatch){
         await axios({
             url:`${serverBaseURL}/auth/members?reg=${reg}`,
-            headers: { 'Authorization': 'Bearer '+token},
+            headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
             method: 'DELETE',
         })  
         if(type==='M'){
@@ -34,7 +33,7 @@ export function verify(reg,data){
         // console.log(data)
         await axios({
             url:`${serverBaseURL}/auth/requests?reg=${reg}`,
-            headers: { 'Authorization': 'Bearer '+token},
+            headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
             method: 'PUT',
         })
         dispatch({type:'UPDATE_ORG_REQUESTS_DEL', reg})
@@ -54,15 +53,21 @@ export function updateReq(){
             dispatch({type:'UPDATE_ORG_LOGGED', data:null})
             var req=await axios({
                 url:`${serverBaseURL}/auth/requests`,
-                headers: { 'Authorization': 'Bearer '+token},
+                headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
             // console.log(req.data.data)
             dispatch({type:'UPDATE_ORG_REQUESTS', data:req.data.data})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
-            // console.log(e)
-            dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+            console.log(e)
+            if(e.request.status===401){
+                dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+                throw e
+            }
+            else{
+                alert('Something went wrong. Please refresh and try again.')
+            }
         }
         
     }
@@ -75,7 +80,7 @@ export function updateMem(noLoading){
         try{
             var req=await axios({
                 url:`${serverBaseURL}/auth/members`,
-                headers: { 'Authorization': 'Bearer '+token},
+                headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
             // console.log(req.data.data)
@@ -83,7 +88,13 @@ export function updateMem(noLoading){
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             console.log(e)
-            dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+            if(e.request.status===401){
+                dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+                throw e
+            }
+            else{
+                alert('Something went wrong. Please refresh and try again.')
+            }
         }
         
     }
@@ -93,21 +104,28 @@ export function updateOrg(){
     return async function(dispatch){
         dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
+            
             var org=await axios({
                 url:`${serverBaseURL}/auth/org`,
-                headers: { 'Authorization': 'Bearer '+token},
+                headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
             var stat=await axios({
                 url:`${serverBaseURL}/auth/members/stats`,
-                headers: { 'Authorization': 'Bearer '+token},
+                headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
             dispatch({type:'UPDATE_ORG_DETAILS', data:{details: org.data.details, stat: stat.data}})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             console.log(e)
-            dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+            // if(e.request.status===401){
+            //     dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+            //     throw e
+            // }
+            // else{
+            //     window.location.reload()
+            // }
         }
         
     }
@@ -119,13 +137,20 @@ export function timeStat(){
         try{
             var stat=await axios({
                 url:`${serverBaseURL}/auth/members/timestat`,
-                headers: { 'Authorization': 'Bearer '+token},
+                headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
             dispatch({type:'UPDATE_TIMESTAT', data:stat.data})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
             console.log(e)
+            if(e.request.status===401){
+                dispatch({type:'UPDATE_ORG_LOGGED', data:false})
+                throw e
+            }
+            else{
+                alert('Something went wrong. Please refresh and try again.')
+            }
             dispatch({type:'UPDATE_ORG_LOGGED', data:false})
         }
         

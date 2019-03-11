@@ -51,9 +51,12 @@ export default class extends React.Component{
         }catch(e){
             if(e.request.status===404)
                 this.setState({members:[]})
-            else{
+            if(e.request.status===401){
                 this.props.updateData(false,'UPDATE_ORG_LOGGED')
                 throw e
+            }
+            else{
+                window.location.reload()
             }
         }
         this.setState({disableBtn:false})

@@ -51,7 +51,13 @@ export default class extends Component{
             link.click();
             this.setState({download:'Download CSV'})
         } catch(e){
-            alert('Logout n login again')
+            if(e.request.status===401){
+                this.props.updateData(false,'UPDATE_ORG_LOGGED')
+                throw e
+            }
+            else{
+                window.location.reload()
+            }
         }
 
     }

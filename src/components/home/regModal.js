@@ -30,15 +30,15 @@ function DownloadExt(){
             Install a small extention to extract timetable from VTOP.
             <div style={{textAlign:'center', position:'relative'}}>
                 <img alt="download browser's extention" src={require('../../resources/extention.gif')} width="80%" useMap="#map"/>
-                {/* <a target="_blank" rel="noopener noreferrer" style={{position:'absolute', top:0, height:'100%',left:0,width:'50%'}} href="https://addons.mozilla.org/en-US/firefox/addon/freeslot/"> </a>// eslint-disable-next-line */}
-                <a target="_blank" rel="noopener noreferrer" style={{position:'absolute', top:0, height:'100%',left:'0',width:'100%'}} href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/"> </a>
+                <a target="_blank" rel="noopener noreferrer" style={{position:'absolute', top:0, height:'100%',left:0,width:'50%'}} href="http://awasthishubh.github.io/host-files/freeslot-1.1-an+fx.xpi"> </a>
+                <a target="_blank" rel="noopener noreferrer" style={{position:'absolute', top:0, height:'100%',left:'50%',width:'50%'}} href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/"> </a>
             </div>
             <div>
-                {/* <a target="_blank" rel="noopener noreferrer" href="https://addons.mozilla.org/en-US/firefox/addon/freeslot/">
+                <a target="_blank" rel="noopener noreferrer" href="http://awasthishubh.github.io/host-files/freeslot-1.1-an+fx.xpi">
                     <span style={{float:'left'}}>Firefox Addon</span>
-                </a> */}
+                </a>
                 <a target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/">
-                    <span style={{float:'right'}}>Get it from Chrome Webstore ></span>
+                    <span style={{float:'right'}}>Chrome Webstore ></span>
                 </a>
             </div>
         </div>
