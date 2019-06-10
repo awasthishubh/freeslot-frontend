@@ -35,8 +35,13 @@ export function requests(state=null, action){
         case 'UPDATE_ORG_REQUESTS':
             return action.data
         case 'UPDATE_ORG_REQUESTS_DEL':
-            var newState=[...state]
-            newState.splice(newState.findIndex(e=>e.reg===action.reg),1)
+            var newState=[]
+            if(action.count){
+                newState=state.filter((e)=>!(e.reg==action.reg && e.count==action.count))
+            }
+            else{
+                newState=state.filter((e)=>e.reg!=action.reg)
+            }
             return newState
         default:
             return state

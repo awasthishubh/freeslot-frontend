@@ -29,15 +29,22 @@ class collapsi extends Component{
                 return 1
             if(a[this.props.sort].toLowerCase()<b[this.props.sort].toLowerCase())
                 return -1
-            else return 0
+            else {
+                if(a.count>b.count) return 1
+                if(a.count<b.count) return -1
+                else return 0
+            }
         })
         var membersCollapsi=[]
         this.props.members.forEach((mem)=>  {
             if(this.props.filterReg.test(mem.reg))
             membersCollapsi.push(
-                <li key={mem.reg}>
+                <li key={mem.reg+mem.count}>
                     <div className="collapsible-header left-align">
-                        <div className="col s12 m6"><i className="material-icons">keyboard_arrow_right</i>{mem.name}</div>
+                        <div className="col s12 m6">
+                            <i className="material-icons">keyboard_arrow_right</i>
+                            {mem.name+(mem.count>1?' #'+mem.count:'')}
+                        </div>
                         <div className="col s6 right-align hide-on-small-only">{mem.reg}</div>
                     </div>
                     <div className="collapsible-body memCollapsi"><span>
@@ -55,7 +62,7 @@ class collapsi extends Component{
                         </ul>
                         <ul className="row">
                             <li className="col s12"><b>Email: </b>
-                                <a href={`mailto:${mem.phno}`}>
+                                <a href={`mailto:${mem.email}`}>
                                     {mem.email}
                                 </a>
                             </li>
@@ -69,11 +76,11 @@ class collapsi extends Component{
 
                         {(()=>{
                             if(!props.verified)
-                            return <a style={{cursor:'pointer'}} onClick={()=>props.verify(mem.reg)}>Accept</a>
+                            return <a style={{cursor:'pointer'}} onClick={()=>props.verify(mem.reg, mem.count)}>Accept</a>
                         })()}
     
                         {(()=>{
-                            return <a style={{cursor:'pointer'}} onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg,(props.verified?'M':'R'))}}>Remove</a>
+                            return <a style={{cursor:'pointer'}} onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg, (props.verified?'M':'R'), mem.count)}}>Remove</a>
                         })() }
                     </div>
                     </div>

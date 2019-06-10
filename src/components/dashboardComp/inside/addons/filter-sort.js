@@ -39,6 +39,7 @@ class filterSort extends Component{
                 viewMem={this.props.viewMem} 
                 members={this.props.members} 
                 verified={this.props.verified}
+                count={this.props.count}
             /> 
         }
         else{

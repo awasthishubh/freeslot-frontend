@@ -13,26 +13,34 @@ export function updateDashboardData(){
     }
 }
 
-export function del(reg,type){
+export function del(reg,type,count){
     return async function(dispatch){
-        await axios({
-            url:`${serverBaseURL}/auth/members?reg=${reg}`,
-            headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
-            method: 'DELETE',
-        })  
         if(type==='M'){
+            await axios({
+                url:`${serverBaseURL}/auth/members?reg=${reg}`,
+                headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
+                method: 'DELETE',
+            })
             dispatch({type:'UPDATE_ORG_MEMBERS_DEL', reg})
-        } else dispatch({type:'UPDATE_ORG_REQUESTS_DEL', reg})
+        } else{
+            await axios({
+                url:`${serverBaseURL}/auth/requests?reg=${reg}&count=${count}`,
+                headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
+                method: 'DELETE',
+            })
+            alert()
+            dispatch({type:'UPDATE_ORG_REQUESTS_DEL', reg, count})
+        }
 
 
     }
 }
 
-export function verify(reg,data){
+export function verify(reg,count){
     return async function(dispatch){
         // console.log(data)
         await axios({
-            url:`${serverBaseURL}/auth/requests?reg=${reg}`,
+            url:`${serverBaseURL}/auth/requests?reg=${reg}&count=${count}`,
             headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
             method: 'PUT',
         })
