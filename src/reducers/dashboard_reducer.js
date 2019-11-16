@@ -37,10 +37,10 @@ export function requests(state=null, action){
         case 'UPDATE_ORG_REQUESTS_DEL':
             var newState=[]
             if(action.count){
-                newState=state.filter((e)=>!(e.reg==action.reg && e.count==action.count))
+                newState=state.filter((e)=>!(e.reg===action.reg && e.count===action.count))
             }
             else{
-                newState=state.filter((e)=>e.reg!=action.reg)
+                newState=state.filter((e)=>e.reg!==action.reg)
             }
             return newState
         default:

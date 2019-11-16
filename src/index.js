@@ -5,6 +5,8 @@ import rootReducer from './reducers/index.js'
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import * as serviceWorker from './serviceWorker';
+
 const store = createStore(rootReducer, applyMiddleware(thunk))
 const Root= () => {
     return(
@@ -17,3 +19,4 @@ const Root= () => {
 }
 
 ReactDOM.render(<Root />, document.querySelector('.container'))
+serviceWorker.register(); 
