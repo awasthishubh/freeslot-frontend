@@ -43,7 +43,6 @@ export default class extends Component{
             })
             
             const url = window.URL.createObjectURL(new Blob([response.data]));
-            console.log(url)
             const link = document.createElement('a');
             link.href = url;
             link.setAttribute('download', this.props.members[0].org+'_members.csv');
@@ -64,7 +63,6 @@ export default class extends Component{
 
     
     render(){
-        console.log('Memver Comp',this.props.del)
         if(this.props.members!==null)
         return (
             <div className="row">

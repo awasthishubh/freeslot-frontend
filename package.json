@@ -35,5 +35,10 @@
   "bugs": {
     "url": "https://github.com/awasthishubh/freeslot-frontend/issues"
   },
-  "homepage": "http://freeslot.acmvit.in/"
+  "homepage": "http://freeslot.acmvit.in/",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.16.0"
+  }
 }

@@ -29,7 +29,6 @@ export default class extends Component{
             org.passwd=''
             org.newCpasswd=''
             org.newPasswd=''
-            console.log(org)
             this.setState({org})
         }
     }
@@ -53,7 +52,6 @@ export default class extends Component{
         else e.target.classList.remove('valid')
     }
     changed(e){
-        // console.log(e)
         e.target.classList.remove('invalid')
         e.target.classList.remove('valid')
         var org=this.state.org
@@ -71,8 +69,6 @@ export default class extends Component{
         }
     }
     cpassChange(e){
-        // console.log(this.state.org.newPasswd)
-        // console.log(this.state.org.newCpasswd)
         if(e.target.value.length){
             if(this.state.org.newPasswd===this.state.org.newCpasswd)
                 return e.target.classList.add('valid')
@@ -94,7 +90,6 @@ export default class extends Component{
                 else return this.setState({err:'Enter a valid new password'})
             }
             form.append('usid',this.state.org.usid)
-            // console.log(form)
             this.setState({status:'Saving...'})
             try{
                 await axios.patch(serverBaseURL+'/auth',form)
@@ -130,7 +125,6 @@ export default class extends Component{
     }
 
     render(){
-        console.log(this.state.org)
         if(this.state.org)
             return(
                 <div className="card">

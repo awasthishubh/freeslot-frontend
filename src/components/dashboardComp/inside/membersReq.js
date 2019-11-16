@@ -21,7 +21,6 @@ export default class extends Component{
     }
     
     render(){
-        console.log('requests Comp',this.props.membersReq)
         if(this.props.requests!==null)
             return (
                 <div className="row">

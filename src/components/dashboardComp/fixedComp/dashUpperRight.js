@@ -25,19 +25,16 @@ export default class extends Component{
     }
 
     find(e){
-        // console.log(e)
         e=e.split(' ')[0]
         var {data}=this.props
         window.asd=data
         var index=data.findIndex(el=>el.reg===e)
-        console.log(data,index,e)
         this.props.select(data[index],'UPDATE_MODAL_SELECTED')
         this.props.selected.instance.open()
         $('#autocomplete-input')[0].value=''
     }
     
     render(){
-        // console.log('Search Bar', this.props)
         return(
         <div id="upperRightDash" style={navStyle}>
         <nav className="white" style={{ color:'#424242'}}>

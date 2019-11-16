@@ -60,7 +60,6 @@ export default class extends Component {
     }
 
     render(){
-        console.log(this.props)
         return(
                     <div className="col s12" style={{height:'100%', position:'absolute'}}>
                         <canvas ref={this.chartDom} className={{height:'100%', width:'auto'}}></canvas>

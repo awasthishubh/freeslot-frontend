@@ -30,7 +30,6 @@ class orgLogin extends Component{
     async send(e){
         e.preventDefault()
         if(this.state.login_usid && this.state.login_pass){
-            // // console.log(this.state.login_usid , this.state.login_usid)
             var form = new FormData();
             form.append('usid',this.state.login_usid)
             form.append('passwd',this.state.login_pass)
@@ -40,13 +39,11 @@ class orgLogin extends Component{
                 var request=await axios.post(serverBaseURL+'/auth',form)
                 this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
                 Cookies.set('token', request.data.access_token, { expires: 7 });
-                console.log(111,Cookies.get('token'))
                 window.location.href = "#/dashboard";
                 this.setState({status:null})
                 // window.location.reload();
             } catch(e){
                 this.setState({status:null})
-                console.log(e.response  )
                 if(e.response)
                 this.setState({'err':'Invalid id/password'})
                 else 
@@ -55,7 +52,6 @@ class orgLogin extends Component{
         } else this.setState({'err':'Enter id and password'})
     }
     render(){
-        // console.log(this.props)
         return(
                 <div className="row"> 
                     <div className="col s12"><h5><center>Enter your login credentials</center></h5></div>   
