@@ -15,6 +15,7 @@ import M from 'materialize-css'
 import Cookies from 'js-cookie'
 import FixedComp from './fixedComp'
 import PlanDesk from './inside/planDesk'
+import { Redirect } from 'react-router'
 class Modal extends Component{
     // constructor(props){
     //     super(props)
@@ -96,6 +97,7 @@ export class dashboard extends Component{
     }
 
     render(){
+        if(!Cookies.get('token'))  return <Redirect to='/'/>;
         return(
         <div>
             <HashRouter>
