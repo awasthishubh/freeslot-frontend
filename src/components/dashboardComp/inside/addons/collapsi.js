@@ -23,7 +23,6 @@ class collapsi extends Component{
 
     render(){
         var{props}=this
-        console.log(props)
         this.props.members.sort((a,b)=>{
             if(a[this.props.sort].toLowerCase()>b[this.props.sort].toLowerCase())
                 return 1

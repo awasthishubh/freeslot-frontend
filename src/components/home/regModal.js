@@ -76,7 +76,6 @@ class Submit_card extends Component {
                     slots:memDetails.slots,
                     timeTable: {}
                 }, 'UPDATE_MEM_ALL')
-                console.log(this.props.MemDetails)
                 this.setState({slots:memDetails.slots})
                 this.setState({valReg:true})
                 this.setState({valEmail:true})
@@ -206,12 +205,10 @@ class Submit_card extends Component {
             form.append('timeTable',this.props.MemDetails['timeTable'])
             try{
                 var response=await axios.post(serverBaseURL+'/parseimg', form)
-                console.log(response.data.slots)
                 this.props.updateData(response.data.slots,'UPDATE_SLOTS')
                 // this.setState({'subMem':response.data})
                 this.setState({'modal':'CONFIRMATION'})
                 this.setState({err:null})
-                console.log(this.props.MemDetails.slots)
                 this.setState({disableBtn:false})
                 return
             } 

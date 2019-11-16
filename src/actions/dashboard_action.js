@@ -38,7 +38,6 @@ export function del(reg,type,count){
 
 export function verify(reg,count){
     return async function(dispatch){
-        // console.log(data)
         await axios({
             url:`${serverBaseURL}/auth/requests?reg=${reg}&count=${count}`,
             headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
@@ -64,11 +63,9 @@ export function updateReq(){
                 headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
-            // console.log(req.data.data)
             dispatch({type:'UPDATE_ORG_REQUESTS', data:req.data.data})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
-            console.log(e)
             if(e.request.status===401){
                 dispatch({type:'UPDATE_ORG_LOGGED', data:false})
                 throw e
@@ -83,7 +80,6 @@ export function updateReq(){
 
 export function updateMem(noLoading){
     return async function(dispatch){
-        // console.log('sdzx')
         if(!noLoading) dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             var req=await axios({
@@ -91,11 +87,9 @@ export function updateMem(noLoading){
                 headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
-            // console.log(req.data.data)
             dispatch({type:'UPDATE_ORG_MEMBERS', data:req.data.data})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
-            console.log(e)
             if(e.request.status===401){
                 dispatch({type:'UPDATE_ORG_LOGGED', data:false})
                 throw e
@@ -126,7 +120,6 @@ export function updateOrg(){
             dispatch({type:'UPDATE_ORG_DETAILS', data:{details: org.data.details, stat: stat.data}})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
-            console.log(e)
             // if(e.request.status===401){
             //     dispatch({type:'UPDATE_ORG_LOGGED', data:false})
             //     throw e
@@ -151,7 +144,6 @@ export function timeStat(){
             dispatch({type:'UPDATE_TIMESTAT', data:stat.data})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
-            console.log(e)
             if(e.request.status===401){
                 dispatch({type:'UPDATE_ORG_LOGGED', data:false})
                 throw e

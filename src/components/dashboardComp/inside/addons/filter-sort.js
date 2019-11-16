@@ -47,7 +47,6 @@ class filterSort extends Component{
         }
     }
     render(){
-        console.log(this.props)
         return(
             <div className="container" style={{marginTop:40}}>
             <div className="row">

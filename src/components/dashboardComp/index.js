@@ -34,7 +34,6 @@ class Modal extends Component{
     }
 
     render(){
-        console.log(this.props.member)
         return(
             <div id="dashModalMem" ref={this.props.modalRef} className="modal modal-fixed-footer">
                 <div className="modal-content">

@@ -6,9 +6,7 @@ import Cookies from 'js-cookie'
 import MemTable from  './addons/membersTable'
 
 function MemCard(props){
-    console.log(props)
     if(props.members){
-        console.log(props.members)
         return(
         <div className="card">
                 <div className="card-content row">
@@ -23,7 +21,6 @@ function MemCard(props){
 export default class extends React.Component{
     constructor(props){
         super(props)
-        console.log(props)
         this.state={members:false}
     }
     componentDidMount(){
@@ -33,13 +30,11 @@ export default class extends React.Component{
         document.getElementById('dashPlan').classList.remove('active')
     }
     viewMem(reg){
-        console.log(this.props)
         this.props.updateData(reg,'UPDATE_MODAL_SELECTED')
         this.props.selected.instance.open()
     }
     async send(start,end,day, memType){
         this.setState({disableBtn:true})
-        console.log(start,end,day,memType)
         this.setState({status:'Planning...'})
         try{
             var data=await axios({
@@ -63,7 +58,6 @@ export default class extends React.Component{
         this.setState({status:null})
     }
     render(){
-        console.log(this.state.disableBtn)
         return(
             <div>
                 <ChooseDayTime

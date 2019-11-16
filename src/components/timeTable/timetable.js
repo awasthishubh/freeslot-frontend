@@ -27,7 +27,6 @@ function TR(props){
 }
 
 export default function(props){
-    console.log(props.slots)
     var slotTime=['08:00-\n08:50','09:00-\n09:50',
         '10:00-\n10:50','11:00-\n11:50','12:00-\n12:50','13',
         '14:00-\n14:50','15:00-\n15:50','16:00-\n16:50',

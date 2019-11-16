@@ -4,7 +4,6 @@ import TimeTable from './timetable'
 
 export default class extends Component {
     render() {
-        console.log(this.props.data)
         return (
         <div style={{orderTop: '1px solid #bdbdbd', paddingTop: 10}}>
             <div style={{textAlign: 'center', marginBottom: '15px'}}>

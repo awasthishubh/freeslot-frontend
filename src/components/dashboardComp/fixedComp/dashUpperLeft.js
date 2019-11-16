@@ -5,7 +5,6 @@ var navStyle={
 }
 
 export default class extends Component{
-    componentDidMount
     render(){
         return(
         <nav id="upperLeftDash" className="row" style={navStyle} >
