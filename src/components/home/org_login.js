@@ -29,6 +29,7 @@ class orgLogin extends Component{
     }
     async send(e){
         e.preventDefault()
+        localStorage.clear()
         if(this.state.login_usid && this.state.login_pass){
             var form = new FormData();
             form.append('usid',this.state.login_usid)
@@ -37,7 +38,6 @@ class orgLogin extends Component{
                 this.setState({status:'Verifying...'})
                 this.setState({'err':null})
                 var request=await axios.post(serverBaseURL+'/auth',form)
-                this.props.updateData(request.data.info,'UPDATE_ORG_DETAILS')
                 Cookies.set('token', request.data.access_token, { expires: 7 });
                 window.location.href = "#/dashboard";
                 this.setState({status:null})

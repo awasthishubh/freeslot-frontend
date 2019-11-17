@@ -3,6 +3,8 @@ import Cookies from 'js-cookie'
 import serverBaseURL from '../serverBaseURL.js';
 
 window.Cookies=Cookies
+var firstMemUpdate = true;
+var firstOrgUpdate = true;
 
 export function updateDashboardData(){
     return async function(dispatch){
@@ -80,6 +82,20 @@ export function updateReq(){
 
 export function updateMem(noLoading){
     return async function(dispatch){
+        try {
+            if (firstMemUpdate && localStorage.memData) {
+                firstMemUpdate = false;
+                dispatch({
+                    type: 'UPDATE_ORG_MEMBERS', 
+                    data: JSON.parse(atob(localStorage.memData))
+                })
+                dispatch({ type: 'UPDATE_ORG_LOGGED', data: true })
+                return
+            }
+        } catch (error) {
+
+        }
+
         if(!noLoading) dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             var req=await axios({
@@ -87,6 +103,9 @@ export function updateMem(noLoading){
                 headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
+
+            localStorage.setItem('memData',btoa(JSON.stringify(req.data.data)))
+
             dispatch({type:'UPDATE_ORG_MEMBERS', data:req.data.data})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){
@@ -104,6 +123,21 @@ export function updateMem(noLoading){
 
 export function updateOrg(){
     return async function(dispatch){
+        try {
+            if (firstOrgUpdate && localStorage.orgData && localStorage.statData) {
+                firstOrgUpdate = false;
+                dispatch({
+                    type: 'UPDATE_ORG_DETAILS', data: {
+                        details: JSON.parse(atob(localStorage.orgData)),
+                        stat: JSON.parse(atob(localStorage.statData))
+                    }
+                })
+                dispatch({ type: 'UPDATE_ORG_LOGGED', data: true })
+                return
+            }
+        } catch (error) {
+
+        }
         dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             
@@ -117,6 +151,8 @@ export function updateOrg(){
                 headers: { 'Authorization': 'Bearer '+Cookies.get('token')},
                 method: 'GET',
             })
+            localStorage.setItem('orgData',btoa(JSON.stringify(org.data.details)))
+            localStorage.setItem('statData',btoa(JSON.stringify(stat.data)))
             dispatch({type:'UPDATE_ORG_DETAILS', data:{details: org.data.details, stat: stat.data}})
             dispatch({type:'UPDATE_ORG_LOGGED', data:true})
         } catch(e){

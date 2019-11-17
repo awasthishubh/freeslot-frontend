@@ -90,7 +90,6 @@ export class dashboard extends Component{
         document.title = "Dashboard | FreeSlots"
         var elems = document.querySelectorAll('.sidenav');
         window.sideInstance = M.Sidenav.init(elems[0]);
-        this.props.updateDashboardData()
         var instance = M.Modal.init(this.Modal.current);
         this.props.updateData(instance,'UPDATE_MODAL_INSTANCE')
     }

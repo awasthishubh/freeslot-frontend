@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import $ from 'jquery'
+
 var navStyle={
     position: 'fixed',
     width: '300px',
@@ -15,6 +16,7 @@ var navStyle={
 export default class extends Component{
     logout(){
         Cookies.set('token','')
+        localStorage.clear()
         window.location.hash=""
         window.location.reload()
     }

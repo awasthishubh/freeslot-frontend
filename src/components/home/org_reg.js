@@ -54,6 +54,7 @@ class Org_reg extends Component {
         }, 2000)
     }
     async send(e){
+        localStorage.clear()
         e.preventDefault()
         var vailidation=this.props.validation
         if(vailidation.usid && vailidation.passwd && vailidation.name && vailidation.cPasswd && vailidation.usid!=="loading")
@@ -68,7 +69,6 @@ class Org_reg extends Component {
             var data= await axios.post(serverBaseURL+'/organisations',form)
             Cookies.set('token', data.data.token, { expires: 7 });
             window.location.href = "#/dashboard";
-            window.location.reload();
 
             // var dp=this.props.OrgReg.dp
             // if(!dp) dp='https://www.hackworks.com/img/account/default-team-avatar.png'
