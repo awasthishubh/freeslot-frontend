@@ -90,13 +90,15 @@ export function updateMem(noLoading){
                     data: JSON.parse(atob(localStorage.memData))
                 })
                 dispatch({ type: 'UPDATE_ORG_LOGGED', data: true })
-                return
             }
-        } catch (error) {
+            else{
+                throw new Error()
+            }
 
+        } catch (error) {
+            if(!noLoading) dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         }
 
-        if(!noLoading) dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             var req=await axios({
                 url:`${serverBaseURL}/auth/members`,
@@ -114,7 +116,7 @@ export function updateMem(noLoading){
                 throw e
             }
             else{
-                alert('Something went wrong. Please refresh and try again.')
+                // console.log('Something went wrong. Please refresh and try again.')
             }
         }
         
@@ -133,12 +135,15 @@ export function updateOrg(){
                     }
                 })
                 dispatch({ type: 'UPDATE_ORG_LOGGED', data: true })
-                return
+                // return
             }
-        } catch (error) {
+            else{
+                throw new Error()
+            }
 
+        } catch (error) {
+            dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         }
-        dispatch({type:'UPDATE_ORG_LOGGED', data:null})
         try{
             
             var org=await axios({
