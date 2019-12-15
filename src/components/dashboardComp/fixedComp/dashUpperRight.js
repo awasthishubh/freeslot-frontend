@@ -49,7 +49,7 @@ export default class extends Component{
                 </div>
                 <div className="col s3">
                     <ul className="right" >
-                        <li><a onClick={this.props.update}><i className="material-icons prefix" style={{fontSize:40, color:'#424242'}}>refresh</i></a></li>
+                        <li><div style={{cursor:"pointer"}} onClick={this.props.update}><i className="material-icons prefix" style={{fontSize:40, color:'#424242'}}>refresh</i></div></li>
                     </ul>
                 </div>
             </div>

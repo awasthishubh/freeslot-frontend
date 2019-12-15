@@ -185,6 +185,7 @@ class Org_reg extends Component {
                     {this.state.stat}
                     </form>
                     <div className="col s12" style={{marginTop:10,textAlign:'right', color:'grey'}}>
+                        {/* eslint-disable-next-line */}
                         <a style={{cursor:'pointer'}} onClick={(e)=>this.props.change(false)}>Already registered?</a>
                     </div>
                 </div>

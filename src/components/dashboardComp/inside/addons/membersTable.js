@@ -27,6 +27,7 @@ function MemberTR(props){
             <td>{`${element.forSlot}:00-${element.forSlot+1}:00`}</td>
             <td>{element.name}</td>
             <td>{element.reg}</td>
+            {/* eslint-disable-next-line */}
             <td><a onClick={()=>props.viewMem(element)} style={{cursor:'pointer'}}>View more...</a></td>
         </tr>)
         else TRs.push(<tr key={i}>

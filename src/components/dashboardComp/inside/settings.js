@@ -138,7 +138,7 @@ export default class extends Component{
                                     <input id="name" className="" disabled type="text" value={this.state.org.name} onChange={this.changed} style={{color:'#37474f'}} onBlur={this.deFocus}/>
                                 </div>
                                 <div className="col s1" style={{padding:0}}>
-                                <a style={{cursor:'pointer'}} onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></a>
+                                <button style={{cursor:'pointer'}} onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></button>
                                 </div>
                             </div>
 
@@ -148,7 +148,7 @@ export default class extends Component{
                                     <input id="descr" className="" disabled type="text" value={this.state.org.descr} onChange={this.changed} style={{color:'#37474f'}} onBlur={this.deFocus}/>
                                 </div>
                                 <div className="col s1" style={{padding:0}}>
-                                <a style={{cursor:'pointer'}} onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></a>
+                                <button style={{cursor:'pointer'}} onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></button>
                                 </div>
                             </div>
 
@@ -158,7 +158,7 @@ export default class extends Component{
                                     <input id="gravatar" className="" disabled type="text" value={this.state.org.gravatar} onChange={this.changed} style={{color:'#37474f'}} onBlur={this.deFocus}/>
                                 </div>
                                 <div className="col s1" style={{padding:0}}>
-                                <a style={{cursor:'pointer'}} onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></a>
+                                <button style={{cursor:'pointer'}} onClick={this.enableInput}><i className="black-text material-icons prefix"  >edit</i></button>
                                 </div>
                             </div>
 

@@ -57,15 +57,15 @@ export default class extends Component{
             <div className="row" style={{fontSize:20, position: 'absolute',top: '52vh', width: '100%', textAlign:'center'}}>
                 <div style={{fontSize:20, color:'black',fontWeight:300}}>Continue as</div>
 
-                <a onClick={this.memClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col offset-l3 offset-s1 offset-m2 m3 l2 s4 btn-large"
+                <button onClick={this.memClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col offset-l3 offset-s1 offset-m2 m3 l2 s4 btn-large"
                      style={{overflow:'hidden', color:'#004ec3', fontWeight:700}}>
                     <i className="hide-on-small-only material-icons left">person</i>Member
-                </a>
+                </button>
                 <div className="col l2 s1 m2" style={{margin: '0 auto'}}></div>
-                <a onClick={this.orgClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col m3 l2 s5 btn-large" 
+                <button onClick={this.orgClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col m3 l2 s5 btn-large" 
                     style={{overflow:'hidden', color:'#004ec3',fontWeight:700}} >
                     <i className="hide-on-small-only material-icons right">people</i>Organisation
-                </a>
+                </button>
             </div>
             <RegModal/>
             <OrgModal/>

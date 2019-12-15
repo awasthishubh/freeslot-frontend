@@ -45,7 +45,7 @@ class Modal extends Component{
                     })()}
                 </div>
                 <div className="modal-footer" ref={this.modalFooter}>
-                <a style={{cursor:'pointer'}} className="modal-close waves-effect waves-green btn-flat"><b>Close</b></a>
+                <button style={{cursor:'pointer'}} className="modal-close waves-effect waves-green btn-flat"><b>Close</b></button>
                 </div>
             </div>
 

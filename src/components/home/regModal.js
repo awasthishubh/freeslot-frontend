@@ -38,7 +38,7 @@ function DownloadExt(){
                     <span style={{float:'left'}}>Firefox Addon</span>
                 </a>
                 <a target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/freeslot/lfnajapcpchmnpnjfenkneiphhmhhafa/">
-                    <span style={{float:'right'}}>Chrome Webstore ></span>
+                    <span style={{float:'right'}}>Chrome Webstore</span>
                 </a>
             </div>
         </div>
@@ -227,6 +227,8 @@ class Submit_card extends Component {
     }
     getExt(){
         this.setState({downloadExt:true})
+        this.setState({subErr:false})
+        this.setState({subMiss:false})
         M.Modal.init(this.modalDom.current)
         M.Modal.getInstance(this.modalDom.current).open();
     }
@@ -400,6 +402,7 @@ function File(props){
                     style={{textAlign:"center",fontSize:20,padding:10}} >OR</span>
                 <div className="col s12 hide-on-med-and-up" style={{textAlign:"center"}}>OR</div>
                 <div className="input-field  col m5 s12" style={{textAlign:"center",fontSize:20,padding:10}}>
+                    {/* eslint-disable-next-line */}
                     <a onClick={props.extClick} style={{cursor:'pointer'}}>Get it from vtop.</a>
                 </div>
             </div>

@@ -20,10 +20,10 @@ export default function Modal(props){
                 var footerItems=[];
                 footer.forEach((element,i) => {
                     footerItems.push(
-                        <a key={i} onClick={element.onClick} 
+                        <button key={i} onClick={element.onClick} 
                         className={`${element.disableBtn?'btn-disabled':''} waves-effect waves-green btn themeBlue`}
                         >
-                        {element.disableBtn?element.disabledTitle:element.title}</a>
+                        {element.disableBtn?element.disabledTitle:element.title}</button>
                     )
                 });
 

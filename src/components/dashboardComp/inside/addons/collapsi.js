@@ -54,7 +54,7 @@ class collapsi extends Component{
                         <ul className="row">
                             <li className="col s5 m6"><b>Rm No: </b>{mem.rmno}</li>
                             <li className="col s7 m6"><b>Phno: </b>
-                                <a target="_blank" href={`https://api.whatsapp.com/send?phone=91${mem.phno}`}>
+                                <a target="_blank" rel="noopener noreferrer" href={`https://api.whatsapp.com/send?phone=91${mem.phno}`}>
                                     {mem.phno}
                                 </a>
                             </li>
@@ -70,15 +70,18 @@ class collapsi extends Component{
                     </span>
                     <div className="card-action">
                         {(()=>{
+                                // eslint-disable-next-line
                                 return <a style={{cursor:'pointer'}} onClick={()=>this.viewMem(mem)}>View more</a>
                         })()}
 
                         {(()=>{
                             if(!props.verified)
+                                // eslint-disable-next-line
                             return <a style={{cursor:'pointer'}} onClick={()=>props.verify(mem.reg, mem.count)}>Accept</a>
                         })()}
     
                         {(()=>{
+                                // eslint-disable-next-line
                             return <a style={{cursor:'pointer'}} onClick={()=>{if(window.confirm('Are you sure?')) props.del(mem.reg, (props.verified?'M':'R'), mem.count)}}>Remove</a>
                         })() }
                     </div>

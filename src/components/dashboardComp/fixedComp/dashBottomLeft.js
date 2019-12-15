@@ -38,12 +38,12 @@ export default class extends Component{
             <Link to="/dashboard/members" id="dashMems" className="nItem" onClick={this.close} >
                 <i className="material-icons" style={{display: 'inline-block'}}>people</i>
                 <span className="sideName">Members</span>
-                <span className="badge">{(mems=this.props.members)?mems.length:null}</span>
+                <span className="badge">{(mems===this.props.members)?mems.length:null}</span>
             </Link>
             <Link to="/dashboard/requests" id="dashReqs" className="nItem" onClick={this.close} >
                 <i className="material-icons" style={{display: 'inline-block'}}>person_add</i>
                 <span className="sideName">Member Requests</span>
-                <span className="badge">{(mems=this.props.requests)?mems.length:null}</span>
+                <span className="badge">{(mems===this.props.requests)?mems.length:null}</span>
             </Link>
             <Link to="/dashboard/find" id="dashGetMem" className="nItem" onClick={this.close} >
                 <i className="material-icons" style={{display: 'inline-block'}}>contact_phone</i>
@@ -66,10 +66,10 @@ export default class extends Component{
                 <i className="material-icons" style={{display: 'inline-block'}}>settings</i>
                 <span className="sideName">Settings</span>
             </Link>
-            <a style={{cursor:'pointer'}} id="dashLogout" className="nItem" onClick={this.logout} >
+            <div style={{cursor:'pointer'}} id="dashLogout" className="nItem" onClick={this.logout} >
                 <i className="material-icons" style={{display: 'inline-block'}}>all_out</i>
                 <span className="sideName">Logout</span>
-            </a>
+            </div>
         </div>
         </div>
         </nav>

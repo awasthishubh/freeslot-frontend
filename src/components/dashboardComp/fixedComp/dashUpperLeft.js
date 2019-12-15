@@ -9,7 +9,7 @@ export default class extends Component{
         return(
         <nav id="upperLeftDash" className="row" style={navStyle} >
             <div className="col s1 hide-on-med-and-up">
-                <a style={{cursor:'pointer'}} onClick={()=>M.Sidenav.init(document.getElementById('bottomLeftDash')).open()}><i style={{fontSize:30}} className="material-icons">menu</i></a>
+                <div style={{cursor:'pointer'}} onClick={()=>M.Sidenav.init(document.getElementById('bottomLeftDash')).open()}><i style={{fontSize:30}} className="material-icons">menu</i></div>
             </div>
             <div className="col s11 m12" style={{fontSize:35, textAlign:'center', cursor:'pointer'}}>
             <i className="material-icons prefix" style={{verticalAlign: 'inherit', fontSize:30, display:'inline-block', paddingRight:20}} >

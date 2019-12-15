@@ -72,6 +72,7 @@ class orgLogin extends Component{
 
                     </form>
                     <div className="col s12" style={{marginTop:40,textAlign:'right', color:'grey'}}>
+                    {/*eslint-disable-next-line */}
                         <a style={{cursor:'pointer'}} onClick={(e)=>this.props.change(true)}>Register your Organisation?</a>
                     </div>
                 </div>
