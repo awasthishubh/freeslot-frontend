@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {updateDashboardData, del, verify,updateReq,updateMem,updateOrg,timeStat} from '../../actions/dashboard_action'
-import {HashRouter, Route, Switch } from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './inside/home'
 import Members from './inside/members'
 import MembersReq from './inside/membersReq'
@@ -98,7 +98,7 @@ export class dashboard extends Component{
         if(!Cookies.get('token'))  return <Redirect to='/'/>;
         return(
         <div>
-            <HashRouter>
+            <Router>
             <Switch>
                 <Route exact path='/dashboard/'>
                     <FixedComp>
@@ -179,7 +179,7 @@ export class dashboard extends Component{
                 </FixedComp>
                 </Route>
             </Switch>
-            </HashRouter>
+            </Router>
             <Loader loggedIn={this.props.isLoggedIn}/>
             <Modal modalRef={this.Modal} member={this.props.dashModal.selected}/>
         </div> 

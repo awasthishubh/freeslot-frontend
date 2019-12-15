@@ -38,7 +38,7 @@ export default class extends Component{
         
     }
     orgClick(){
-        if(Cookies.get('token')) window.location.hash='#/dashboard'
+        if(Cookies.get('token')) window.location.href='/dashboard'
         else M.Modal.getInstance(document.getElementById('orgReg')).open();
     }
     memClick(){

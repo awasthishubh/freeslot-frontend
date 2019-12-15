@@ -17,8 +17,8 @@ export default class extends Component{
     logout(){
         Cookies.set('token','')
         localStorage.clear()
-        window.location.hash=""
-        window.location.reload()
+        window.location.href=""
+        // window.location.reload()
     }
     close(){
         $('.sidenav-overlay').trigger( "click" )

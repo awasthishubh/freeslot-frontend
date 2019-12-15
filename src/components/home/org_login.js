@@ -39,7 +39,7 @@ class orgLogin extends Component{
                 this.setState({'err':null})
                 var request=await axios.post(serverBaseURL+'/auth',form)
                 Cookies.set('token', request.data.access_token, { expires: 7 });
-                window.location.href = "#/dashboard";
+                window.location.href = "/dashboard";
                 this.setState({status:null})
                 // window.location.reload();
             } catch(e){

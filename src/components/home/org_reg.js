@@ -22,7 +22,7 @@ class Org_reg extends Component {
         function receiveMessage(event){
             if(event.data.token){
                 Cookies.set('token', event.data.token, { expires: 7 });
-                window.location.href = "#/dashboard";
+                window.location.href = "/dashboard";
                 window.location.reload();
             }
         }
@@ -68,7 +68,7 @@ class Org_reg extends Component {
             this.setState({stat:'Sending...'})
             var data= await axios.post(serverBaseURL+'/organisations',form)
             Cookies.set('token', data.data.token, { expires: 7 });
-            window.location.href = "#/dashboard";
+            window.location.href = "/dashboard";
 
             // var dp=this.props.OrgReg.dp
             // if(!dp) dp='https://www.hackworks.com/img/account/default-team-avatar.png'
