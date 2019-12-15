@@ -87,7 +87,7 @@ export class dashboard extends Component{
         }
     }
     componentDidMount(){
-        document.title = "Dashboard | FreeSlots"
+        document.title = "Dashboard | FreeSlot"
         var elems = document.querySelectorAll('.sidenav');
         window.sideInstance = M.Sidenav.init(elems[0]);
         var instance = M.Modal.init(this.Modal.current);

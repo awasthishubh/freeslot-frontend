@@ -27,7 +27,7 @@ function getQueryVariable(variable) {
 export default class extends Component{
     componentDidMount(){
         // console.log(document.getElementsByClassName('tabs'))
-        document.title = "Home | FreeSlots"
+        document.title = "Home | FreeSlot"
         M.Tabs.init(document.getElementsByClassName('tabs'))
         M.Modal.init(document.querySelectorAll('.modal'))
         try{
@@ -64,7 +64,8 @@ export default class extends Component{
                 <div className="col l2 s1 m2" style={{margin: '0 auto'}}></div>
                 <button onClick={this.orgClick} className="hvr-grow waves-effect waves-ligh hoverable homebtn col m3 l2 s5 btn-large" 
                     style={{overflow:'hidden', color:'#004ec3',fontWeight:700}} >
-                    <i className="hide-on-small-only material-icons right">people</i>Organisation
+                    Organisation
+                    <i className="hide-on-small-only material-icons right">people</i>
                 </button>
             </div>
             <RegModal/>

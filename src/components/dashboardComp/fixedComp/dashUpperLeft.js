@@ -15,7 +15,7 @@ export default class extends Component{
             <i className="material-icons prefix" style={{verticalAlign: 'inherit', fontSize:30, display:'inline-block', paddingRight:20}} >
             dashboard</i>
                 {/* <img src="./ico.png" width="100px"/> */}
-                <div style={{display:'inline-block'}}>Freeslots</div>
+                <div style={{display:'inline-block'}}>Freeslot</div>
             </div>
         </nav>
         )

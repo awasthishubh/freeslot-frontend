@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-// import Model from './model'
-// import Submit from './submit_card'
-// import Org_reg from './org_reg'
-// import Org_login from './org_login'
 import Dashboard from './dashboardComp'
 import Home from './home'
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
